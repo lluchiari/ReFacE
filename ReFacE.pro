@@ -24,11 +24,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        MainWindow.cpp
+        src/main.cpp \
+        src/MainWindow.cpp
 
 HEADERS += \
-        MainWindow.h
+        include/MainWindow.h
 
 FORMS += \
         mainwindow.ui
+
+DESTDIR = bin
+
+
+LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341
+LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341d
+
+
+INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15 $(OPENCV_STATIC_DIR)/build/include
+
