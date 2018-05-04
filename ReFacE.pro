@@ -25,10 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/MainWindow.cpp
+        src/MainWindow.cpp \
+        src/calibration/Calibration.cpp \
+        src/calibration/Settings.cpp \
+        src/3rdParty/TinyXML2/tinyxml2.cpp
 
 HEADERS += \
-        include/MainWindow.h
+        include/MainWindow.h \
+        include/ReFacE.h \
+        include/calibration/Calibration.h \
+        include/calibration/Settings.h \
+        include/utils/common.h \
+        include/3rdParty/TinyXML2/tinyxml2.h
+
 
 FORMS += \
         mainwindow.ui
@@ -41,4 +50,9 @@ LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341d
 
 
 INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15 $(OPENCV_STATIC_DIR)/build/include
+INCLUDEPATH += $$PWD/include $$PWD/include/calibration $$PWD/include/utils $$PWD/include/3rdParty/TinyXML2
 
+
+DISTFILES += \
+    $$PWD/config/* \
+    $$PWD/images/CameraCalibration/*
