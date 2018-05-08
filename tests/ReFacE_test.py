@@ -1,5 +1,5 @@
 from nose.tools import *
-import NAME
+import ReFacE
 
 def setup():
     print("SETUP!")
