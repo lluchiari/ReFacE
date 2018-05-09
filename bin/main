@@ -1,6 +1,11 @@
 #!/bin/python
+"""
+Blalalbablbal
+"""
 
 from ReFacE import testModule
+print(__doc__)
+
 
 def main():
     print("Hi, I'm the main module. I've just started!!!")

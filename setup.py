@@ -18,9 +18,17 @@ config = {
     'url': 'https://github.com/lluchiari/ReFacE',
     'author_email': 'luchiari.lucas@gmail.com',
     'version': '0.1',
-    'install_requires': ['nose'],
-    'packages': ['ReFacE'],
-    'scripts': ['bin/main.py'],
+    'install_requires': ['nose >= 1.3.7',
+                        'numpy >= 1.14.3',
+                        'netpbm',
+                        'opencv-python >= 3.4.0.12',
+                        'reface >= 0.1',
+                        'stereovision >= 1.0.4',
+                        'virtualenv >= 15.2.0',
+                        'simplejson'
+                        ],
+    'packages': ['ReFacE', 'tests'],
+    'scripts': ['bin/main'],
     'name': 'ReFacE'
 }
 
