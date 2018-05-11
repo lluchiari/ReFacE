@@ -43,6 +43,9 @@ class __Bitmap(object):
         self.init_bitmap()
         self._auto_adjust_size()
 
+    def __init__(self):
+        pass
+
     def write(self, filename):
         """Write itself to file."""
         filename = filename if filename else NamedTemporaryFile().name
@@ -87,10 +90,12 @@ class __Bitmap(object):
 
     def from_file(self, filepath):
         """Get data from a file path string,this sets bitmap,header,etc."""
-        filepath = Path(filepath)
-        if filepath.is_file():
-            self.from_string(filepath.read_text(encoding="utf-8"))
+        aux = Path(filepath)
+        if aux.is_file():
+            self.from_string(aux.read_text(encoding="utf-8"))
             return self.map
+        else:
+            print("[netpbm]->form_file(): ERROR! File '" + filepath + "' is not a valid file!")
 
     def get_header(self, data_str):
         """Get header data using a Regex from argument string."""

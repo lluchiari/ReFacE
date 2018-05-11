@@ -4,14 +4,13 @@ Blalalbablbal
 """
 
 from ReFacE import testModule
+from ReFacE.Thirdparty.netpbm import netpbm
 # print(__doc__)
 
 
 def main():
     print("Hi, I'm the main module. I've just started!!!")
     print("I'm start executing modules....")
-    import site
-    site.get
 
 
 if __name__ == '__main__':

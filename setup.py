@@ -1,6 +1,6 @@
 import os
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup
 
@@ -26,11 +26,13 @@ config = {
                         'reface >= 0.1',
                         'stereovision >= 1.0.4',
                         'virtualenv >= 15.2.0',
-                        'simplejson'
+                        'simplejson',
+                        'plyfile'
                         ],
-    'dependency_links': ['git+https://github.com/juancarlospaco/netpbm.git'],
-    'packages': ['ReFacE', 'tests'],
-    'scripts': ['bin/main']
+    'packages': find_packages(),
+    'scripts': ['bin/main', 'bin/dataset'],
+    'zip_safe': False
 }
+#['ReFacE', ]
 
 setup(**config)
