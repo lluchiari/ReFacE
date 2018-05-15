@@ -1,0 +1,146 @@
+running install
+running bdist_egg
+running egg_info
+writing ReFacE.egg-info\PKG-INFO
+writing dependency_links to ReFacE.egg-info\dependency_links.txt
+writing requirements to ReFacE.egg-info\requires.txt
+writing top-level names to ReFacE.egg-info\top_level.txt
+reading manifest file 'ReFacE.egg-info\SOURCES.txt'
+writing manifest file 'ReFacE.egg-info\SOURCES.txt'
+installing library code to build\bdist.win-amd64\egg
+running install_lib
+running build_py
+creating build\bdist.win-amd64\egg
+creating build\bdist.win-amd64\egg\ReFacE
+copying build\lib\ReFacE\mains.py -> build\bdist.win-amd64\egg\ReFacE
+copying build\lib\ReFacE\mypymesh.py -> build\bdist.win-amd64\egg\ReFacE
+copying build\lib\ReFacE\testDatabase.py -> build\bdist.win-amd64\egg\ReFacE
+copying build\lib\ReFacE\testModule.py -> build\bdist.win-amd64\egg\ReFacE
+creating build\bdist.win-amd64\egg\ReFacE\Thirdparty
+creating build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm
+copying build\lib\ReFacE\Thirdparty\netpbm\example_fractals.py -> build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm
+copying build\lib\ReFacE\Thirdparty\netpbm\netpbm.py -> build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm
+copying build\lib\ReFacE\Thirdparty\netpbm\setup.py -> build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm
+copying build\lib\ReFacE\Thirdparty\netpbm\__init__.py -> build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm
+copying build\lib\ReFacE\Thirdparty\__init__.py -> build\bdist.win-amd64\egg\ReFacE\Thirdparty
+copying build\lib\ReFacE\__init__.py -> build\bdist.win-amd64\egg\ReFacE
+creating build\bdist.win-amd64\egg\tests
+copying build\lib\tests\Dataset_test.py -> build\bdist.win-amd64\egg\tests
+copying build\lib\tests\ReFacE_test.py -> build\bdist.win-amd64\egg\tests
+copying build\lib\tests\__init__.py -> build\bdist.win-amd64\egg\tests
+creating build\bdist.win-amd64\egg\Thirdparty
+copying build\lib\Thirdparty\__init__.py -> build\bdist.win-amd64\egg\Thirdparty
+byte-compiling build\bdist.win-amd64\egg\ReFacE\mains.py to mains.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\mypymesh.py to mypymesh.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\testDatabase.py to testDatabase.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\testModule.py to testModule.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm\example_fractals.py to example_fractals.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm\netpbm.py to netpbm.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm\setup.py to setup.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\Thirdparty\netpbm\__init__.py to __init__.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\Thirdparty\__init__.py to __init__.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\ReFacE\__init__.py to __init__.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\tests\Dataset_test.py to Dataset_test.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\tests\ReFacE_test.py to ReFacE_test.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\tests\__init__.py to __init__.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Thirdparty\__init__.py to __init__.cpython-36.pyc
+creating build\bdist.win-amd64\egg\EGG-INFO
+installing scripts to build\bdist.win-amd64\egg\EGG-INFO\scripts
+running install_scripts
+running build_scripts
+creating build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\calibrate_cameras -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\capture_chessboards -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\dataset -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\Dataset_test.py -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\images_to_pointcloud -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\main -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\main.py -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\show_webcams -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying build\scripts-3.6\tune_blockmatcher -> build\bdist.win-amd64\egg\EGG-INFO\scripts
+copying ReFacE.egg-info\PKG-INFO -> build\bdist.win-amd64\egg\EGG-INFO
+copying ReFacE.egg-info\SOURCES.txt -> build\bdist.win-amd64\egg\EGG-INFO
+copying ReFacE.egg-info\dependency_links.txt -> build\bdist.win-amd64\egg\EGG-INFO
+copying ReFacE.egg-info\not-zip-safe -> build\bdist.win-amd64\egg\EGG-INFO
+copying ReFacE.egg-info\requires.txt -> build\bdist.win-amd64\egg\EGG-INFO
+copying ReFacE.egg-info\top_level.txt -> build\bdist.win-amd64\egg\EGG-INFO
+creating 'dist\ReFacE-0.1-py3.6.egg' and adding 'build\bdist.win-amd64\egg' to it
+removing 'build\bdist.win-amd64\egg' (and everything under it)
+Processing ReFacE-0.1-py3.6.egg
+removing 'c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\ReFacE-0.1-py3.6.egg' (and everything under it)
+creating c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\ReFacE-0.1-py3.6.egg
+Extracting ReFacE-0.1-py3.6.egg to c:\users\lluchiari\documents\.venvs\reface\lib\site-packages
+ReFacE 0.1 is already the active version in easy-install.pth
+Installing calibrate_cameras script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing capture_chessboards script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing dataset script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing Dataset_test.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing images_to_pointcloud script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing main script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing main.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing show_webcams script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing tune_blockmatcher script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+
+Installed c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\reface-0.1-py3.6.egg
+Processing dependencies for ReFacE==0.1
+Searching for pymesh==1.0.2
+Best match: pymesh 1.0.2
+Processing pymesh-1.0.2-py3.6.egg
+pymesh 1.0.2 is already the active version in easy-install.pth
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\pymesh-1.0.2-py3.6.egg
+Searching for plyfile==0.5
+Best match: plyfile 0.5
+Processing plyfile-0.5-py3.6.egg
+plyfile 0.5 is already the active version in easy-install.pth
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\plyfile-0.5-py3.6.egg
+Searching for virtualenv==15.2.0
+Best match: virtualenv 15.2.0
+Adding virtualenv 15.2.0 to easy-install.pth file
+Installing virtualenv-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing virtualenv.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+
+Using c:\users\lluchiari\appdata\local\programs\python\python36\lib\site-packages
+Searching for stereovision==1.0.4
+Best match: stereovision 1.0.4
+Processing stereovision-1.0.4-py3.6.egg
+stereovision 1.0.4 is already the active version in easy-install.pth
+Installing calibrate_cameras script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing capture_chessboards script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing images_to_pointcloud script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing show_webcams script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing tune_blockmatcher script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages\stereovision-1.0.4-py3.6.egg
+Searching for opencv-python==3.4.0.12
+Best match: opencv-python 3.4.0.12
+Adding opencv-python 3.4.0.12 to easy-install.pth file
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages
+Searching for numpy==1.14.3
+Best match: numpy 1.14.3
+Adding numpy 1.14.3 to easy-install.pth file
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages
+Searching for pip==10.0.1
+Best match: pip 10.0.1
+Adding pip 10.0.1 to easy-install.pth file
+Installing pip-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing pip.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing pip3-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing pip3.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing pip3.6-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing pip3.6.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages
+Searching for nose==1.3.7
+Best match: nose 1.3.7
+Adding nose 1.3.7 to easy-install.pth file
+Installing nosetests-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing nosetests.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing nosetests-3.4-script.py script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+Installing nosetests-3.4.exe script to C:\Users\Lluchiari\Documents\.venvs\ReFacE\Scripts
+
+Using c:\users\lluchiari\documents\.venvs\reface\lib\site-packages
+Finished processing dependencies for ReFacE==0.1

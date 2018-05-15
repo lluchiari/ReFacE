@@ -11,6 +11,17 @@ except ImportError:
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+# def pathSetup():
+#     """ This function sets the variable REFACE_DIR to the mains directory. This variable inside the program"""
+#     print("Path Setup Starting................")
+#     # os.environ["REFACE_DIR"] = os.getcwd()
+#     path_check = os.getenv("REFACE_DIR")
+#     if(path_check == None):
+#         path_check = os.getcwd()
+#         os.environ["REFACE_DIR"] = path_check
+#         os.putenv("REFACE_DIR", os.getcwd())
+#         print("Varible set to ", os.getenv("REFACE_DIR"))
+
 config = {
     'name': 'ReFacE',
     'description': 'This project is my graduation project in computer vision. It\'s a system that recognizes users\'s face in a database.',
@@ -26,13 +37,18 @@ config = {
                         'reface >= 0.1',
                         'stereovision >= 1.0.4',
                         'virtualenv >= 15.2.0',
-                        'simplejson',
-                        'plyfile'
+                        'plyfile',
+                        'scipy',
+                        'pymesh',
+                        'trimesh'
                         ],
+    'dependency_links': ['https://github.com/qnzhou/PyMesh.git'],
     'packages': find_packages(),
     'scripts': ['bin/main', 'bin/dataset'],
+    #TODO: Check ZIP_SAFE
     'zip_safe': False
 }
-#['ReFacE', ]
 
+
+#pathSetup()
 setup(**config)
