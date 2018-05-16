@@ -8,29 +8,49 @@ static void show_usage(std::string name) {
               << std::endl;
 }
 
-
 int main(int argc, char *argv[])
 {
+
+//    const string keys =
+//            "{h help ? ||}"
+//            "{c calibrate |<none>| Calibrate config file}";
+
+//    CommandLineParser parser(argc, argv, keys);
+//    parser.about("ReFacE v0.1");
+
+//    // Help Option
+//    if(parser.has("help"))
+//    {
+//        show_usage(argv[0]);
+//        return 0;
+//    }
+
+//    if (!parser.check())
+//    {
+//        parser.printErrors();
+//        return 0;
+//    }
+
     //Files declaration
     std::string configFile;
 
-     /* Checking Command Line Arguments */
+     // Checking Command Line Arguments //
     if (argc < 2) {
         std::cout << argv[0] << " invalid option!\nTry '"<< argv[0]
                              << " --help' for more information.\n";
         return -1;
     }
 
-    /* Create the vector of flags. It is usefull for more than one command in the same line*/
+    // Create the vector of flags. It is usefull for more than one command in the same line//
     bool flags[PROGRAM_OPTIONS];
     for(int i=0; i< PROGRAM_OPTIONS; i++){flags[i] = false;}
 
-    /* Loop Case to Evaluate all the commands */
+    // Loop Case to Evaluate all the commands //
     for (int i = 1; i < argc; ++i) {
-        /* Auxiliar Variable storing the argument*/
+        // Auxiliar Variable storing the argument //
         std::string arg = argv[i];
 
-        /* Command HELP --> Without flags (it's a sovereign command)*/
+        // Command HELP --> Without flags (it's a sovereign command) //
         if ((arg == "-h") || (arg == "--help")) {
             std::string aux = argv[0];
             std::string filename = aux.substr(aux.find("/")+1, aux.find(" "));
@@ -40,7 +60,7 @@ int main(int argc, char *argv[])
         /* Command CALIBRATE --> flags[0] */
         else if((arg == "-c")|| (arg == "--calibrate")) {
             if (i + 1 < argc) {
-            /* Increment 'i' so we don't get the argument as the next argv[i]. */
+            // Increment 'i' so we don't get the argument as the next argv[i]. //
                 configFile = argv[++i];
                 if(configFile.empty()){
                     std::cerr << "Error: Missing Config File!\n";
@@ -56,9 +76,11 @@ int main(int argc, char *argv[])
                 return -1;
             }
         }
-//        /* Command ENCRYPT --> flags[1] */
+
+
+//        // Command ENCRYPT --> flags[1] //
 //        else if((arg == "-e")|| (arg == "--encrypt")) {
-//            /* Make sure we aren't at the end of argv! */
+//            // Make sure we aren't at the end of argv! //
 //            if (i + 2 < argc) {
 //                /* Increment 'i' so we don't get the argument as the next argv[i]. */
 //                source.push_back(argv[++i]);                    // public key file
@@ -93,12 +115,12 @@ int main(int argc, char *argv[])
 //        /* Command GUI --> flags[2] */
 //        else if((arg == "-gui")|| (arg == "--graphical")) {
 
-        else {
-            show_usage(argv[0]);
-            std::cerr << "No options selected!"<< std::endl;
-            return -1;
-        }
-    }
+//        else {
+//            show_usage(argv[0]);
+//            std::cerr << "No options selected!"<< std::endl;
+//            return -1;
+//        }
+//    }
 
     if(flags[0] == true){
         std::cout << "Calibration";

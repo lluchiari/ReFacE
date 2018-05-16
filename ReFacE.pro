@@ -28,7 +28,8 @@ SOURCES += \
         src/MainWindow.cpp \
         src/calibration/Calibration.cpp \
         src/calibration/Settings.cpp \
-        src/3rdParty/TinyXML2/tinyxml2.cpp
+        src/3rdParty/TinyXML2/tinyxml2.cpp \
+    src/calibration/SteroCalib.cpp
 
 HEADERS += \
         include/MainWindow.h \
@@ -36,7 +37,8 @@ HEADERS += \
         include/calibration/Calibration.h \
         include/calibration/Settings.h \
         include/utils/common.h \
-        include/3rdParty/TinyXML2/tinyxml2.h
+        include/3rdParty/TinyXML2/tinyxml2.h \
+        include/calibration/SteroCalib.h
 
 
 FORMS += \
