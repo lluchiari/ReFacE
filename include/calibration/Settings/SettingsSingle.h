@@ -1,5 +1,5 @@
-#ifndef __SETTINGS_H__
-#define __SETTINGS_H__
+#ifndef __SETTINGS_SINGLE_H__
+#define __SETTINGS_SINGLE_H__
 
 /* Internal Libs */
 #include <iostream>
@@ -16,6 +16,9 @@
 
 /* 3rd Party Libs */
 #include <tinyxml2.h>
+
+// Internal Libs //
+#include <Settings/Settings.hh>
 
 #ifndef _CRT_SECURE_NO_WARNINGS
 # define _CRT_SECURE_NO_WARNINGS
@@ -36,12 +39,13 @@
 
 using namespace cv;
 using namespace std;
+using namespace myCalibSettings;
 
-class Settings
+class SettingsSingle : public Settings
 {
 public:
 
-    Settings() : goodInput(false) {}
+    SettingsSingle() : goodInput(false) {}
 
     // Kinds of pattern for calibration
     enum Pattern { NOT_EXISTING, CHESSBOARD, CIRCLES_GRID, ASYMMETRIC_CIRCLES_GRID};

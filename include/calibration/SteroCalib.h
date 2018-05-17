@@ -1,6 +1,7 @@
 #ifndef __STEROCALIB_H__
 #define __STEROCALIB_H__
 
+
 // OpenCV Includes
 #include <opencv2/calib3d.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -18,6 +19,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// Internal Libs
+#include <Settings/SettingsStereo.h>
+
+using namespace std;
+using namespace cv;
+
+
 
 class SteroCalib
 {
@@ -25,6 +33,10 @@ public:
     SteroCalib();
 public:
     void calibrate(const vector<string>&, Size, float, bool, bool, bool);
+    int config(string);
+
+private:
+    SettingsStereo _s;
 };
 
 #endif // __STEROCALIB_H__

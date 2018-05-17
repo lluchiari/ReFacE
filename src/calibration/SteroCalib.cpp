@@ -5,8 +5,21 @@ SteroCalib::SteroCalib()
 
 }
 
-void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, float squareSize, bool displayCorners = false, bool useCalibrated=true, bool showRectified=true)
+int SteroCalib::config(string configFile)
 {
+    this->_s.read(configFile);
+    return 0;
+}
+
+void SteroCalib::calibrate()
+{
+    vector<string>& imagelist = this->_s._imagelist;
+    cv::Size boardSize = this->_s._boardSize;
+    float squareSize = this->_s._squareSize;
+    bool displayCorners = this->_s._displayCorners;
+    bool useCalibrated = this->_s._useCalibrated;
+    bool showRectified = this->_s._showRectified;
+
     if( imagelist.size() % 2 != 0 )
     {
         cout << "Error: the image list contains odd (non-even) number of elements\n";
@@ -16,10 +29,16 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     const int maxScale = 2;
     // ARRAY AND VECTOR STORAGE:
 
+    // The corners of the chessboard found //
     vector<vector<Point2f> > imagePoints[2];
+
+    //
     vector<vector<Point3f> > objectPoints;
     Size imageSize;
 
+    // i is the image list iterator
+    // j is the seccess image identified
+    // k represents the right and left images iterator
     int i, j, k, nimages = (int)imagelist.size()/2;
 
     imagePoints[0].resize(nimages);
@@ -42,16 +61,21 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
                 break;
             }
             bool found = false;
+
+            // Points the corners object to the memory position of imagePoints
             vector<Point2f>& corners = imagePoints[k][j];
+
+            // Scales the imagens and tries to find the corners of the chessboard //
             for( int scale = 1; scale <= maxScale; scale++ )
             {
+                // Auxiliar Matrix for the scaling //
                 Mat timg;
                 if( scale == 1 )
                     timg = img;
                 else
                     resize(img, timg, Size(), scale, scale, INTER_LINEAR_EXACT);
                 found = findChessboardCorners(timg, boardSize, corners,
-                    CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);
+                                              CALIB_CB_ADAPTIVE_THRESH | CALIB_CB_NORMALIZE_IMAGE);
                 if( found )
                 {
                     if( scale > 1 )
@@ -62,6 +86,8 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
                     break;
                 }
             }
+
+            // Debug of points//
             if( displayCorners )
             {
                 cout << filename << endl;
@@ -83,6 +109,7 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
                          TermCriteria(TermCriteria::COUNT+TermCriteria::EPS,
                                       30, 0.01));
         }
+        // Stores the good images possible to detect the corners //
         if( k == 2 )
         {
             goodImageList.push_back(imagelist[i*2]);
@@ -91,6 +118,8 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
         }
     }
     cout << j << " pairs have been successfully detected.\n";
+
+    // NImages receive the right analysed images
     nimages = j;
     if( nimages < 2 )
     {
@@ -102,6 +131,8 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     imagePoints[1].resize(nimages);
     objectPoints.resize(nimages);
 
+    // Calculates the points of the Pattern (in this case the chessboard) //
+    // It acts like a mask //
     for( i = 0; i < nimages; i++ )
     {
         for( j = 0; j < boardSize.height; j++ )
@@ -117,23 +148,23 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     Mat R, T, E, F;
 
     double rms = stereoCalibrate(objectPoints, imagePoints[0], imagePoints[1],
-                    cameraMatrix[0], distCoeffs[0],
-                    cameraMatrix[1], distCoeffs[1],
-                    imageSize, R, T, E, F,
-                    CALIB_FIX_ASPECT_RATIO +
-                    CALIB_ZERO_TANGENT_DIST +
-                    CALIB_USE_INTRINSIC_GUESS +
-                    CALIB_SAME_FOCAL_LENGTH +
-                    CALIB_RATIONAL_MODEL +
-                    CALIB_FIX_K3 + CALIB_FIX_K4 + CALIB_FIX_K5,
-                    TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 100, 1e-5) );
+            cameraMatrix[0], distCoeffs[0],
+            cameraMatrix[1], distCoeffs[1],
+            imageSize, R, T, E, F,
+            CALIB_FIX_ASPECT_RATIO +
+            CALIB_ZERO_TANGENT_DIST +
+            CALIB_USE_INTRINSIC_GUESS +
+            CALIB_SAME_FOCAL_LENGTH +
+            CALIB_RATIONAL_MODEL +
+            CALIB_FIX_K3 + CALIB_FIX_K4 + CALIB_FIX_K5,
+            TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 100, 1e-5) );
     cout << "done with RMS error=" << rms << endl;
 
-// CALIBRATION QUALITY CHECK
-// because the output fundamental matrix implicitly
-// includes all the output information,
-// we can check the quality of calibration using the
-// epipolar geometry constraint: m2^t*F*m1=0
+    // CALIBRATION QUALITY CHECK
+    // because the output fundamental matrix implicitly
+    // includes all the output information,
+    // we can check the quality of calibration using the
+    // epipolar geometry constraint: m2^t*F*m1=0
     double err = 0;
     int npoints = 0;
     vector<Vec3f> lines[2];
@@ -150,9 +181,9 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
         for( j = 0; j < npt; j++ )
         {
             double errij = fabs(imagePoints[0][i][j].x*lines[1][j][0] +
-                                imagePoints[0][i][j].y*lines[1][j][1] + lines[1][j][2]) +
-                           fabs(imagePoints[1][i][j].x*lines[0][j][0] +
-                                imagePoints[1][i][j].y*lines[0][j][1] + lines[0][j][2]);
+                    imagePoints[0][i][j].y*lines[1][j][1] + lines[1][j][2]) +
+                    fabs(imagePoints[1][i][j].x*lines[0][j][0] +
+                    imagePoints[1][i][j].y*lines[0][j][1] + lines[0][j][2]);
             err += errij;
         }
         npoints += npt;
@@ -164,7 +195,7 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     if( fs.isOpened() )
     {
         fs << "M1" << cameraMatrix[0] << "D1" << distCoeffs[0] <<
-            "M2" << cameraMatrix[1] << "D2" << distCoeffs[1];
+              "M2" << cameraMatrix[1] << "D2" << distCoeffs[1];
         fs.release();
     }
     else
@@ -174,9 +205,9 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     Rect validRoi[2];
 
     stereoRectify(cameraMatrix[0], distCoeffs[0],
-                  cameraMatrix[1], distCoeffs[1],
-                  imageSize, R, T, R1, R2, P1, P2, Q,
-                  CALIB_ZERO_DISPARITY, 1, imageSize, &validRoi[0], &validRoi[1]);
+            cameraMatrix[1], distCoeffs[1],
+            imageSize, R, T, R1, R2, P1, P2, Q,
+            CALIB_ZERO_DISPARITY, 1, imageSize, &validRoi[0], &validRoi[1]);
 
     fs.open("extrinsics.yml", FileStorage::WRITE);
     if( fs.isOpened() )
@@ -191,21 +222,21 @@ void SteroCalib::calibrate(const vector<string>& imagelist, Size boardSize, floa
     // or up-down camera arrangements
     bool isVerticalStereo = fabs(P2.at<double>(1, 3)) > fabs(P2.at<double>(0, 3));
 
-// COMPUTE AND DISPLAY RECTIFICATION
+    // COMPUTE AND DISPLAY RECTIFICATION
     if( !showRectified )
         return;
 
     Mat rmap[2][2];
-// IF BY CALIBRATED (BOUGUET'S METHOD)
+    // IF BY CALIBRATED (BOUGUET'S METHOD)
     if( useCalibrated )
     {
         // we already computed everything
     }
-// OR ELSE HARTLEY'S METHOD
+    // OR ELSE HARTLEY'S METHOD
     else
- // use intrinsic parameters of each camera, but
- // compute the rectification transformation directly
- // from the fundamental matrix
+        // use intrinsic parameters of each camera, but
+        // compute the rectification transformation directly
+        // from the fundamental matrix
     {
         vector<Point2f> allimgpt[2];
         for( k = 0; k < 2; k++ )

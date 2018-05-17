@@ -4,13 +4,15 @@ static void show_usage(std::string name) {
     std::cout << "Usage: " << name << " <option(s)> SOURCES\n"
               << "Options:\n"
               << "\t-h,--help\t\t\t\t\tShow this help message\n"
-              << "\t-c,--calibrate CONFIG_FILE\t\t\tCalibrates the camera with CONFIG_FILE xml.\n"
+              << "\t-c,--calibrate <CONFIG_FILE>\t\t\tCalibrates single camera with CONFIG_FILE xml.\n"
+              << "\t-cs,--calibrate-stereo <CONFIG_FILE>\t\t\tCalibrates both cameras with CONFIG_FILE xml.\n"
               << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
 
+{
 //    const string keys =
 //            "{h help ? ||}"
 //            "{c calibrate |<none>| Calibrate config file}";
@@ -30,7 +32,7 @@ int main(int argc, char *argv[])
 //        parser.printErrors();
 //        return 0;
 //    }
-
+}
     //Files declaration
     std::string configFile;
 
@@ -43,10 +45,12 @@ int main(int argc, char *argv[])
 
     // Create the vector of flags. It is usefull for more than one command in the same line//
     bool flags[PROGRAM_OPTIONS];
+
     for(int i=0; i< PROGRAM_OPTIONS; i++){flags[i] = false;}
 
     // Loop Case to Evaluate all the commands //
-    for (int i = 1; i < argc; ++i) {
+    for (int i = 1; i < argc; ++i)
+    {
         // Auxiliar Variable storing the argument //
         std::string arg = argv[i];
 
@@ -57,6 +61,7 @@ int main(int argc, char *argv[])
             show_usage(filename);
             return 0;
         }
+
         /* Command CALIBRATE --> flags[0] */
         else if((arg == "-c")|| (arg == "--calibrate")) {
             if (i + 1 < argc) {
@@ -76,8 +81,29 @@ int main(int argc, char *argv[])
                 return -1;
             }
         }
+        /* Command CALIBRATE --> flags[1] */
+        else if((arg == "-cs") || (arg == "--calibrate-stereo")){
+            if (i + 1 < argc) {
+                // Increment 'i' so we don't get the argument as the next argv[i]. //
+                configFile = argv[++i];
+                if(configFile.empty()){
+                    std::cerr << "Error: Missing Config File!\n";
+                    return -1;
+                }
+                else{
+                    if(DEBUG) {std::cout << "Runing Stereo-Calibration with " << configFile << " confg file";}
+                    flags[1] = true;
+                }
 
+            }
+            else{
+                std::cerr << "Error on 'calibrate-stereo': Missing Config and/or output files!\n";
+                return -1;
+            }
 
+        }
+
+{
 //        // Command ENCRYPT --> flags[1] //
 //        else if((arg == "-e")|| (arg == "--encrypt")) {
 //            // Make sure we aren't at the end of argv! //
@@ -120,7 +146,8 @@ int main(int argc, char *argv[])
 //            std::cerr << "No options selected!"<< std::endl;
 //            return -1;
 //        }
-//    }
+}
+    }
 
     if(flags[0] == true){
         std::cout << "Calibration";
@@ -128,6 +155,14 @@ int main(int argc, char *argv[])
         calib->config(configFile);
         calib->calibrate();
         delete calib;
+    }
+    else if(flags[1] == true){
+        std::cout << "Stereo-Calibration";
+        SteroCalib *calib = new SteroCalib();
+        calib->config(configFile);
+//        calib->calibrate();
+        delete calib;
+
     }
 
 //    QApplication a(argc, argv);

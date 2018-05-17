@@ -12,13 +12,16 @@
 // Internal Libs
 #include <MainWindow.h>
 #include <Calibration.h>
+#include <SteroCalib.h>
 
 // OpenCV Libs
 #include <opencv2/core/utility.hpp>
 
-#define PROGRAM_OPTIONS 2
 
 using namespace cv;
 using namespace std;
+
+
+#define PROGRAM_OPTIONS 3
 
 #endif

@@ -76,7 +76,7 @@ int Calibration::calibrate() {
     Size imageSize;                             //
 
     // Verify the input mode from the setting file
-    int mode = (this->_s.inputType == Settings::IMAGE_LIST) ? CAPTURING : DETECTION;
+    int mode = (this->_s.inputType == SettingsSingle::IMAGE_LIST) ? CAPTURING : DETECTION;
     if(DEBUG_CALIBRATION) {cout << "Calibration::calibrate(): Mode " << ((mode == CAPTURING) ? "CAPTURING" : "DETECTION") << endl;}
 
     clock_t prevTimestamp = 0;
@@ -133,20 +133,20 @@ int Calibration::calibrate() {
         // Find feature points on the input format
         switch(this->_s.calibrationPattern )
         {
-        case Settings::CHESSBOARD:
+        case SettingsSingle::CHESSBOARD:
             if(DEBUG_CALIBRATION) {cout << "Case CHESSBOARD" << endl;}
             found = findChessboardCorners( view, this->_s.boardSize, pointBuf,
                                            CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
             break;
-        case Settings::CIRCLES_GRID:
+        case SettingsSingle::CIRCLES_GRID:
             if(DEBUG_CALIBRATION) {cout << "Case CIRCLES_GRID" << endl;}
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf );
             break;
-        case Settings::ASYMMETRIC_CIRCLES_GRID:
+        case SettingsSingle::ASYMMETRIC_CIRCLES_GRID:
             if(DEBUG_CALIBRATION) {cout << "Case ASYMMETRIC_CIRCLES_GRID" << endl;}
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf, CALIB_CB_ASYMMETRIC_GRID );
             break;
-        case Settings::NOT_EXISTING:
+        case SettingsSingle::NOT_EXISTING:
             if(DEBUG_CALIBRATION) {cout << "Case NOT_EXISTING" << endl;}
             found = false;
             break;
@@ -157,7 +157,7 @@ int Calibration::calibrate() {
         {
             if(DEBUG_CALIBRATION) {cout << "calibrate(4)" << endl;}
             // improve the found corners' coordinate accuracy for chessboard
-            if( this->_s.calibrationPattern == Settings::CHESSBOARD)
+            if( this->_s.calibrationPattern == SettingsSingle::CHESSBOARD)
             {
                 if(DEBUG_CALIBRATION) {cout << "calibrate(4.1)" << endl;}
                 Mat viewGray;
@@ -247,7 +247,7 @@ int Calibration::calibrate() {
  * @param imagePoints
  * @return
  */
-bool Calibration::runCalibrationAndSave(Settings& s, Size imageSize, Mat&  cameraMatrix,
+bool Calibration::runCalibrationAndSave(SettingsSingle& s, Size imageSize, Mat&  cameraMatrix,
                                         Mat& distCoeffs, vector<vector<Point2f>> imagePoints )
 {
     vector<Mat> rvecs, tvecs;
@@ -291,20 +291,20 @@ double computeReprojectionErrors( const vector<vector<Point3f> >& objectPoints,
 }
 
 void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Point3f>& corners,
-                              Settings::Pattern patternType /*= Settings::CHESSBOARD*/)
+                              SettingsSingle::Pattern patternType /*= SettingsSingle::CHESSBOARD*/)
 {
     corners.clear();
 
     switch(patternType)
     {
-    case Settings::CHESSBOARD:
-    case Settings::CIRCLES_GRID:
+    case SettingsSingle::CHESSBOARD:
+    case SettingsSingle::CIRCLES_GRID:
         for( int i = 0; i < boardSize.height; ++i )
             for( int j = 0; j < boardSize.width; ++j )
                 corners.push_back(Point3f(float( j*squareSize ), float( i*squareSize ), 0));
         break;
 
-    case Settings::ASYMMETRIC_CIRCLES_GRID:
+    case SettingsSingle::ASYMMETRIC_CIRCLES_GRID:
         for( int i = 0; i < boardSize.height; i++ )
             for( int j = 0; j < boardSize.width; j++ )
                 corners.push_back(Point3f(float((2*j + i % 2)*squareSize), float(i*squareSize), 0));
@@ -314,7 +314,7 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Point3f>&
     }
 }
 
-bool Calibration::runCalibration( Settings& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+bool Calibration::runCalibration( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                   vector<vector<Point2f> > imagePoints, vector<Mat>& rvecs, vector<Mat>& tvecs,
                                   vector<float>& reprojErrs,  double& totalAvgErr)
 {
@@ -356,7 +356,7 @@ bool Calibration::runCalibration( Settings& s, Size& imageSize, Mat& cameraMatri
  * @param imagePoints
  * @param totalAvgErr
  */
-void Calibration::saveCameraParams( Settings& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+void Calibration::saveCameraParams( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                     const vector<Mat>& rvecs, const vector<Mat>& tvecs,
                                     const vector<float>& reprojErrs, const vector<vector<Point2f> >& imagePoints,
                                     double totalAvgErr )

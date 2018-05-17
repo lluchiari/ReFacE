@@ -21,8 +21,8 @@
 #include <opencv2/highgui/highgui.hpp>
 
 /* Internal Libs */
-#include "../mainwindow.h"
-#include "./Settings.h"
+#include <mainwindow.h>
+#include <Settings/SettingsSingle.h>
 #include <common.h>
 
 class Calibration
@@ -37,7 +37,7 @@ public:
     int calibrate();
 
 private:
-    Settings _s;            //Setting file to be read by the funciton
+    SettingsSingle _s;            //Setting file to be read by the funciton
 
     enum {
         DETECTION = 0,      // This mode takes the images direct from a file
@@ -49,10 +49,10 @@ private:
     string _inputStackImageFile;
     string _OutputFileURL;
 
-    bool runCalibrationAndSave(Settings&, Size, Mat&, Mat&, vector<vector<Point2f>>);
-    void saveCameraParams( Settings&, Size&, Mat&, Mat&, const vector<Mat>&, const vector<Mat>&,
+    bool runCalibrationAndSave(SettingsSingle&, Size, Mat&, Mat&, vector<vector<Point2f>>);
+    void saveCameraParams( SettingsSingle&, Size&, Mat&, Mat&, const vector<Mat>&, const vector<Mat>&,
                                   const vector<float>&, const vector<vector<Point2f> >&, double);
-    bool runCalibration( Settings&, Size&, Mat&, Mat&, vector<vector<Point2f>>, vector<Mat>&, vector<Mat>&,
+    bool runCalibration( SettingsSingle&, Size&, Mat&, Mat&, vector<vector<Point2f>>, vector<Mat>&, vector<Mat>&,
                                 vector<float>&,  double&);
 };
 
