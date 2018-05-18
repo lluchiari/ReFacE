@@ -16,6 +16,7 @@
 
 // Internal Libs //
 #include <Settings/Settings.hh>
+#include <common.h>
 
 // 3rd Party Libs //
 #include <tinyxml2.h>
@@ -34,19 +35,29 @@ public:
 
     //Read vector for this class
     void read(string);
-
+    void interprate();
     void print();
 
 private:
-    vector<string> _imagelist;      // List with addres of image files
-    cv::Size _boardSize;            // The size of the board -> Number of items by width and height
-    float _squareSize;              // The size of a square in your defined unit (point, millimeter,etc).
-    bool _displayCorners = false;
-    bool _useCalibrated = true;
-    bool _showRectified = true;     // Shows the rectified images after the calibration
-    string _outputFileName;         // The name of the file where to write
+    bool _isListOfImages(const string&);
+    bool _readStringList(const string&, vector<string>&);
 
-    Pattern calibrationPattern;     // One of the Chessboard, circles, or asymmetric circle pattern
+public:
+    vector<string> _imageList;        // List with addres of image files
+    cv::Size _boardSize;              // The size of the board -> Number of items by width and height
+    string _patternToUse;
+    float _squareSize;                // The size of a square in your defined unit (point, millimeter,etc).
+    bool _displayCorners;
+    bool _useCalibrated;
+    bool _showRectified;              // Shows the rectified images after the calibration
+    bool _showUndistorsed;            // Show undistorted images after calibration
+    string _input;                    // The input ->
+    string _outputFileName;           // The name of the file where to write
+    InputType _inputType;             // It's the type of input used on calibration. Could be camera, video, set of image
+    int _cameraID;
+    VideoCapture _inputCapture;       //
+
+//    Pattern calibrationPattern;     // One of the Chessboard, circles, or asymmetric circle pattern
 //    int nrFrames;                   // The number of frames to use from the input for calibration
 //    float aspectRatio;              // The aspect ratio
 //    int delay;                      // In case of a video input
@@ -55,8 +66,6 @@ private:
 //    bool calibZeroTangentDist;      // Assume zero tangential distortion
 //    bool calibFixPrincipalPoint;    // Fix the principal point at the center
 //    bool flipVertical;              // Flip the captured images around the horizontal axis
-    bool showUndistorsed;           // Show undistorted images after calibration
-    string input;                   // The input ->
 
 //    int cameraID;
 //    int atImageList;                // Image List Counter for parsing iteration
@@ -65,8 +74,6 @@ private:
 //    bool goodInput;                 //
 //    int flag;                       //
 
-//private:
-//    string _patternToUse;
 };
 
 #endif // SETTINGS_STEREO_H

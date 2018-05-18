@@ -160,9 +160,8 @@ int main(int argc, char *argv[])
         std::cout << "Stereo-Calibration";
         SteroCalib *calib = new SteroCalib();
         calib->config(configFile);
-//        calib->calibrate();
+        calib->calibrate();
         delete calib;
-
     }
 
 //    QApplication a(argc, argv);

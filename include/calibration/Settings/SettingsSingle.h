@@ -50,14 +50,6 @@ public:
     // Kinds of pattern for calibration
     enum Pattern { NOT_EXISTING, CHESSBOARD, CIRCLES_GRID, ASYMMETRIC_CIRCLES_GRID};
 
-    // Kind of imput images
-    enum InputType {
-        INVALID,        //Not valid input image
-        CAMERA,         //Images coming from the camera
-        VIDEO_FILE,     //Images coming from a video file
-        IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
-    };
-
 //    //Write serialization for this class
 //    void write(SETTING_STORAGE& fs) const;
 

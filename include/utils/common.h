@@ -15,4 +15,12 @@
     #define DEBUG_SETTINGS 0
 #endif
 
+#ifndef DEBUG_SETTINGS_SINGLE
+    #define DEBUG_SETTINGS_SINGLE 0
+#endif
+
+#ifndef DEBUG_SETTINGS_STEREO
+    #define DEBUG_SETTINGS_STEREO 0
+#endif
+
 #endif // COMMON_H

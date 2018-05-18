@@ -2,18 +2,24 @@
 
 SteroCalib::SteroCalib()
 {
-
+    _configFlag = false;
 }
 
 int SteroCalib::config(string configFile)
 {
     this->_s.read(configFile);
+    this->_s.interprate();
+    _configFlag = true;
     return 0;
 }
 
-void SteroCalib::calibrate()
+int SteroCalib::calibrate()
 {
-    vector<string>& imagelist = this->_s._imagelist;
+    if(!_configFlag){
+        cerr << "StereoCalib::calibrate(): Please run config() method first!\n";
+        return -1;
+    }
+    vector<string>& imagelist = this->_s._imageList;
     cv::Size boardSize = this->_s._boardSize;
     float squareSize = this->_s._squareSize;
     bool displayCorners = this->_s._displayCorners;
@@ -306,3 +312,7 @@ void SteroCalib::calibrate()
     }
 }
 
+void SteroCalib::pairDetect()
+{
+
+}

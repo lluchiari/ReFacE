@@ -94,18 +94,18 @@ void SettingsSingle::read(string fileLocation)
 }
 
 void SettingsSingle::setStackImage(string stackFileLocation){
-    if(DEBUG_SETTINGS){cout << "SettingsSingle::setStackImage(): File: " << stackFileLocation << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::setStackImage(): File: " << stackFileLocation << endl;}
     this->input = stackFileLocation;
 }
 
 void SettingsSingle::setOutputFile(string outFileLocation){
-    if(DEBUG_SETTINGS){cout << "SettingsSingle::setOutputFile(): File: " << outFileLocation << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::setOutputFile(): File: " << outFileLocation << endl;}
     this->outputFileName = outFileLocation;
 }
 
 /**
- * @brief This function interprate the configure file given and check for errors
- *
+ * @brief SettingsSingle::interprate interprate the configure file given and check for errors
+ * @author OpenCV
  */
 void SettingsSingle::interprate()
 {
@@ -127,7 +127,7 @@ void SettingsSingle::interprate()
     }
     if (this->input.empty())
     {
-        if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): Input is Empty!" << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): Input is Empty!" << endl;}
         this->inputType = INVALID;
     }
     else
@@ -135,7 +135,7 @@ void SettingsSingle::interprate()
         // In the CAMERA case. Idicates the ID of the camera.
         if (this->input[0] >= '0' && this->input[0] <= '9')
         {
-            if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): CAMERA Case" << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): CAMERA Case" << endl;}
             stringstream ss(this->input);
             ss >> this->cameraID;
             this->inputType = CAMERA;
@@ -144,32 +144,32 @@ void SettingsSingle::interprate()
         {
             if (isListOfImages(this->input) && readStringList(this->input, this->imageList))
             {
-                if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): IMAGE_LIST mode " << endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): IMAGE_LIST mode " << endl;}
                 inputType = IMAGE_LIST;
                 this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
-                if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;}
             }
             else {
-                if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): VIDEO_FILE mode " << endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): VIDEO_FILE mode " << endl;}
                 inputType = VIDEO_FILE;
             }
         }
         if (inputType == CAMERA){
-            if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): CAMERA open mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): CAMERA open mode " << endl;}
             this->inputCapture.open(this->cameraID);
         }
         if (inputType == VIDEO_FILE){
-            if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): VIDEO_FILE open mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): VIDEO_FILE open mode " << endl;}
             this->inputCapture.open(input);
         }
         if (inputType != IMAGE_LIST && !this->inputCapture.isOpened()){
-            if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
             inputType = INVALID;
         }
     }
     if (inputType == INVALID)
     {
-        if(DEBUG_SETTINGS){cout << "SettingsSingle::interprate(): INVALID mode " << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): INVALID mode " << endl;}
         cerr << " Inexistent input: " << "'" << input << "'" << endl;
         goodInput = false;
     }
@@ -198,7 +198,7 @@ Mat SettingsSingle::nextImage(){
     Mat result;
     if( this->inputCapture.isOpened() )
     {
-        if(DEBUG_SETTINGS){cout << "SettingsSingle::nextImage(): 1 " << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::nextImage(): 1 " << endl;}
         Mat view0;
         this->inputCapture >> view0;
 
@@ -207,7 +207,7 @@ Mat SettingsSingle::nextImage(){
     }
     else if( this->atImageList < (int)this->imageList.size() )
     {
-        if(DEBUG_SETTINGS){
+        if(DEBUG_SETTINGS_SINGLE){
             cout << "SettingsSingle::nextImage(): Reading Image " << this->imageList[this->atImageList] << endl;
         }
         result = imread(this->imageList[this->atImageList++], CV_LOAD_IMAGE_COLOR);
@@ -215,6 +215,13 @@ Mat SettingsSingle::nextImage(){
     return result;
 }
 
+/**
+ * @brief SettingsSingle::_readStringList Read the xml file containing the list of images
+ * @param filename is the path of the xml file
+ * @param l is the list where the images will be saved
+ * @return true if everything is ok. False otherwise
+ * @author OpenCV Library
+ */
 bool SettingsSingle::readStringList( const string& filename, vector<string>& l )
 {
     l.clear();
@@ -232,14 +239,20 @@ bool SettingsSingle::readStringList( const string& filename, vector<string>& l )
     for( ; it != it_end; ++it ){
         l.push_back((string)*it);
     }
-    if(DEBUG_SETTINGS){cout << "SettingsSingle::readStringList(): Return True" << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::readStringList(): Return True" << endl;}
     return true;
 }
 
+/**
+ * @brief SettingsSingle::isListOfImages look for the xml file
+ * @param filename is the name (complete path) of the xml file
+ * @return true if there is a file like filename, otherwise false
+ * @author OpenCV Library
+ */
 bool SettingsSingle::isListOfImages( const string& filename)
 {
     string s(filename);
-    if(DEBUG_SETTINGS){cout << "SettingsSingle::isListOfImages(): String Name:"<< s << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::isListOfImages(): String Name:"<< s << endl;}
     // Look for file extension
     if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
     {
@@ -247,7 +260,7 @@ bool SettingsSingle::isListOfImages( const string& filename)
         return false;
     }
     else{
-        if(DEBUG_SETTINGS){cout << "SettingsSingle::isListOfImages(): Return True" << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::isListOfImages(): Return True" << endl;}
         return true;
     }
 }

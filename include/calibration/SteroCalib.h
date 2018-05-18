@@ -32,10 +32,12 @@ class SteroCalib
 public:
     SteroCalib();
 public:
-    void calibrate(const vector<string>&, Size, float, bool, bool, bool);
+//    void calibrate(const vector<string>&, Size, float, bool, bool, bool);
+    int calibrate();
     int config(string);
 
 private:
+    bool _configFlag;
     SettingsStereo _s;
 };
 
