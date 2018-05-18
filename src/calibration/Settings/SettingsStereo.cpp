@@ -30,7 +30,7 @@ void SettingsStereo::read(string fileLocation)
     this->_useCalibrated = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Use_Calibrated")->GetText());
     this->_showRectified = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_Rectified")->GetText());
     this->_input = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input")->GetText();
-    this->_outputFileName = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName")->GetText();
+    this->outputFileName = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName")->GetText();
     this->_showUndistorsed = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage")->GetText());
 //    this->nrFrames = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_NrOfFrameToUse")->GetText());
 //    this->aspectRatio = (float) std::atof(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixAspectRatio")->GetText());
@@ -167,7 +167,7 @@ void SettingsStereo::print(){
     << "showRectified_flag: " << this->_showRectified << std::endl
     << "showUndistorsed: " << this->_showUndistorsed << std::endl
     << "input: " << this->_input << std::endl
-    << "outputFileName: " << this->_outputFileName << std::endl
+    << "outputFileName: " << this->outputFileName << std::endl
     << "InputType: ";
 
     switch(this->_inputType){

@@ -18,7 +18,7 @@
   <Use_Calibrated>1</Use_Calibrated>
   
   <!-- If true (non-zero) shows rectified image on realtime -->
-  <Show_Rectified>1</Show_Rectified>
+  <Show_Rectified>0</Show_Rectified>
   
   <!-- The input to use for calibration. 
 		To use an input camera -> give the ID of the camera, like "1"

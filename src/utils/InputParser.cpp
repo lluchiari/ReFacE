@@ -8,7 +8,7 @@ using namespace inParser;
  * @param: argv is the vector of parameters
  * @return: return a object containing informations of input
 */
-InputObject ImputParser::parse(int argc, char*argv[])
+InputObject ImputParser::parse(int myArgc, char*myArgv[])
 {
     InputObject bla;
     return bla;

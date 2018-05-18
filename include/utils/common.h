@@ -11,6 +11,10 @@
     #define DEBUG_CALIBRATION 0
 #endif
 
+#ifndef DEBUG_STEREO_CALIBRATION
+    #define DEBUG_CALIBRATION_STEREO 1
+#endif
+
 #ifndef DEBUG_SETTINGS
     #define DEBUG_SETTINGS 0
 #endif

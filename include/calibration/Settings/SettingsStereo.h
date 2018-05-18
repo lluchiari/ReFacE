@@ -52,7 +52,7 @@ public:
     bool _showRectified;              // Shows the rectified images after the calibration
     bool _showUndistorsed;            // Show undistorted images after calibration
     string _input;                    // The input ->
-    string _outputFileName;           // The name of the file where to write
+    string outputFileName;           // The name of the file where to write
     InputType _inputType;             // It's the type of input used on calibration. Could be camera, video, set of image
     int _cameraID;
     VideoCapture _inputCapture;       //

@@ -33,6 +33,8 @@ int main(int argc, char *argv[])
 //        return 0;
 //    }
 }
+
+cout << "Heyyy";
     //Files declaration
     std::string configFile;
 
@@ -97,7 +99,7 @@ int main(int argc, char *argv[])
 
             }
             else{
-                std::cerr << "Error on 'calibrate-stereo': Missing Config and/or output files!\n";
+                std::cerr << "Error on input parser for [calibrate-stereo] option: Missing Config and/or output files!\n";
                 return -1;
             }
 
@@ -161,6 +163,7 @@ int main(int argc, char *argv[])
         SteroCalib *calib = new SteroCalib();
         calib->config(configFile);
         calib->calibrate();
+//        calib->rectificate();
         delete calib;
     }
 
