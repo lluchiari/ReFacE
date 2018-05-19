@@ -11,30 +11,15 @@ static void show_usage(std::string name) {
 
 int main(int argc, char *argv[])
 {
+    cout << "Argc: " << argc << endl;
+    cout << "Argv: ";
+    for(int i=0; i<argc; i++)
+    {
+        cout << argv[i];
+    }
 
-{
-//    const string keys =
-//            "{h help ? ||}"
-//            "{c calibrate |<none>| Calibrate config file}";
+    exit(0);
 
-//    CommandLineParser parser(argc, argv, keys);
-//    parser.about("ReFacE v0.1");
-
-//    // Help Option
-//    if(parser.has("help"))
-//    {
-//        show_usage(argv[0]);
-//        return 0;
-//    }
-
-//    if (!parser.check())
-//    {
-//        parser.printErrors();
-//        return 0;
-//    }
-}
-
-cout << "Heyyy";
     //Files declaration
     std::string configFile;
 

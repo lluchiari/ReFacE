@@ -4,7 +4,7 @@
 #include <iostream>
 
 #ifndef DEBUG
-    #define DEBUG 0
+    #define DEBUG 1
 #endif
 
 #ifndef DEBUG_CALIBRATION
