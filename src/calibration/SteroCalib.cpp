@@ -119,9 +119,9 @@ int SteroCalib::rectificate()
        _showRectification();
     }
 
-    if(DEBUG_CALIBRATION_STEREO){
+    #if (DEBUG_CALIBRATION_STEREO)
         cout << "End of Rectification!\n";
-    }
+    #endif
     return 0;
 }
 
@@ -131,8 +131,6 @@ int SteroCalib::_pairDetect()
         cout << "################################################\n";
         cout << "SteroCalib::_pairDetect(): Starting Pair Detection.....\n";
     #endif
-
-//    vector<string>& imagelist = this->_s._imageList;
 
     // Check if the image list is odd //
     if( this->_s._imageList.size() % 2 != 0 )

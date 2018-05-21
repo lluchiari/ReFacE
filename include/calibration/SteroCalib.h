@@ -35,6 +35,7 @@ public:
     int config(string);
     int calibrate();
     int rectificate();
+    int load(string);
 
     int nimages;                                         // Variable to store the number of images in different steps of the program //
     const int maxScale = 2;                              // Scale value that the image migth be resized to search for pattern //

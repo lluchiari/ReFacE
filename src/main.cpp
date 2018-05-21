@@ -5,7 +5,11 @@ static void show_usage(std::string name) {
               << "Options:\n"
               << "\t-h,--help\t\t\t\t\tShow this help message\n"
               << "\t-c,--calibrate <CONFIG_FILE>\t\t\tCalibrates single camera with CONFIG_FILE xml.\n"
-              << "\t-cs,--calibrate-stereo <CONFIG_FILE>\t\t\tCalibrates both cameras with CONFIG_FILE xml.\n"
+              << "\t-cs,--calibrate-stereo [CONFIG_FILE]\t\tCalibrates both cameras with CONFIG_FILE if "
+                 "specified, othrerwise configure with Default file in 'ReFacE/config/config_stereo.xml'.\n"
+              << "\t-ms, --match-stereo [CALIB_FILE]\t\tComputes the Stero Matching and generates the "
+                 "disparity map with CALIB_FILE specifications, otherwise uses Default file in "
+                 "ReFacE/config/output/out_camera_stereo.xml\n"
               << std::endl;
 }
 
@@ -48,7 +52,6 @@ int main(int argc, char *argv[])
             show_usage(filename);
             return 0;
         }
-
         /* Command CALIBRATE --> flags[0] */
         else if((arg == "-c")|| (arg == "--calibrate")) {
             if (i + 1 < argc) {
@@ -59,107 +62,104 @@ int main(int argc, char *argv[])
                     return -1;
                 }
                 else{
-                    if(DEBUG) {std::cout << "Runing Calibration with " << configFile << " confg file.\n";}
                     flags[0] = true;
                 }
             }
-            else{
+            else {
                 std::cerr << "Error: Missing Config and/or output files!\n";
                 return -1;
             }
+            #if DEBUG
+                std::cout << "Runing Calibration with " << configFile << " confg file.\n";
+            #endif
         }
-        /* Command CALIBRATE --> flags[1] */
+        /* Command CALIBRATE STEREO --> flags[1] */
         else if((arg == "-cs") || (arg == "--calibrate-stereo")){
             if (i + 1 < argc) {
                 // Increment 'i' so we don't get the argument as the next argv[i]. //
                 configFile = argv[++i];
                 if(configFile.empty()){
-                    std::cerr << "Error: Missing Config File!\n";
+                    std::cerr << "Error: Wrong Config File! String is empty!\n";
                     return -1;
                 }
                 else{
-                    if(DEBUG) {std::cout << "Runing Stereo-Calibration with " << configFile << " confg file\n";}
                     flags[1] = true;
                 }
 
             }
             else{
-                std::cerr << "Error on input parser for [calibrate-stereo] option: Missing Config and/or output files!\n";
-                return -1;
+                // Default mode
+                configFile = "../config/config_stereo.xml";
             }
-
+            #if DEBUG
+                std::cout << "Runing Stereo-Calibration with " << configFile << " confg file\n";
+            #endif
         }
+        /* Command MATCHING STEREO --> flags[2] */
+        else if((arg == "-ms") || (arg == "--match-stereo")){
+            if (i + 1 < argc) {
+                // Increment 'i' so we don't get the argument as the next argv[i]. //
+                configFile = argv[++i];
+                if(configFile.empty()){
+                    std::cerr << "Error: Wrong Config File! String is empty!\n";
+                    return -1;
+                }
+                else{
+                    flags[2] = true;
+                }
 
-{
-//        // Command ENCRYPT --> flags[1] //
-//        else if((arg == "-e")|| (arg == "--encrypt")) {
-//            // Make sure we aren't at the end of argv! //
-//            if (i + 2 < argc) {
-//                /* Increment 'i' so we don't get the argument as the next argv[i]. */
-//                source.push_back(argv[++i]);                    // public key file
-//                source.push_back(argv[++i]);                   // message file
-//            }
-//            /* Uh-oh, there was no argument to the destination option. */
-//            else {
-//                std::cerr << "--encrypt option requires two argument. See --help for more information" << std::endl;
-//                return -1;
-//            }
-//            flags[1] = true;
-//        }
-//        /* Command DECRYPT --> flags[2] */
-//        else if((arg == "-d")|| (arg == "--decrypt")) {
-//            /* Make sure we aren't at the end of argv! */
-//            if (i + 2 < argc) {
-//                /* Increment 'i' so we don't get the argument as the next argv[i]. */
-//                source.push_back(argv[++i]);                    // private key file
-//                source.push_back(argv[++i]);                   // cryptogram file
-//            }
-//            /* Uh-oh, there was no argument to the destination option. */
-//            else {
-//                std::cerr << "--decrypt option requires two argument. See --help for more information" << std::endl;
-//                return -1;
-//            }
-//            flags[2] = true;
-//        }
-//        /* Command ENCRYPT GENERATE KEY --> flags[2] */
-//        else if((arg == "-eak")|| (arg == "--encrypt-assimetric-key")) {
-
-//        }
-//        /* Command GUI --> flags[2] */
-//        else if((arg == "-gui")|| (arg == "--graphical")) {
-
-//        else {
-//            show_usage(argv[0]);
-//            std::cerr << "No options selected!"<< std::endl;
-//            return -1;
-//        }
-}
+            }
+            else{
+                // Default mode
+                configFile = "../config/output/out_camera_stereo.xml";
+            }
+            #if DEBUG
+                std::cout << "Runing Stereo-Matching with " << configFile << " camera file\n";
+            #endif
+        }
+        else{
+            show_usage(filename);
+            return 0;
+        }
     }
 
     if(flags[0] == true){
-        std::cout << "Calibration";
+        #if DEBUG
+            std::cout << "Calibration";
+        #endif
         Calibration *calib = new Calibration();
         calib->config(configFile);
         calib->calibrate();
         delete calib;
     }
     if(flags[1] == true){
-        std::cout << "Stereo-Calibration";
-        SteroCalib *calib = new SteroCalib();
-        calib->config(configFile);
+        #if DEBUG
+            std::cout << "Stereo-Calibration\n";
+        #endif
+
+        SteroCalib calib;
+        calib.config(configFile);
 
         // Run the calibration process based on config file //
-        if(calib->calibrate() != 0)
+        if(calib.calibrate() != 0)
         {
             cerr << "Error on Calibration!\n";
         }
 
-
         // Run the rectification process based on config file //
-        if(calib->rectificate() != 0){
+        if(calib.rectificate() != 0){
             cerr << "Error on Rectification!\n";
         }
-        delete calib;
+    }
+    if(flags[2] == true){
+        #if DEBUG
+            std::cout << "Stereo-Matching\n";
+        #endif
+
+        SteroCalib calib;
+        if(calib.load(configFile) != 0){
+            cerr << "Error on Loading calibration file\n";
+        }
     }
 
     return 0;
