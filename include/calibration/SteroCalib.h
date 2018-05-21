@@ -60,8 +60,9 @@ private:
     Mat _P2;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.
     Mat _Q;                                              // Output 4x4 disparity-to-depth mapping matrix (see reprojectImageTo3D()).
 
-
+    Rect _validRoi[2];
     bool _configFlag;
+    double _rms;                                         // Erro for calibration
     vector<vector<Point2f> > _imagePoints[2];            // The corners of the chessboard found //
     vector<vector<Point3f> > _objectPoints;              // Vector of vectors containing the calibration pattern points. If changes the pattern, than changes the way this is calculated //
     vector<string> _goodImageList;                       // Vector containnig the path of good pair of images //

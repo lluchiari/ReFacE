@@ -82,11 +82,11 @@ void SettingsStereo::interprate(){
             }
         }
         if (this->_inputType == CAMERA){
-            //            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): CAMERA open mode " << endl;}
+            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): CAMERA open mode " << endl;}
             //            this->inputCapture.open(this->cameraID);
         }
         if (this->_inputType == VIDEO_FILE){
-            //            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): VIDEO_FILE open mode " << endl;}
+            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): VIDEO_FILE open mode " << endl;}
             //            this->inputCapture.open(input);
         }
         if (this->_inputType != IMAGE_LIST && !this->_inputCapture.isOpened()){
@@ -94,6 +94,7 @@ void SettingsStereo::interprate(){
             this->_inputType = INVALID;
         }
     }
+    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Leaving Interprate\n";}
 }
 
 
@@ -151,8 +152,8 @@ bool SettingsStereo::_readStringList( const string& filename, vector<string>& l 
 
 
 void SettingsStereo::print(){
-    cout << "Print:\n"
-    << "Image List:\t";
+    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Start printing...\n";}
+    cout << "Image List:\t";
     for(int i=0; i < this->_imageList.size(); i++)
     {
         if(i==0) cout << this->_imageList.at(i) << "\n";
@@ -183,7 +184,7 @@ void SettingsStereo::print(){
         case IMAGE_LIST:
             cout << "IMAGE_LIST\n";
             break;
-    }
+    };
     cout << "CameraID: " << this->_cameraID  << std::endl;
 //    << "nrFrames: " << this->nrFrames  << std::endl
 //    << "aspectRatio: " << this->aspectRatio << std::endl
@@ -193,4 +194,5 @@ void SettingsStereo::print(){
 //    << "calibFixPrincipalPoint: " << this->calibFixPrincipalPoint << std::endl
 //    << "flipVertical: " << this->flipVertical << std::endl
 //    << "delay: " << this->delay << std::endl;
+    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Leaving.\n";}
 }

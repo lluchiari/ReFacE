@@ -2,7 +2,7 @@
 <opencv_storage>
 <Settings>
   <!-- Number of inner corners per a item row and column. (square, circle) -->
-  <BoardSize_Width> 9</BoardSize_Width>
+  <BoardSize_Width>9</BoardSize_Width>
   <BoardSize_Height>6</BoardSize_Height>
   
   <!-- The size of a square in some user defined metric system (pixel, millimeter)-->
@@ -12,13 +12,13 @@
   <Calibrate_Pattern>CHESSBOARD</Calibrate_Pattern>
   
   <!-- If true (non-zero) Display corners on the runtime - Debug purpose-->
-  <Display_Corner>1</Display_Corner>
+  <Display_Corner>0</Display_Corner>
   
   <!-- If true (non-zero) use calibrated image on realtime -->
-  <Use_Calibrated>1</Use_Calibrated>
+  <Use_Calibrated>0</Use_Calibrated>
   
   <!-- If true (non-zero) shows rectified image on realtime -->
-  <Show_Rectified>0</Show_Rectified>
+  <Show_Rectified>1</Show_Rectified>
   
   <!-- The input to use for calibration. 
 		To use an input camera -> give the ID of the camera, like "1"

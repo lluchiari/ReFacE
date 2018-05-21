@@ -11,14 +11,14 @@ static void show_usage(std::string name) {
 
 int main(int argc, char *argv[])
 {
-    cout << "Argc: " << argc << endl;
-    cout << "Argv: ";
-    for(int i=0; i<argc; i++)
-    {
-        cout << argv[i];
-    }
+//    cout << "Argc: " << argc << endl;
+//    cout << "Argv: ";
+//    for(int i=0; i<argc; i++)
+//    {
+//        cout << argv[i] << "\n";
+//    }
+//    return 0;
 
-    exit(0);
 
     //Files declaration
     std::string configFile;
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
                     return -1;
                 }
                 else{
-                    if(DEBUG) {std::cout << "Runing Calibration with " << configFile << " confg file";}
+                    if(DEBUG) {std::cout << "Runing Calibration with " << configFile << " confg file.\n";}
                     flags[0] = true;
                 }
             }
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
                     return -1;
                 }
                 else{
-                    if(DEBUG) {std::cout << "Runing Stereo-Calibration with " << configFile << " confg file";}
+                    if(DEBUG) {std::cout << "Runing Stereo-Calibration with " << configFile << " confg file\n";}
                     flags[1] = true;
                 }
 
@@ -143,20 +143,24 @@ int main(int argc, char *argv[])
         calib->calibrate();
         delete calib;
     }
-    else if(flags[1] == true){
+    if(flags[1] == true){
         std::cout << "Stereo-Calibration";
         SteroCalib *calib = new SteroCalib();
         calib->config(configFile);
-        calib->calibrate();
-//        calib->rectificate();
+
+        // Run the calibration process based on config file //
+        if(calib->calibrate() != 0)
+        {
+            cerr << "Error on Calibration!\n";
+        }
+
+
+        // Run the rectification process based on config file //
+        if(calib->rectificate() != 0){
+            cerr << "Error on Rectification!\n";
+        }
         delete calib;
     }
-
-//    QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-
-//    return a.exec();
 
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <iostream>
 
 #ifndef DEBUG
-    #define DEBUG 1
+    #define DEBUG 0
 #endif
 
 #ifndef DEBUG_CALIBRATION
@@ -12,7 +12,7 @@
 #endif
 
 #ifndef DEBUG_STEREO_CALIBRATION
-    #define DEBUG_CALIBRATION_STEREO 1
+    #define DEBUG_CALIBRATION_STEREO 0
 #endif
 
 #ifndef DEBUG_SETTINGS
