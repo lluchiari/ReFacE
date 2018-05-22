@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Settings>
+  <!-- The input to use for calibration. 
+		To use an input camera -> give the ID of the camera, like "1"
+		To use an input video  -> give the path of the input video, like "/tmp/x.avi"
+		To use an image list   -> give the path to the XML or YAML file containing the list of the images, like "/tmp/circles_list.xml"
+		-->
+  <Input>../config/stack/stack_stereo_VID5.xml</Input>
+  
+  <!-- The name of the output location. -->
+  <Write_OutputLocation>../images/StereoOutput</Write_OutputLocation>
+  
+  <!-- Number of max disparity. It's a number greater than 1 and divisible by 16. -->
+  <Max_Disparity>16</Max_Disparity>
+  
+  <!-- The scale factor must be a positive floating-point number -->
+  <Scale>2</Scale>
+  
+  <!-- The block size must be a positive odd number -->
+  <Block_Size>1</Block_Size>
+  
+  <!-- Location of the calibration file containing all the calibration parameters -->
+  <Calibration_File>../config/output/output_calib_stereo.xml</Calibration_File>
+ 
+</Settings>
+</opencv_storage>

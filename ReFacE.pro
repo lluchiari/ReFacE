@@ -27,21 +27,28 @@ SOURCES += \
         src/main.cpp \
         src/MainWindow.cpp \
         src/calibration/Calibration.cpp \
-        src/calibration/Settings/SettingsStereo.cpp \
-        src/calibration/Settings/SettingsSingle.cpp \
-        src/calibration/SteroCalib.cpp \
+        src/calibration/settings/SettingsStereo.cpp \
+        src/calibration/settings/SettingsSingle.cpp \
+        src/calibration/StereoCalib.cpp \
+        src/matching/BlockMatching.cpp \
+        src/matching/SGBM.cpp \
+        src/matching/settings/MatchingStereoSettings.cpp \
         src/utils/InputParser.cpp \
         src/3rdParty/TinyXML2/tinyxml2.cpp
 
 HEADERS += \
         include/MainWindow.h \
         include/ReFacE.h \
-        include/calibration/Settings/Settings.hh \
-        include/calibration/Settings/SettingsStereo.h \
-        include/calibration/Settings/SettingsSingle.h \
-        include/calibration/SteroCalib.h \
+        include/calibration/settings/SettingsStereo.h \
+        include/calibration/settings/SettingsSingle.h \
+        include/calibration/StereoCalib.h \
         include/calibration/Calibration.h \
+        include/matching/StereoMatching.hh \
+        include/matching/BlockMatching.h \
+        include/matching/SGBM.h \
+        include/matching/settings/MatchingStereoSettings.h \
         include/utils/common.h \
+        include/utils/Settings.hh \
         include/utils/InputParser.hh \
         include/3rdParty/TinyXML2/tinyxml2.h
 
@@ -58,6 +65,7 @@ LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341d
 
 INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15 $(OPENCV_STATIC_DIR)/build/include
 INCLUDEPATH += $$PWD/include $$PWD/include/calibration $$PWD/include/utils $$PWD/include/3rdParty/TinyXML2
+INCLUDEPATH += $$PWD/include/matching
 
 
 DISTFILES += \

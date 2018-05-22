@@ -20,17 +20,18 @@
 #include <ctype.h>
 
 // Internal Libs
-#include <Settings/SettingsStereo.h>
+#include <settings/SettingsStereo.h>
+#include <utils/common.h>
 
 using namespace std;
 using namespace cv;
 
 
 
-class SteroCalib
+class StereoCalib
 {
 public:
-    SteroCalib();
+    StereoCalib();
 public:
     int config(string);
     int calibrate();

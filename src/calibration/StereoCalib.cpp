@@ -1,11 +1,11 @@
-#include <SteroCalib.h>
+#include <StereoCalib.h>
 
-SteroCalib::SteroCalib()
+StereoCalib::StereoCalib()
 {
     _configFlag = false;
 }
 
-int SteroCalib::config(string configFile)
+int StereoCalib::config(string configFile)
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -24,7 +24,7 @@ int SteroCalib::config(string configFile)
     return 0;
 }
 
-int SteroCalib::calibrate()
+int StereoCalib::calibrate()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -88,7 +88,7 @@ int SteroCalib::calibrate()
     return 0;
 }
 
-int SteroCalib::rectificate()
+int StereoCalib::rectificate()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -125,7 +125,11 @@ int SteroCalib::rectificate()
     return 0;
 }
 
-int SteroCalib::_pairDetect()
+int StereoCalib::load(string filename){
+    return 0;
+}
+
+int StereoCalib::_pairDetect()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -291,7 +295,7 @@ int SteroCalib::_pairDetect()
    return 0;
 }
 
-int SteroCalib::_calibCheck()
+int StereoCalib::_calibCheck()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -330,7 +334,7 @@ int SteroCalib::_calibCheck()
     return 0;
 }
 
-int SteroCalib::_calibStereoSaveOutputParam(){
+int StereoCalib::_calibStereoSaveOutputParam(){
 
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -357,7 +361,7 @@ int SteroCalib::_calibStereoSaveOutputParam(){
     }
 }
 
-void SteroCalib::_showRectification()
+void StereoCalib::_showRectification()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";

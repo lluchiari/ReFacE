@@ -7,7 +7,7 @@ static void show_usage(std::string name) {
               << "\t-c,--calibrate <CONFIG_FILE>\t\t\tCalibrates single camera with CONFIG_FILE xml.\n"
               << "\t-cs,--calibrate-stereo [CONFIG_FILE]\t\tCalibrates both cameras with CONFIG_FILE if "
                  "specified, othrerwise configure with Default file in 'ReFacE/config/config_stereo.xml'.\n"
-              << "\t-ms, --match-stereo [CALIB_FILE]\t\tComputes the Stero Matching and generates the "
+              << "\t-ms, --match-stereo [CALIB_FILE] [--algorithm=bm|sgbm|hh|sgbm3way]\t\tComputes the Stero Matching and generates the "
                  "disparity map with CALIB_FILE specifications, otherwise uses Default file in "
                  "ReFacE/config/output/out_camera_stereo.xml\n"
               << std::endl;
@@ -15,18 +15,14 @@ static void show_usage(std::string name) {
 
 int main(int argc, char *argv[])
 {
-//    cout << "Argc: " << argc << endl;
-//    cout << "Argv: ";
-//    for(int i=0; i<argc; i++)
-//    {
-//        cout << argv[i] << "\n";
-//    }
-//    return 0;
-
-
     //Files declaration
     std::string configFile;
+    std::string param;
 
+
+//#############################################################################################
+//      COMMAND LINE PARSER
+//#############################################################################################
      // Checking Command Line Arguments //
     if (argc < 2) {
         std::cout << argv[0] << " invalid option!\nTry '"<< argv[0]
@@ -42,7 +38,7 @@ int main(int argc, char *argv[])
     // Loop Case to Evaluate all the commands //
     for (int i = 1; i < argc; ++i)
     {
-        // Auxiliar Variable storing the argument //
+        // Auxiliar Variabl e storing the argument //
         std::string arg = argv[i];
 
         // Command HELP --> Without flags (it's a sovereign command) //
@@ -97,32 +93,57 @@ int main(int argc, char *argv[])
         }
         /* Command MATCHING STEREO --> flags[2] */
         else if((arg == "-ms") || (arg == "--match-stereo")){
-            if (i + 1 < argc) {
-                // Increment 'i' so we don't get the argument as the next argv[i]. //
-                configFile = argv[++i];
-                if(configFile.empty()){
-                    std::cerr << "Error: Wrong Config File! String is empty!\n";
-                    return -1;
+            // Case where the two options were indicated //
+            if(i+2 < argc)
+            {
+                param = argv[++i];
+
+                // if param is has not a algorithm option //
+                if(param.find("--algorithm") == string::npos){
+                    configFile = param;
+                    param = argv[++i];
                 }
                 else{
-                    flags[2] = true;
+                    configFile = argv[++i];
                 }
-
             }
-            else{
-                // Default mode
-                configFile = "../config/output/out_camera_stereo.xml";
+            // Case where only one option was indicated //
+            else if (i+1 < argc)
+            {
+                param = argv[++i];
+                if(param.find("--algorithm") == string::npos){
+                    configFile = param;
+                    param = DEFAULT_MATCH_PARAM;
+                }
+                else {
+                    configFile = DEFAULT_MATCH;
+                }
             }
+            // Default case //
+            else {
+                param = DEFAULT_MATCH_PARAM;
+                configFile = DEFAULT_MATCH;
+            }
+            if(configFile.empty()){
+                std::cerr << "Error: Wrong Config File! String is empty!\n";
+                return -1;
+            }
+            flags[2] = true;
             #if DEBUG
                 std::cout << "Runing Stereo-Matching with " << configFile << " camera file\n";
             #endif
         }
         else{
-            show_usage(filename);
+            show_usage("ReFacE");
             return 0;
         }
     }
 
+//#############################################################################################
+//      END OF PARSER
+//#############################################################################################
+
+    // Normal Calibration
     if(flags[0] == true){
         #if DEBUG
             std::cout << "Calibration";
@@ -132,12 +153,14 @@ int main(int argc, char *argv[])
         calib->calibrate();
         delete calib;
     }
+
+    // Stereo Calibration
     if(flags[1] == true){
         #if DEBUG
             std::cout << "Stereo-Calibration\n";
         #endif
 
-        SteroCalib calib;
+        StereoCalib calib;
         calib.config(configFile);
 
         // Run the calibration process based on config file //
@@ -151,15 +174,39 @@ int main(int argc, char *argv[])
             cerr << "Error on Rectification!\n";
         }
     }
+
+    // Stereo Matching
     if(flags[2] == true){
+        StereoMatching *method;
+        if(param == "--algorithm=bm")
+        {
+            method = new BlockMatching();
+        }
+        else if(param == "--algorithm=sgbm")
+        {
+            method = new SGBM();
+        }
+        else
+        {
+            std::cerr << "Not recognize parameter: " << param;
+            return -1;
+        }
         #if DEBUG
-            std::cout << "Stereo-Matching\n";
+            cout << method->nameToString();
         #endif
 
-        SteroCalib calib;
-        if(calib.load(configFile) != 0){
-            cerr << "Error on Loading calibration file\n";
+        if(method->config(configFile) != 0){
+            std::cerr << "Error on Matching Configuration!\n";
+            delete method;
+            return -1;
         }
+
+        if(method->match() != 0){
+            std::cerr << "Error on Matching Method '" << method->nameToString() << "'\n";
+            delete method;
+            return -1;
+        }
+        delete method;
     }
 
     return 0;

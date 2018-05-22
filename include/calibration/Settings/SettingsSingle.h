@@ -12,13 +12,13 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <common.h>
 
 /* 3rd Party Libs */
 #include <tinyxml2.h>
 
 // Internal Libs //
-#include <Settings/Settings.hh>
+#include <utils/Settings.hh>
+#include <utils/common.h>
 
 #ifndef _CRT_SECURE_NO_WARNINGS
 # define _CRT_SECURE_NO_WARNINGS
@@ -63,6 +63,14 @@ public:
 //        else
 //            x.read(node);
 //    }
+
+    // Kind of imput images
+    enum InputType {
+        INVALID,        //Not valid input image
+        CAMERA,         //Images coming from the camera
+        VIDEO_FILE,     //Images coming from a video file
+        IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
+    };
 
 
     //Read vector for this class

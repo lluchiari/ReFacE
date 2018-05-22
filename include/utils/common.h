@@ -2,6 +2,7 @@
 #define __COMMON_H__
 
 #include <iostream>
+#include <opencv2/core/core.hpp>
 
 #ifndef DEBUG
     #define DEBUG 0
@@ -26,5 +27,12 @@
 #ifndef DEBUG_SETTINGS_STEREO
     #define DEBUG_SETTINGS_STEREO 0
 #endif
+
+#ifndef DEBUG_MATCHING_STEREO
+    #define DEBUG_MATCHING_STEREO 1
+#endif
+
+using namespace std;
+using namespace cv;
 
 #endif // COMMON_H

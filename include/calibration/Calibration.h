@@ -22,8 +22,8 @@
 
 /* Internal Libs */
 #include <mainwindow.h>
-#include <Settings/SettingsSingle.h>
-#include <common.h>
+#include <settings/SettingsSingle.h>
+#include <utils/common.h>
 
 class Calibration
 {

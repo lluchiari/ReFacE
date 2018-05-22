@@ -12,11 +12,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <common.h>
 
 // Internal Libs //
-#include <Settings/Settings.hh>
-#include <common.h>
+#include <utils/Settings.hh>
+#include <utils/common.h>
 
 // 3rd Party Libs //
 #include <tinyxml2.h>
@@ -37,6 +36,14 @@ public:
     void read(string);
     void interprate();
     void print();
+
+    // Kind of imput images
+    enum InputType {
+        INVALID,        //Not valid input image
+        CAMERA,         //Images coming from the camera
+        VIDEO_FILE,     //Images coming from a video file
+        IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
+    };
 
 private:
     bool _isListOfImages(const string&);
