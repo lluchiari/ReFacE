@@ -39,7 +39,7 @@
 
 using namespace cv;
 using namespace std;
-using namespace myCalibSettings;
+using namespace mySettings;
 
 class SettingsSingle : public Settings
 {
@@ -74,13 +74,13 @@ public:
 
 
     //Read vector for this class
-    void read(string);
+    int read(string);
 
     void setStackImage(string);
 
     void setOutputFile(string);
 
-    void interprate();
+    int interprate();
 
     Mat nextImage(void);
 
@@ -88,7 +88,7 @@ public:
 
     bool isListOfImages( const string& filename);
 
-    void print();
+    int print();
 
 public:
     Size boardSize;                 // The size of the board -> Number of items by width and height

@@ -3,6 +3,7 @@
 
 // Internal LIBs
 #include <StereoMatching.hh>
+#include <matching/settings/SettingsMatchingStereo.h>
 #include <common.h>
 
 // OpenCV Libs

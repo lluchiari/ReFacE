@@ -201,11 +201,11 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        if(method->match() != 0){
-            std::cerr << "Error on Matching Method '" << method->nameToString() << "'\n";
-            delete method;
-            return -1;
-        }
+//        if(method->match() != 0){
+//            std::cerr << "Error on Matching Method '" << method->nameToString() << "'\n";
+//            delete method;
+//            return -1;
+//        }
         delete method;
     }
 

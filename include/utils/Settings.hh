@@ -9,17 +9,17 @@
 
 using namespace std;
 
-namespace myCalibSettings {
+namespace mySettings {
     class Settings;
 }
 
-class myCalibSettings::Settings
+class mySettings::Settings
 {
 public:
 
-    virtual void read(string) = 0;
-    virtual void interprate() = 0;
-    virtual void print() =0;
+    virtual int read(string) = 0;
+    virtual int interprate() = 0;
+    virtual int print() =0;
 
 };
 

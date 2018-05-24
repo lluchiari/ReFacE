@@ -17,10 +17,13 @@ SettingsStereo::~SettingsStereo(){
  * @return void
  * @author Lluchiari
  */
-void SettingsStereo::read(string fileLocation)
+int SettingsStereo::read(string fileLocation)
 {
     tinyxml2::XMLDocument doc;
-    doc.LoadFile(fileLocation.c_str());
+    if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
+        cerr << "SettingsStereo::read: Error on loaing xml file!";
+        return -1;
+    }
 
     this->_boardSize.width = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Width")->GetText());
     this->_boardSize.height = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Height")->GetText());
@@ -40,20 +43,20 @@ void SettingsStereo::read(string fileLocation)
 //    this->calibFixPrincipalPoint = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixPrincipalPointAtTheCenter")->GetText());
 //    this->flipVertical = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_FlipAroundHorizontalAxis")->GetText());
 //    this->delay = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay")->GetText());
-
-
+    return 0;
 }
 
 /**
  * @brief SettingsStereo::interprate Interprate the input files and fill all the class required information for calibration
  * @author OpenCV
  */
-void SettingsStereo::interprate(){
+int SettingsStereo::interprate(){
 
     if (this->_input.empty())
     {
         if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Input is Empty!" << endl;}
         this->_inputType = INVALID;
+        return -1;
     }
     else
     {
@@ -92,9 +95,11 @@ void SettingsStereo::interprate(){
         if (this->_inputType != IMAGE_LIST && !this->_inputCapture.isOpened()){
             if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): INVALID mode! Error on opening the Camera System! " << endl;}
             this->_inputType = INVALID;
+            return -1;
         }
     }
     if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Leaving Interprate\n";}
+    return 0;
 }
 
 
@@ -151,7 +156,7 @@ bool SettingsStereo::_readStringList( const string& filename, vector<string>& l 
 
 
 
-void SettingsStereo::print(){
+int SettingsStereo::print(){
     if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Start printing...\n";}
     cout << "Image List:\t";
     for(int i=0; i < this->_imageList.size(); i++)
@@ -195,4 +200,5 @@ void SettingsStereo::print(){
 //    << "flipVertical: " << this->flipVertical << std::endl
 //    << "delay: " << this->delay << std::endl;
     if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Leaving.\n";}
+    return 0;
 }

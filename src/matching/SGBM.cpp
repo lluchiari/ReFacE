@@ -8,6 +8,10 @@ SGBM::~SGBM() {
 
 }
 
-int SGBM::match(string filename){
+int SGBM::config(string filename){
+    return 1;
+}
+
+int SGBM::match(){
     return 1;
 }

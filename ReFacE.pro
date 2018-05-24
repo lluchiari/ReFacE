@@ -30,9 +30,10 @@ SOURCES += \
         src/calibration/settings/SettingsStereo.cpp \
         src/calibration/settings/SettingsSingle.cpp \
         src/calibration/StereoCalib.cpp \
+        src/matching/settings/SettingsMatchingStereo.cpp \
         src/matching/BlockMatching.cpp \
         src/matching/SGBM.cpp \
-        src/matching/settings/MatchingStereoSettings.cpp \
+        src/viewer/Viewer3D.cpp \
         src/utils/InputParser.cpp \
         src/3rdParty/TinyXML2/tinyxml2.cpp
 
@@ -42,11 +43,12 @@ HEADERS += \
         include/calibration/settings/SettingsStereo.h \
         include/calibration/settings/SettingsSingle.h \
         include/calibration/StereoCalib.h \
+        include/matching/settings/SettingsMatchingStereo.h \
         include/calibration/Calibration.h \
         include/matching/StereoMatching.hh \
         include/matching/BlockMatching.h \
         include/matching/SGBM.h \
-        include/matching/settings/MatchingStereoSettings.h \
+        include/viewer/Viewer3D.hh \
         include/utils/common.h \
         include/utils/Settings.hh \
         include/utils/InputParser.hh \

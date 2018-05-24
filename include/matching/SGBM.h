@@ -21,7 +21,8 @@ class myStereoMatching::SGBM : public StereoMatching{
 public:
     SGBM();
     ~SGBM();
-    int match(string);
+    int config(string);
+    int match();
 };
 
 

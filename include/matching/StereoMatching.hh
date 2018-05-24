@@ -2,14 +2,15 @@
 #define __STEREOMATCHING_H__
 
 // Internal LIBs
-#include <common.h>
-#include <calibration/Calibration.h>
+#include <utils/common.h>
+#include <utils/Settings.hh>
 
 // STL Libs
 #include <iostream>
 #include <string>
 
 using namespace std;
+using namespace mySettings;
 
 namespace myStereoMatching {
     class StereoMatching;
@@ -26,7 +27,7 @@ public:
     virtual string nameToString(){return _name;}
 
     // Variables //
-    Calibration _calib;
+    Settings *_calibSettings;
     string _name;
 
 };

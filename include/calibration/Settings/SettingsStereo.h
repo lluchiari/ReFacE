@@ -23,7 +23,7 @@
 
 using namespace cv;
 using namespace std;
-using namespace myCalibSettings;
+using namespace mySettings;
 
 class SettingsStereo : public Settings
 {
@@ -33,9 +33,9 @@ public:
     ~SettingsStereo();
 
     //Read vector for this class
-    void read(string);
-    void interprate();
-    void print();
+    int read(string);
+    int interprate();
+    int print();
 
     // Kind of imput images
     enum InputType {

@@ -71,10 +71,12 @@
  * @brief This function reads the xml file and fullfill the class variables
  * @param fileLocation
  */
-void SettingsSingle::read(string fileLocation)
+int SettingsSingle::read(string fileLocation)
 {
     tinyxml2::XMLDocument doc;
-    doc.LoadFile(fileLocation.c_str());
+    if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
+        cerr << "SettingsSingle::read: Error on reading the xml file!\n";
+    }
 
     this->boardSize.width = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Width")->GetText());
     this->boardSize.height = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Height")->GetText());
@@ -91,6 +93,7 @@ void SettingsSingle::read(string fileLocation)
     this->showUndistorsed = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage")->GetText());
     this->input = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input")->GetText();
     this->delay = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay")->GetText());
+    return 0;
 }
 
 void SettingsSingle::setStackImage(string stackFileLocation){
@@ -107,28 +110,32 @@ void SettingsSingle::setOutputFile(string outFileLocation){
  * @brief SettingsSingle::interprate interprate the configure file given and check for errors
  * @author OpenCV
  */
-void SettingsSingle::interprate()
+int SettingsSingle::interprate()
 {
     this->goodInput = true;
     if (this->boardSize.width <= 0 || this->boardSize.height <= 0)
     {
         cerr << "Invalid Board size: " << this->boardSize.width << " " << this->boardSize.height << endl;
         this->goodInput = false;
+        return -1;
     }
     if (this->squareSize <= 10e-6)
     {
         cerr << "Invalid square size " << squareSize << endl;
         this->goodInput = false;
+        return -1;
     }
     if (this->nrFrames <= 0)
     {
         cerr << "Invalid number of frames! Fix you configuration file " << this->nrFrames << endl;
         this->goodInput = false;
+        return -1;
     }
     if (this->input.empty())
     {
         if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): Input is Empty!" << endl;}
         this->inputType = INVALID;
+        return -1;
     }
     else
     {
@@ -165,6 +172,7 @@ void SettingsSingle::interprate()
         if (inputType != IMAGE_LIST && !this->inputCapture.isOpened()){
             if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
             inputType = INVALID;
+            return -1;
         }
     }
     if (inputType == INVALID)
@@ -192,6 +200,7 @@ void SettingsSingle::interprate()
         this->goodInput = false;
     }
     this->atImageList = 0;
+    return 0;
 }
 
 Mat SettingsSingle::nextImage(){
@@ -265,7 +274,7 @@ bool SettingsSingle::isListOfImages( const string& filename)
     }
 }
 
-void SettingsSingle::print(){
+int SettingsSingle::print(){
     cout << "Print:\n"
     << "boardSize.width: " << this->boardSize.width << std::endl
     << "boardSize.height: " << this->boardSize.height << std::endl
@@ -282,4 +291,5 @@ void SettingsSingle::print(){
     << "showUndistorsed: " << this->showUndistorsed << std::endl
     << "input: " << this->input << std::endl
     << "delay: " << this->delay << std::endl;
+    return 0;
 }
