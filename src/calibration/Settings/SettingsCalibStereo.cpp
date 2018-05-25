@@ -1,4 +1,4 @@
-#include <Settings/SettingsStereo.h>
+#include <calibration/settings/SettingsCalibStereo.h>
 
 SettingsStereo::SettingsStereo(){
     _displayCorners = false;

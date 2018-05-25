@@ -22,7 +22,7 @@
 
 /* Internal Libs */
 #include <mainwindow.h>
-#include <settings/SettingsSingle.h>
+#include <calibration/settings/SettingsCalibSingle.h>
 #include <utils/common.h>
 
 class Calibration

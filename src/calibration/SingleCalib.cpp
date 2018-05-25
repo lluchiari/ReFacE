@@ -1,11 +1,11 @@
-#include <Calibration.h>
+#include <SingleCalib.h>
 
 
-Calibration::Calibration()
+SingleCalib::SingleCalib()
 {
 }
 
-Calibration::~Calibration()
+SingleCalib::~SingleCalib()
 {
 }
 
@@ -14,7 +14,7 @@ Calibration::~Calibration()
  * @brief read the configuration file to configure the calibration
  * @return (0) if ok. (-1) if any error occured
  */
-int Calibration::config(string inputFile, string stackFile, string outFile)
+int SingleCalib::config(string inputFile, string stackFile, string outFile)
 {
     // Read the settings
     //    FileStorage fs(inputSettingsFile, FileStorage::READ);
@@ -52,7 +52,7 @@ if(DEBUG_CALIBRATION){cout << "After Read" << endl;}
  * @brief read the configuration file to configure the calibration
  * @return (0) if ok. (-1) if any error occured
  */
-int Calibration::config(string inputFile){
+int SingleCalib::config(string inputFile){
 
     this->_s.read(inputFile);
     // Check if the input is valid
@@ -68,7 +68,7 @@ int Calibration::config(string inputFile){
     return 0;
 }
 
-int Calibration::calibrate() {
+int SingleCalib::calibrate() {
 
     vector<vector<Point2f> > imagePoints;       // Vector containig the points of each image
     Mat cameraMatrix;                           //
@@ -247,7 +247,7 @@ int Calibration::calibrate() {
  * @param imagePoints
  * @return
  */
-bool Calibration::runCalibrationAndSave(SettingsSingle& s, Size imageSize, Mat&  cameraMatrix,
+bool SingleCalib::runCalibrationAndSave(SettingsSingle& s, Size imageSize, Mat&  cameraMatrix,
                                         Mat& distCoeffs, vector<vector<Point2f>> imagePoints )
 {
     vector<Mat> rvecs, tvecs;
@@ -314,7 +314,7 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Point3f>&
     }
 }
 
-bool Calibration::runCalibration( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+bool SingleCalib::runCalibration( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                   vector<vector<Point2f> > imagePoints, vector<Mat>& rvecs, vector<Mat>& tvecs,
                                   vector<float>& reprojErrs,  double& totalAvgErr)
 {
@@ -356,7 +356,7 @@ bool Calibration::runCalibration( SettingsSingle& s, Size& imageSize, Mat& camer
  * @param imagePoints
  * @param totalAvgErr
  */
-void Calibration::saveCameraParams( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+void SingleCalib::saveCameraParams( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                     const vector<Mat>& rvecs, const vector<Mat>& tvecs,
                                     const vector<float>& reprojErrs, const vector<vector<Point2f> >& imagePoints,
                                     double totalAvgErr )

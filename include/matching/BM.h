@@ -2,8 +2,8 @@
 #define __BLOCKMATCHING_H__
 
 // Internal LIBs
-#include <StereoMatching.hh>
-#include <matching/settings/SettingsMatchingStereo.h>
+#include <Matching.hh>
+#include <matching/settings/SettingsMatchingBM.h>
 #include <common.h>
 
 // OpenCV Libs
@@ -16,12 +16,12 @@
 // STL Libs
 #include <string>
 
-using namespace myStereoMatching;
+using namespace myMatching;
 
-class myStereoMatching::BlockMatching : public StereoMatching{
+class myMatching::BM : public Matching{
 public:
-    BlockMatching();
-    ~BlockMatching();
+    BM();
+    ~BM();
 
     int config(string);
     int match();

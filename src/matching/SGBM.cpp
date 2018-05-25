@@ -2,6 +2,7 @@
 
 SGBM::SGBM(){
     this->_name = "Semiglobal Block Matching";
+    this->_settings = new SettingsMatchingSGBM();
 }
 
 SGBM::~SGBM() {

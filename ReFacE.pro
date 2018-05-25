@@ -25,33 +25,48 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/MainWindow.cpp \
-        src/calibration/Calibration.cpp \
-        src/calibration/settings/SettingsStereo.cpp \
-        src/calibration/settings/SettingsSingle.cpp \
+\
+        src/mainController/MainController.cpp \
+        src/mainController/Settings/SettingsMainController.cpp \
+\
+        src/calibration/SingleCalib.cpp \
+        src/calibration/settings/SettingsCalibSingle.cpp \
         src/calibration/StereoCalib.cpp \
-        src/matching/settings/SettingsMatchingStereo.cpp \
-        src/matching/BlockMatching.cpp \
+        src/calibration/settings/SettingsCalibStereo.cpp \
+\
+        src/matching/BM.cpp \
+        src/matching/settings/SettingsMatchingBM.cpp \
         src/matching/SGBM.cpp \
+        src/matching/settings/SettingsMatchingSGBM.cpp \
+\
         src/viewer/Viewer3D.cpp \
-        src/utils/InputParser.cpp \
+\
         src/3rdParty/TinyXML2/tinyxml2.cpp
 
 HEADERS += \
-        include/MainWindow.h \
         include/ReFacE.h \
-        include/calibration/settings/SettingsStereo.h \
-        include/calibration/settings/SettingsSingle.h \
+\
+        include/mainController/MainController.h \
+        include/mainController/Settings/SettingsMainController.h \
+\
+        include/calibration/Calibration.hh \
+        include/calibration/SingleCalib.h \
+        include/calibration/settings/SettingsCalibSingle.h \
         include/calibration/StereoCalib.h \
-        include/matching/settings/SettingsMatchingStereo.h \
-        include/calibration/Calibration.h \
-        include/matching/StereoMatching.hh \
-        include/matching/BlockMatching.h \
+        include/calibration/settings/SettingsCalibStereo.h \
+\
+        include/matching/Matching.hh \
+        include/matching/BM.h \
+        include/matching/settings/SettingsMatchingBM.h \
         include/matching/SGBM.h \
+        include/matching/settings/SettingsMatchingSGBM.h \
+\
         include/viewer/Viewer3D.hh \
+\
         include/utils/common.h \
         include/utils/Settings.hh \
-        include/utils/InputParser.hh \
+        include/utils/Module.hh \
+\
         include/3rdParty/TinyXML2/tinyxml2.h
 
 

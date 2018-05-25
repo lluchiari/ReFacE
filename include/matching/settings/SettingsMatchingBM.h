@@ -1,5 +1,5 @@
-#ifndef __MATCHING_STEREO_SETTINGS_H__
-#define __MATCHING_STEREO_SETTINGS_H__
+#ifndef __SETTINGS_MATCHING_BM_H__
+#define __SETTINGS_MATCHING_BM_H__
 
 /* Internal Libs */
 #include <iostream>
@@ -11,8 +11,8 @@
 #include <opencv2/core/core.hpp>
 
 // Internal Libs //
-#include <utils/Settings.hh>
 #include <utils/common.h>
+#include <utils/Settings.hh>
 
 // 3rd Party Libs //
 #include <tinyxml2.h>
@@ -22,12 +22,12 @@ using namespace cv;
 using namespace std;
 using namespace mySettings;
 
-class SettingsMatchingStereo : public Settings
+class SettingsMatchingBM : public Settings
 {
 public:
 
-    SettingsMatchingStereo();
-    ~SettingsMatchingStereo();
+    SettingsMatchingBM();
+    ~SettingsMatchingBM();
 
     // Read vector for this class
     // Overrided Functions
@@ -55,4 +55,4 @@ public:
 
 };
 
-#endif // __MATCHING_STEREO_SETTINGS_H__
+#endif // __SETTINGS_MATCHING_BM_H__

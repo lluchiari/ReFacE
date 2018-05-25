@@ -20,7 +20,7 @@
 #include <ctype.h>
 
 // Internal Libs
-#include <settings/SettingsStereo.h>
+#include <settings/SettingsCalibStereo.h>
 #include <utils/common.h>
 
 using namespace std;

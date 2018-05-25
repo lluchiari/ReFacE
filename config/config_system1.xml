@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Config_System>
+  <!-- Module Section -->
+  <Calib_Config>../config/calib/calib_stereo.xml</Calib_Config>
+  <Match_Config>../config/match/match_bm.xml</Match_Config>  
+  
+  <!-- Run Mode Section -->
+  <Run_Mode>CALIBRATION_ONLY</Run_Mode>
+</Config_System>
+</ReFacE>

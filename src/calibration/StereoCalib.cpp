@@ -125,6 +125,11 @@ int StereoCalib::rectificate()
     return 0;
 }
 
+/**
+ * @brief StereoCalib::load loads the content of a calibration file
+ * @param filename is the path for the output file
+ * @return Zero if the precess is right. -1 if something went wrong
+ */
 int StereoCalib::load(string filename){
     return 0;
 }

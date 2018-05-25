@@ -2,7 +2,8 @@
 #define __SGBM_H__
 
 // Internal LIBs
-#include <StereoMatching.hh>
+#include <Matching.hh>
+#include <matching/settings/SettingsMatchingSGBM.h>
 #include <common.h>
 
 // OpenCV Libs
@@ -15,14 +16,16 @@
 // STL Libs
 #include <string>
 
-using namespace myStereoMatching;
+using namespace myMatching;
 
-class myStereoMatching::SGBM : public StereoMatching{
+class myMatching::SGBM : public Matching{
 public:
     SGBM();
     ~SGBM();
     int config(string);
     int match();
+
+    SettingsMatchingSGBM *_settings;
 };
 
 

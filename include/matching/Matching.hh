@@ -3,6 +3,7 @@
 
 // Internal LIBs
 #include <utils/common.h>
+#include <utils/Module.hh>
 #include <utils/Settings.hh>
 
 // STL Libs
@@ -10,25 +11,23 @@
 #include <string>
 
 using namespace std;
+using namespace myModule;
 using namespace mySettings;
 
-namespace myStereoMatching {
-    class StereoMatching;
-    class BlockMatching;
+namespace myMatching {
+    class Matching;
+    class BM;
     class SGBM;
 }
 
-class myStereoMatching::StereoMatching {
-
+class myMatching::Matching : public Module
+{
 public:
 
     virtual int match() = 0;
-    virtual int config(string) = 0;
-    virtual string nameToString(){return _name;}
 
     // Variables //
     Settings *_calibSettings;
-    string _name;
 
 };
 
