@@ -8,10 +8,28 @@ static void show_usage(std::string name) {
               << std::endl;
 }
 
+static void registryWallaroo(){
+    try{
+        // A catalog contains the objects used by our app
+        Catalog catalog;
+        // You can create the objects you need in this way
+        catalog.Create("mainControl", "MainController");
+
+    }
+    catch(const WallarooError& error )
+    {
+        std::cerr << "ERROR: " << error.what() << std::endl;
+    }
+
+}
+
 int main(int argc, char *argv[])
 {
     //Files declaration
     std::string mainConfigFile;
+
+    // Registring Wallaroo
+    registryWallaroo();
 
 //#############################################################################################
 //      COMMAND LINE PARSER
@@ -22,7 +40,6 @@ int main(int argc, char *argv[])
                              << " --help' for more information.\n";
         return -1;
     }
-
 
     mainConfigFile = argv[1];
 

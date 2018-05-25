@@ -25,49 +25,49 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-\
+#
         src/mainController/MainController.cpp \
         src/mainController/Settings/SettingsMainController.cpp \
-\
-        src/calibration/SingleCalib.cpp \
+#
+        src/calibration/CalibSingle.cpp \
         src/calibration/settings/SettingsCalibSingle.cpp \
-        src/calibration/StereoCalib.cpp \
+        src/calibration/CalibStereo.cpp \
         src/calibration/settings/SettingsCalibStereo.cpp \
-\
-        src/matching/BM.cpp \
+#
+        src/matching/MatchBM.cpp \
         src/matching/settings/SettingsMatchingBM.cpp \
-        src/matching/SGBM.cpp \
+        src/matching/MatchSGBM.cpp \
         src/matching/settings/SettingsMatchingSGBM.cpp \
-\
+#
         src/viewer/Viewer3D.cpp \
-\
+#
         src/3rdParty/TinyXML2/tinyxml2.cpp
 
 HEADERS += \
         include/ReFacE.h \
-\
-        include/mainController/MainController.h \
-        include/mainController/Settings/SettingsMainController.h \
-\
-        include/calibration/Calibration.hh \
-        include/calibration/SingleCalib.h \
-        include/calibration/settings/SettingsCalibSingle.h \
-        include/calibration/StereoCalib.h \
-        include/calibration/settings/SettingsCalibStereo.h \
-\
-        include/matching/Matching.hh \
-        include/matching/BM.h \
-        include/matching/settings/SettingsMatchingBM.h \
-        include/matching/SGBM.h \
-        include/matching/settings/SettingsMatchingSGBM.h \
-\
-        include/viewer/Viewer3D.hh \
-\
-        include/utils/common.h \
-        include/utils/Settings.hh \
-        include/utils/Module.hh \
-\
-        include/3rdParty/TinyXML2/tinyxml2.h
+#
+        include/mainController/*.h \
+        include/mainController/Settings/*.h \
+#
+        include/calibration/*.hh \
+        include/calibration/*.h \
+        include/calibration/settings/*.h \
+#
+        include/matching/*.hh \
+        include/matching/*.h \
+        include/matching/settings/*.h \
+#
+        include/viewer/*.hh \
+#
+        include/utils/*.h \
+        include/utils/*.hh \
+#
+#       // 3rdParty libraries
+        include/3rdParty/TinyXML2/*.h \
+        include/3rdParty/wallaroo/*.h \
+        include/3rdParty/wallaroo/cxx0x.h \
+        include/3rdParty/wallaroo/part.h \
+        include/3rdParty/wallaroo/detail/*
 
 
 FORMS += \
@@ -81,7 +81,8 @@ LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341d
 
 
 INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15 $(OPENCV_STATIC_DIR)/build/include
-INCLUDEPATH += $$PWD/include $$PWD/include/calibration $$PWD/include/utils $$PWD/include/3rdParty/TinyXML2
+INCLUDEPATH += $$PWD/include $$PWD/include/calibration $$PWD/include/utils
+INCLUDEPATH += $$PWD/include/3rdParty/TinyXML2 $$PWD/include/3rdParty/wallaroo/
 INCLUDEPATH += $$PWD/include/matching
 
 

@@ -1,15 +1,15 @@
-#include <BM.h>
+#include <matching/MatchBM.h>
 
-BM::BM(){
+MatchBM::MatchBM(){
     this->_name = "Block Matching";
     this->_calibSettings = new SettingsMatchingBM();
 }
 
-BM::~BM() {
+MatchBM::~MatchBM() {
     delete this->_calibSettings;
 }
 
-int BM::config(string filename){
+int MatchBM::config(string filename){
 
     this->_calibSettings->read(filename);
     this->_calibSettings->interprate();
@@ -17,6 +17,6 @@ int BM::config(string filename){
 }
 
 
-int BM::match(){
+int MatchBM::match(){
     return 1;
 }

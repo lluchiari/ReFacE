@@ -18,9 +18,18 @@ public:
     int interprate();
     int print();
 
+    // Calibration //
     string _calibFile;
+    string _calibType;
+
+    // Matching //
     string _matchFile;
+    string _matchType;
+
+    // Vewer //
     string _viewFile;
+    string _viewType;
+
     string _runMode;
 
 

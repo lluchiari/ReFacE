@@ -1,5 +1,5 @@
-#ifndef __CALIBRATION_H__
-#define __CALIBRATION_H__
+#ifndef __SINGLE_CALIBRATION_H__
+#define __SINGLE_CALIBRATION_H__
 
 /* QT Libs */
 #include <QFileDialog>
@@ -22,19 +22,23 @@
 
 /* Internal Libs */
 #include <mainwindow.h>
+#include <utils/Module.hh>
 #include <settings/SettingsCalibSingle.h>
 #include <utils/common.h>
 
-class SingleCalib
+using namespace std;
+using namespace myModule;
+
+class CalibSingle : Module
 {
 public:
-    SingleCalib(QWidget *);
-    SingleCalib();
-    ~SingleCalib();
+    CalibSingle(QWidget *);
+    CalibSingle();
+    ~CalibSingle();
 
     int config(string, string, string);
     int config(string);
-    int calibrate();
+    int run();
 
 private:
     SettingsSingle _s;            //Setting file to be read by the funciton

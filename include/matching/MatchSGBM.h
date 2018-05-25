@@ -1,9 +1,9 @@
-#ifndef __BLOCKMATCHING_H__
-#define __BLOCKMATCHING_H__
+#ifndef __SGBM_H__
+#define __SGBM_H__
 
 // Internal LIBs
 #include <Matching.hh>
-#include <matching/settings/SettingsMatchingBM.h>
+#include <matching/settings/SettingsMatchingSGBM.h>
 #include <common.h>
 
 // OpenCV Libs
@@ -18,13 +18,15 @@
 
 using namespace myMatching;
 
-class myMatching::BM : public Matching{
+class myMatching::MatchSGBM : public Matching{
 public:
-    BM();
-    ~BM();
-
+    MatchSGBM();
+    ~MatchSGBM();
     int config(string);
     int match();
+
+    SettingsMatchingSGBM *_settings;
 };
 
-#endif __BLOCKMATCHING_H__
+
+#endif __MATCH_SGBM_H__

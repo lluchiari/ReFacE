@@ -7,19 +7,24 @@
 #include <utils/Settings.hh>
 
 #include <calibration/Calibration.hh>
-#include <calibration/SingleCalib.h>
-#include <calibration/StereoCalib.h>
+#include <calibration/CalibSingle.h>
+#include <calibration/CalibStereo.h>
 
 #include <matching/Matching.hh>
 
 #include <viewer/Viewer3D.hh>
 
 #include <3rdParty/TinyXML2/tinyxml2.h>
+#include <3rdParty/wallaroo/collaborator.h>
+#include <3rdParty/wallaroo/registered.h>
+#include <3rdParty/wallaroo/attribute.h>
+#include <3rdParty/wallaroo/part.h>
 
 #include <mainController/Settings/SettingsMainController.h>
 
 using namespace myModule;
 using namespace myMatching;
+using namespace wallaroo;
 
 namespace myMainController {
     class MainController;
@@ -30,7 +35,7 @@ namespace myMainController {
     };
 }
 
-class myMainController::MainController : Module
+class myMainController::MainController : public Module, public Part
 {
 public:
     MainController();
@@ -38,6 +43,9 @@ public:
 
     int config(string);
     int run();
+private:
+    Module *_getType(string);
+public:
 
     // Operation Mode
     myMainController::runMode _mode;
@@ -47,13 +55,13 @@ public:
 
     // Modules to be loaded //
     bool has_calib_Module;
-    StereoCalib *_calibModule;
+    Collaborator<Calibration> *_calibModule;
 
     bool has_match_module;
-    Matching *_matchModule;
+    Collaborator<Matching> *_matchModule;
 
     bool has_view_module;
-    Viewer *_viewModule;
+    Collaborator<Viewer> *_viewModule;
 
     SettingsMainController *_settings;
 };

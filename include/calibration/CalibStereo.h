@@ -20,6 +20,7 @@
 #include <ctype.h>
 
 // Internal Libs
+#include <calibration/Calibration.hh>
 #include <settings/SettingsCalibStereo.h>
 #include <utils/common.h>
 
@@ -27,14 +28,13 @@ using namespace std;
 using namespace cv;
 
 
-
-class StereoCalib
+class CalibStereo : public Calibration
 {
 public:
-    StereoCalib();
-public:
+    CalibStereo();
+
     int config(string);
-    int calibrate();
+    int run();
     int rectificate();
     int load(string);
 

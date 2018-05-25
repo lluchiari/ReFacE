@@ -4,6 +4,7 @@
 #include <utils/common.h>
 #include <utils/Settings.hh>
 
+using namespace std;
 using namespace mySettings;
 
 namespace myModule {
@@ -20,8 +21,18 @@ public:
 
     /* The Name of the Module */
     string _name;
+
+protected:
     Settings *_innerSetting;
 };
 
+struct _MODULE_NAMES_
+{
+    const string CALIBRATION_SINGLE  = "Single Calib";
+    const string CALIBRATION_STEREO  = "Stereo Calib";
+    const string MATCHING_BM  = "Block Matching";
+    const string MATCHING_SGBM  = "Semi-Global Block Matching";
+    const string VEWER3D  = "3D Viewer";
+} NameOfModules;
 
 #endif __MODULE_H__

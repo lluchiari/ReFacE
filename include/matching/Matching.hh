@@ -16,8 +16,8 @@ using namespace mySettings;
 
 namespace myMatching {
     class Matching;
-    class BM;
-    class SGBM;
+    class MatchBM;
+    class MatchSGBM;
 }
 
 class myMatching::Matching : public Module

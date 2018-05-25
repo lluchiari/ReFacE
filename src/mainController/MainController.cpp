@@ -1,6 +1,12 @@
 #include <mainController/MainController.h>
 
-myMainController::MainController::MainController(){
+WALLAROO_REGISTER(myMainController::MainController)
+
+myMainController::MainController::MainController() :
+    _calibModule("_calibModule", RegistrationToken()),
+    _matchModule("_matchModule", RegistrationToken()),
+    _viewModule("_viewModule", RegistrationToken())
+{
     this->_name = "MainController";
     has_calib_Module = false;
     has_match_module = false;
@@ -149,4 +155,28 @@ int myMainController::MainController::config(string fileLocation){
 
 int myMainController::MainController::run(){
     return 1;
+}
+
+
+Module *myMainController::MainController::_getType(string type){
+    if(!type.compare(NameOfModules.CALIBRATION_SINGLE)){
+        CalibSingle *ptr = new CalibSingle();
+        return ptr;
+    }
+    else if(!type.compare(NameOfModules.CALIBRATION_STEREO)){
+        CalibStereo *ptr = new CalibStereo();
+        return ptr;
+    }
+//    else if(!type.compare(NameOfModules.MATCHING_BM)){
+
+//    }
+//    else if(!type.compare(NameOfModules.MATCHING_SGBM)){
+
+//    }
+//    else if(!type.compare(NameOfModules.VEWER3D)){
+
+//    }
+    else{
+        return NULL;
+    }
 }

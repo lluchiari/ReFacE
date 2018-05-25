@@ -1,11 +1,11 @@
-#include <StereoCalib.h>
+#include <calibration/CalibStereo.h>
 
-StereoCalib::StereoCalib()
+CalibStereo::CalibStereo()
 {
     _configFlag = false;
 }
 
-int StereoCalib::config(string configFile)
+int CalibStereo::config(string configFile)
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -24,7 +24,7 @@ int StereoCalib::config(string configFile)
     return 0;
 }
 
-int StereoCalib::calibrate()
+int CalibStereo::run()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -88,7 +88,7 @@ int StereoCalib::calibrate()
     return 0;
 }
 
-int StereoCalib::rectificate()
+int CalibStereo::rectificate()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -130,11 +130,11 @@ int StereoCalib::rectificate()
  * @param filename is the path for the output file
  * @return Zero if the precess is right. -1 if something went wrong
  */
-int StereoCalib::load(string filename){
+int CalibStereo::load(string filename){
     return 0;
 }
 
-int StereoCalib::_pairDetect()
+int CalibStereo::_pairDetect()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -300,7 +300,7 @@ int StereoCalib::_pairDetect()
    return 0;
 }
 
-int StereoCalib::_calibCheck()
+int CalibStereo::_calibCheck()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -339,7 +339,7 @@ int StereoCalib::_calibCheck()
     return 0;
 }
 
-int StereoCalib::_calibStereoSaveOutputParam(){
+int CalibStereo::_calibStereoSaveOutputParam(){
 
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
@@ -366,7 +366,7 @@ int StereoCalib::_calibStereoSaveOutputParam(){
     }
 }
 
-void StereoCalib::_showRectification()
+void CalibStereo::_showRectification()
 {
     #if DEBUG_CALIBRATION_STEREO
         cout << "################################################\n";
