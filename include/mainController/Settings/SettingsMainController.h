@@ -19,18 +19,18 @@ public:
     int print();
 
     // Calibration //
-    string _calibFile;
-    string _calibType;
+    string calibFile;
+    string calibType;
 
     // Matching //
-    string _matchFile;
-    string _matchType;
+    string matchFile;
+    string matchType;
 
     // Vewer //
-    string _viewFile;
-    string _viewType;
+    string viewFile;
+    string viewType;
 
-    string _runMode;
+    string runMode;
 
 
     bool has_calib_module;
@@ -38,4 +38,4 @@ public:
     bool has_viewer_module;
 };
 
-#endif
+#endif //__SETTINGS_MAIN_CONTROLLER_H__

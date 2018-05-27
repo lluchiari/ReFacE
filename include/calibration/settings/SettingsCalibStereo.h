@@ -18,7 +18,7 @@
 #include <utils/common.h>
 
 // 3rd Party Libs //
-#include <tinyxml2.h>
+#include <3rdParty/TinyXML2/tinyxml2.h>
 
 
 using namespace cv;

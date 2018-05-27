@@ -1,5 +1,5 @@
-#ifndef __VIEW_H__
-#define __VIEW_H__
+#ifndef __VIEWER_H__
+#define __VIEWER_H__
 
 // Internal LIBs
 #include <utils/common.h>
@@ -17,9 +17,11 @@ using namespace mySettings;
 
 class Viewer : public Module
 {
+public:
     virtual int config(string);
     virtual int run();
+    virtual ~Viewer();
 };
 
 
-#endif //__VIEW_H__
+#endif //__VIEWER_H__

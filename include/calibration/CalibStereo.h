@@ -21,7 +21,7 @@
 
 // Internal Libs
 #include <calibration/Calibration.hh>
-#include <settings/SettingsCalibStereo.h>
+#include <calibration/settings/SettingsCalibStereo.h>
 #include <utils/common.h>
 
 using namespace std;
@@ -33,8 +33,8 @@ class CalibStereo : public Calibration
 public:
     CalibStereo();
 
-    int config(string);
-    int run();
+    int config(string) override;
+    int run() override;
     int rectificate();
     int load(string);
 

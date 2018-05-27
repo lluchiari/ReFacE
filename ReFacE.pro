@@ -26,22 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         src/main.cpp \
 #
-        src/mainController/MainController.cpp \
-        src/mainController/Settings/SettingsMainController.cpp \
+        src/mainController/*.cpp \
+        src/mainController/Settings/*.cpp \
 #
-        src/calibration/CalibSingle.cpp \
-        src/calibration/settings/SettingsCalibSingle.cpp \
-        src/calibration/CalibStereo.cpp \
-        src/calibration/settings/SettingsCalibStereo.cpp \
+        src/calibration/*.cpp \
+        src/calibration/settings/*.cpp \
 #
-        src/matching/MatchBM.cpp \
-        src/matching/settings/SettingsMatchingBM.cpp \
-        src/matching/MatchSGBM.cpp \
-        src/matching/settings/SettingsMatchingSGBM.cpp \
+        src/matching/*.cpp \
+        src/matching/settings/*.cpp \
 #
-        src/viewer/Viewer3D.cpp \
+        src/viewer/*.cpp \
 #
-        src/3rdParty/TinyXML2/tinyxml2.cpp
+        src/3rdParty/TinyXML2/*.cpp
 
 HEADERS += \
         include/ReFacE.h \
@@ -63,11 +59,7 @@ HEADERS += \
         include/utils/*.hh \
 #
 #       // 3rdParty libraries
-        include/3rdParty/TinyXML2/*.h \
-        include/3rdParty/wallaroo/*.h \
-        include/3rdParty/wallaroo/cxx0x.h \
-        include/3rdParty/wallaroo/part.h \
-        include/3rdParty/wallaroo/detail/*
+        include/3rdParty/TinyXML2/*.h
 
 
 FORMS += \
@@ -80,10 +72,9 @@ LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341
 LIBS += -L$(OPENCV_STATIC_DIR)/build/x64/vc15/lib/ -lopencv_world341d
 
 
-INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15 $(OPENCV_STATIC_DIR)/build/include
-INCLUDEPATH += $$PWD/include $$PWD/include/calibration $$PWD/include/utils
-INCLUDEPATH += $$PWD/include/3rdParty/TinyXML2 $$PWD/include/3rdParty/wallaroo/
-INCLUDEPATH += $$PWD/include/matching
+INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/x64/vc15
+INCLUDEPATH += $(OPENCV_STATIC_DIR)/build/include
+INCLUDEPATH += $$PWD/include
 
 
 DISTFILES += \

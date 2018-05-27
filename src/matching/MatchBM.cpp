@@ -2,17 +2,17 @@
 
 MatchBM::MatchBM(){
     this->_name = "Block Matching";
-    this->_calibSettings = new SettingsMatchingBM();
+    this->_matchSettings = new SettingsMatchingBM();
 }
 
 MatchBM::~MatchBM() {
-    delete this->_calibSettings;
+    delete this->_matchSettings;
 }
 
 int MatchBM::config(string filename){
-
-    this->_calibSettings->read(filename);
-    this->_calibSettings->interprate();
+    //TODO: Check the returns
+    this->_matchSettings->read(filename);
+    this->_matchSettings->interprate();
     return 1;
 }
 

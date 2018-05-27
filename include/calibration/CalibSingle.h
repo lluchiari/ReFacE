@@ -23,13 +23,14 @@
 /* Internal Libs */
 #include <mainwindow.h>
 #include <utils/Module.hh>
-#include <settings/SettingsCalibSingle.h>
+#include <calibration/Calibration.hh>
+#include <calibration/settings/SettingsCalibSingle.h>
 #include <utils/common.h>
 
 using namespace std;
 using namespace myModule;
 
-class CalibSingle : Module
+class CalibSingle : public Calibration
 {
 public:
     CalibSingle(QWidget *);
@@ -37,8 +38,8 @@ public:
     ~CalibSingle();
 
     int config(string, string, string);
-    int config(string);
-    int run();
+    int config(string) override;
+    int run() override;
 
 private:
     SettingsSingle _s;            //Setting file to be read by the funciton
@@ -60,4 +61,4 @@ private:
                                 vector<float>&,  double&);
 };
 
-#endif
+#endif //__SINGLE_CALIBRATION_H__

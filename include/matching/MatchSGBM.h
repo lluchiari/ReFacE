@@ -1,10 +1,10 @@
-#ifndef __SGBM_H__
-#define __SGBM_H__
+#ifndef __MATCH_SGBM_H__
+#define __MATCH_SGBM_H__
 
 // Internal LIBs
-#include <Matching.hh>
+#include <utils/common.h>
+#include <matching/Matching.hh>
 #include <matching/settings/SettingsMatchingSGBM.h>
-#include <common.h>
 
 // OpenCV Libs
 #include <opencv2/calib3d/calib3d.hpp>
@@ -13,20 +13,19 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core/utility.hpp>
 
-// STL Libs
-#include <string>
-
 using namespace myMatching;
 
-class myMatching::MatchSGBM : public Matching{
+class myMatching::MatchSGBM : public Matching
+{
 public:
     MatchSGBM();
     ~MatchSGBM();
-    int config(string);
-    int match();
+    int config(string) override;
+    int match() override;
+    int run() override;
 
-    SettingsMatchingSGBM *_settings;
+    SettingsMatchingSGBM *_matchSettings;
 };
 
 
-#endif __MATCH_SGBM_H__
+#endif //__MATCH_SGBM_H__

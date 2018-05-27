@@ -20,6 +20,7 @@ public:
     virtual int read(string) = 0;
     virtual int interprate() = 0;
     virtual int print() =0;
+    virtual ~Settings();
 
 };
 

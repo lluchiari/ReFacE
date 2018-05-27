@@ -1,5 +1,5 @@
-#ifndef __REFACE__
-#define __REFACE__
+#ifndef __REFACE_H__
+#define __REFACE_H__
 
 // Internal Libs
 #include <mainController/MainController.h>
@@ -21,4 +21,4 @@ using namespace myMainController;
 // Calib default //
 #define DEFAULT_CALIB "../config/calib/calib_stereo.xml"
 
-#endif
+#endif //__REFACE_H__

@@ -7,7 +7,6 @@
 #include <vector>
 
 #include <opencv2/core/core.hpp>
-#include <3rdParty/wallaroo/catalog.h>
 
 #ifndef DEBUG
     #define DEBUG 0

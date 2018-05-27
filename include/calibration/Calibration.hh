@@ -10,10 +10,11 @@ using namespace myModule;
 
 class Calibration : public Module
 {
-public:    
+public:
+    virtual ~Calibration();
 
 private:
     Settings *_s;            //Setting file to be read by the funciton
 };
 
-#endif
+#endif //__CALIBRATION_H__

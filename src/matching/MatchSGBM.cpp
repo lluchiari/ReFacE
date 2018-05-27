@@ -2,14 +2,17 @@
 
 MatchSGBM::MatchSGBM(){
     this->_name = "Semiglobal Block Matching";
-    this->_settings = new SettingsMatchingSGBM();
+    this->_matchSettings = new SettingsMatchingSGBM();
 }
 
 MatchSGBM::~MatchSGBM() {
-
+    delete this->_matchSettings;
 }
 
 int MatchSGBM::config(string filename){
+    //TODO: Check the returns
+    this->_matchSettings->read(filename);
+    this->_matchSettings->interprate();
     return 1;
 }
 

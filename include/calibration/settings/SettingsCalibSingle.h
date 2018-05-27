@@ -14,7 +14,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 /* 3rd Party Libs */
-#include <tinyxml2.h>
+#include <3rdParty/TinyXML2/tinyxml2.h>
 
 // Internal Libs //
 #include <utils/Settings.hh>
@@ -120,4 +120,4 @@ private:
 
 };
 
-#endif // SETTINGS_H
+#endif // __SETTINGS_SINGLE_H__

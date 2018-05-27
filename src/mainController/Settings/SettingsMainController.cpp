@@ -31,25 +31,25 @@ int SettingsMainController::read(string fileLocation){
     // Calibration Mode //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Calib_Config");
     if(aux != NULL){
-        this->_calibFile = aux->GetText();
+        this->calibFile = aux->GetText();
         this->has_calib_module = true;
 
         auxString = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Calib_Config")->Attribute("name");
         if(!auxString.empty()){
-            this->_calibType = auxString;
+            this->calibType = auxString;
         }
         else{
-            this->_calibType = "";
+            this->calibType = "";
             return -1;
         }
     }
     else{
-        this->_calibFile = "";
+        this->calibFile = "";
         this->has_calib_module = false;
     }
 
     #if DEBUG_MAIN_CONTROLLER_SETTINGS
-        cout << "SettingsMainController::read: Successful read Calib_Config: '" << this->_calibFile << "'. Type: " << this->_calibType << "\n";
+        cout << "SettingsMainController::read: Successful read Calib_Config: '" << this->calibFile << "'. Type: " << this->calibType << "\n";
     #endif
 
 
@@ -57,24 +57,24 @@ int SettingsMainController::read(string fileLocation){
     // Matching Section //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Match_Config");
     if(aux != NULL){
-        this->_matchFile = aux->GetText();
+        this->matchFile = aux->GetText();
         this->has_match_module = true;
 
         auxString = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Match_Config")->Attribute("name");
         if(!auxString.empty()){
-            this->_matchType = auxString;
+            this->matchType = auxString;
         }
         else{
-            this->_matchType = "";
+            this->matchType = "";
             return -1;
         }
     }
     else{
-        this->_matchFile = "";
+        this->matchFile = "";
         this->has_match_module = false;
     }
     #if DEBUG_MAIN_CONTROLLER_SETTINGS
-        cout << "SettingsMainController::read: Successful read Match_Config: '" << this->_matchFile << "'. Type: " << this->_matchType << "\n";
+        cout << "SettingsMainController::read: Successful read Match_Config: '" << this->matchFile << "'. Type: " << this->matchType << "\n";
     #endif
 
 
@@ -82,24 +82,24 @@ int SettingsMainController::read(string fileLocation){
     // Viewer Section //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("View_Config");
     if(aux != NULL){
-        this->_viewFile = aux->GetText();
+        this->viewFile = aux->GetText();
         this->has_viewer_module = true;
 
         auxString = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("View_Config")->Attribute("name");
         if(!auxString.empty()){
-            this->_viewType = auxString;
+            this->viewType = auxString;
         }
         else{
-            this->_viewType = "";
+            this->viewType = "";
             return -1;
         }
     }
     else{
-        this->_viewFile = "";
+        this->viewFile = "";
         this->has_viewer_module = false;
     }
     #if DEBUG_MAIN_CONTROLLER_SETTINGS
-        cout << "SettingsMainController::read: Successful read View_Config: '" << this->_viewFile << "'. Type: " << this->_viewType << "\n";
+        cout << "SettingsMainController::read: Successful read View_Config: '" << this->viewFile << "'. Type: " << this->viewType << "\n";
     #endif
 
 
@@ -107,29 +107,29 @@ int SettingsMainController::read(string fileLocation){
 
     // Running Mode //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Run_Mode");
-    if(aux != NULL){this->_runMode = aux->GetText();}
-    else{this->_runMode = "";}
+    if(aux != NULL){this->runMode = aux->GetText();}
+    else{this->runMode = "";}
     #if DEBUG_MAIN_CONTROLLER_SETTINGS
-        cout << "SettingsMainController::read: Successful read Run_Mode: '" << this->_runMode << "'\n";
+        cout << "SettingsMainController::read: Successful read Run_Mode: '" << this->runMode << "'\n";
     #endif
 
     return 0;
 }
 
 int SettingsMainController::interprate(){
-    if(_runMode.empty()){
+    if(runMode.empty()){
         cerr << "SettingsMainController::interprate() Error: Not specified Run Mode!\n";
         return -1;
     }
 
     // Check if has modules //
-    if(!_calibFile.empty()){
+    if(!calibFile.empty()){
         has_calib_module = true;
     }
-    if(!_matchFile.empty()){
+    if(!matchFile.empty()){
         has_match_module = true;
     }
-    if(!_viewFile.empty()){
+    if(!viewFile.empty()){
         has_viewer_module = true;
     }
     return 0;
@@ -137,9 +137,9 @@ int SettingsMainController::interprate(){
 
 int SettingsMainController::print(){
     cout << "SettingsMainController:\n";
-    cout << "Run Mode: " << this->_runMode << endl;
-    cout << "Calib File: " << this->_calibFile << endl;
-    cout << "Match File: " << this->_matchFile << endl;
-    cout << "View File: " << this->_viewFile << endl;
+    cout << "Run Mode: " << this->runMode << endl;
+    cout << "Calib File: " << this->calibFile << endl;
+    cout << "Match File: " << this->matchFile << endl;
+    cout << "View File: " << this->viewFile << endl;
     return 1;
 }

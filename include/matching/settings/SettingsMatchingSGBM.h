@@ -1,5 +1,5 @@
-#ifndef __SETTINGS_MATCHING_BM_H__
-#define __SETTINGS_MATCHING_BM_H__
+#ifndef __SETTINGS_MATCHING_SGBM_H__
+#define __SETTINGS_MATCHING_SGBM_H__
 
 /* Internal Libs */
 #include <iostream>
@@ -15,7 +15,7 @@
 #include <utils/Settings.hh>
 
 // 3rd Party Libs //
-#include <tinyxml2.h>
+#include <3rdParty/TinyXML2/tinyxml2.h>
 
 
 using namespace cv;
