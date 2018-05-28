@@ -20,3 +20,7 @@ int MatchBM::config(string filename){
 int MatchBM::match(){
     return 1;
 }
+
+int MatchBM::run(){
+    return 1;
+}

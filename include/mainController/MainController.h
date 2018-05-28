@@ -39,8 +39,8 @@ public:
     MainController();
     ~MainController();
 
-    int config(string) override;
-    int run() override;
+    int config(string);
+    int run();
 
 public:
 
@@ -48,11 +48,11 @@ public:
     myMainController::runMode _mode;
 
     // Modules to be loaded //
-    Calibration *_calibModule;
-    Matching *_matchModule;
-    Viewer *_viewModule;
+    Calibration *_calibModule = NULL;
+    Matching *_matchModule = NULL;
+    Viewer *_viewModule = NULL;
 
-    SettingsMainController *_settings;
+    SettingsMainController *_settings = NULL;
 };
 
 

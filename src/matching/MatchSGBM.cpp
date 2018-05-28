@@ -19,3 +19,7 @@ int MatchSGBM::config(string filename){
 int MatchSGBM::match(){
     return 1;
 }
+
+int MatchSGBM::run(){
+    return 1;
+}

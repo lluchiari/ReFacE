@@ -20,9 +20,9 @@ public:
     MatchBM();
     ~MatchBM();
 
-    int config(string) override;
-    int match() override;
-    int run() override;
+    int config(string);
+    int match();
+    int run();
 
     SettingsMatchingBM *_matchSettings;
 };

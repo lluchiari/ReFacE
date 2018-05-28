@@ -8,9 +8,7 @@
 using namespace std;
 using namespace myMainController;
 
-
 #define PROGRAM_OPTIONS 3
-
 
 /* Default config files */
 

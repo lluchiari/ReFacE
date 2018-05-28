@@ -29,8 +29,6 @@ public:
     SettingsMatchingSGBM();
     ~SettingsMatchingSGBM();
 
-    // Read vector for this class
-    // Overrided Functions
     int read(string);
     int interprate();
     int print();

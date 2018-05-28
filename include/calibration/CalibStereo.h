@@ -32,6 +32,7 @@ class CalibStereo : public Calibration
 {
 public:
     CalibStereo();
+    ~CalibStereo();
 
     int config(string) override;
     int run() override;

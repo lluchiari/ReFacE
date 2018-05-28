@@ -61,7 +61,6 @@ HEADERS += \
 #       // 3rdParty libraries
         include/3rdParty/TinyXML2/*.h
 
-
 FORMS += \
         mainwindow.ui
 

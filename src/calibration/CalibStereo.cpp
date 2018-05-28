@@ -5,6 +5,10 @@ CalibStereo::CalibStereo()
     _configFlag = false;
 }
 
+CalibStereo::~CalibStereo(){
+    cout << "CalibStereo Destructor\n";
+}
+
 int CalibStereo::config(string configFile)
 {
     #if DEBUG_CALIBRATION_STEREO

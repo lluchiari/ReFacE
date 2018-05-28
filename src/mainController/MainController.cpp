@@ -38,19 +38,22 @@ int myMainController::MainController::config(string fileLocation){
 
     // Check the Operation Mode //
     if(!_settings->runMode.compare("CALIBRATION_ONLY")) {
-        _mode = myMainController::runMode::CALIBRATION_ONLY;
+//        _mode = myMainController::runMode::CALIBRATION_ONLY;
+        _mode = runMode::CALIBRATION_ONLY;
         #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config(): operation mode CALIBRATION_ONLY\n";
         #endif
     }
     else if(!_settings->runMode.compare("MATCHING_ONLY")) {
-        _mode = myMainController::runMode::MATCHING_ONLY;
+//        _mode = myMainController::runMode::MATCHING_ONLY;
+        _mode = runMode::MATCHING_ONLY;
         #if DEBUG_MAIN_CONTROLLER
             cout << "MainController::config(): operation mode MATCHING_ONLY\n";
         #endif
     }
     else if(!_settings->runMode.compare("CALIBRATION_MATCHING")) {
-        _mode = myMainController::runMode::CALIBRATION_MATCHING;
+//        _mode = myMainController::runMode::CALIBRATION_MATCHING;
+        _mode = runMode::CALIBRATION_MATCHING;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING\n";
         #endif

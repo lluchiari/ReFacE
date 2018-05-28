@@ -19,10 +19,11 @@ class myMatching::MatchSGBM : public Matching
 {
 public:
     MatchSGBM();
-    ~MatchSGBM();
-    int config(string) override;
-    int match() override;
-    int run() override;
+    ~MatchSGBM() override;
+
+    int config(string);
+    int match();
+    int run();
 
     SettingsMatchingSGBM *_matchSettings;
 };
