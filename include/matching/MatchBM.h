@@ -24,7 +24,7 @@ public:
     int match();
     int run();
 
-    SettingsMatchingBM *_matchSettings;
+    SettingsMatchingBM _matchSettings;
 };
 
 #endif //__MATCH_BLOCKMATCHING_H__

@@ -5,7 +5,11 @@
   <Calib_Config name='Stereo Calib'>../config/calib/calib_stereo.xml</Calib_Config>
   <Match_Config name='Block Matching'>../config/match/match_bm.xml</Match_Config>  
   
-  <!-- Run Mode Section -->
-  <Run_Mode>CALIBRATION_ONLY</Run_Mode>
+  <!-- Run Mode Section
+  CALIBRATION_ONLY		:		Runs only the Calibration Module
+  MATCHING_ONLY			:		Runs only the Matching Module (Assuming that calibration has already been made)
+  CALIBRATION_MATCHING	:		Runs Calibration and Matching Modules sequentially.
+  -->
+  <Run_Mode>MATCHING_ONLY</Run_Mode>
 </Config_System>
 </ReFacE>

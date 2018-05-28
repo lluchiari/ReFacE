@@ -1,18 +1,16 @@
 #include <matching/MatchBM.h>
 
 MatchBM::MatchBM(){
-    this->_name = "Block Matching";
-    this->_matchSettings = new SettingsMatchingBM();
+    this->_name = consts::MATCHING_BM;
 }
 
 MatchBM::~MatchBM() {
-    delete this->_matchSettings;
 }
 
 int MatchBM::config(string filename){
     //TODO: Check the returns
-    this->_matchSettings->read(filename);
-    this->_matchSettings->interprate();
+    this->_matchSettings.read(filename);
+    this->_matchSettings.interprate();
     return 1;
 }
 

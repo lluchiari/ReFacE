@@ -3,6 +3,7 @@
 
 CalibSingle::CalibSingle()
 {
+    _name = consts::CALIBRATION_SINGLE;
 }
 
 CalibSingle::~CalibSingle()
@@ -76,7 +77,7 @@ int CalibSingle::run() {
     Size imageSize;                             //
 
     // Verify the input mode from the setting file
-    int mode = (this->_s.inputType == SettingsSingle::IMAGE_LIST) ? CAPTURING : DETECTION;
+    int mode = (this->_s.inputType == SettingsCalibSingle::IMAGE_LIST) ? CAPTURING : DETECTION;
     if(DEBUG_CALIBRATION) {cout << "Calibration::calibrate(): Mode " << ((mode == CAPTURING) ? "CAPTURING" : "DETECTION") << endl;}
 
     clock_t prevTimestamp = 0;
@@ -133,20 +134,20 @@ int CalibSingle::run() {
         // Find feature points on the input format
         switch(this->_s.calibrationPattern )
         {
-        case SettingsSingle::CHESSBOARD:
+        case SettingsCalibSingle::CHESSBOARD:
             if(DEBUG_CALIBRATION) {cout << "Case CHESSBOARD" << endl;}
             found = findChessboardCorners( view, this->_s.boardSize, pointBuf,
                                            CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
             break;
-        case SettingsSingle::CIRCLES_GRID:
+        case SettingsCalibSingle::CIRCLES_GRID:
             if(DEBUG_CALIBRATION) {cout << "Case CIRCLES_GRID" << endl;}
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf );
             break;
-        case SettingsSingle::ASYMMETRIC_CIRCLES_GRID:
+        case SettingsCalibSingle::ASYMMETRIC_CIRCLES_GRID:
             if(DEBUG_CALIBRATION) {cout << "Case ASYMMETRIC_CIRCLES_GRID" << endl;}
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf, CALIB_CB_ASYMMETRIC_GRID );
             break;
-        case SettingsSingle::NOT_EXISTING:
+        case SettingsCalibSingle::NOT_EXISTING:
             if(DEBUG_CALIBRATION) {cout << "Case NOT_EXISTING" << endl;}
             found = false;
             break;
@@ -157,7 +158,7 @@ int CalibSingle::run() {
         {
             if(DEBUG_CALIBRATION) {cout << "calibrate(4)" << endl;}
             // improve the found corners' coordinate accuracy for chessboard
-            if( this->_s.calibrationPattern == SettingsSingle::CHESSBOARD)
+            if( this->_s.calibrationPattern == SettingsCalibSingle::CHESSBOARD)
             {
                 if(DEBUG_CALIBRATION) {cout << "calibrate(4.1)" << endl;}
                 Mat viewGray;
@@ -247,7 +248,7 @@ int CalibSingle::run() {
  * @param imagePoints
  * @return
  */
-bool CalibSingle::runCalibrationAndSave(SettingsSingle& s, Size imageSize, Mat&  cameraMatrix,
+bool CalibSingle::runCalibrationAndSave(SettingsCalibSingle& s, Size imageSize, Mat&  cameraMatrix,
                                         Mat& distCoeffs, vector<vector<Point2f>> imagePoints )
 {
     vector<Mat> rvecs, tvecs;
@@ -291,20 +292,20 @@ double computeReprojectionErrors( const vector<vector<Point3f> >& objectPoints,
 }
 
 void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Point3f>& corners,
-                              SettingsSingle::Pattern patternType /*= SettingsSingle::CHESSBOARD*/)
+                              SettingsCalibSingle::Pattern patternType /*= SettingsCalibSingle::CHESSBOARD*/)
 {
     corners.clear();
 
     switch(patternType)
     {
-    case SettingsSingle::CHESSBOARD:
-    case SettingsSingle::CIRCLES_GRID:
+    case SettingsCalibSingle::CHESSBOARD:
+    case SettingsCalibSingle::CIRCLES_GRID:
         for( int i = 0; i < boardSize.height; ++i )
             for( int j = 0; j < boardSize.width; ++j )
                 corners.push_back(Point3f(float( j*squareSize ), float( i*squareSize ), 0));
         break;
 
-    case SettingsSingle::ASYMMETRIC_CIRCLES_GRID:
+    case SettingsCalibSingle::ASYMMETRIC_CIRCLES_GRID:
         for( int i = 0; i < boardSize.height; i++ )
             for( int j = 0; j < boardSize.width; j++ )
                 corners.push_back(Point3f(float((2*j + i % 2)*squareSize), float(i*squareSize), 0));
@@ -314,7 +315,7 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Point3f>&
     }
 }
 
-bool CalibSingle::runCalibration( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+bool CalibSingle::runCalibration( SettingsCalibSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                   vector<vector<Point2f> > imagePoints, vector<Mat>& rvecs, vector<Mat>& tvecs,
                                   vector<float>& reprojErrs,  double& totalAvgErr)
 {
@@ -356,7 +357,7 @@ bool CalibSingle::runCalibration( SettingsSingle& s, Size& imageSize, Mat& camer
  * @param imagePoints
  * @param totalAvgErr
  */
-void CalibSingle::saveCameraParams( SettingsSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
+void CalibSingle::saveCameraParams( SettingsCalibSingle& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                                     const vector<Mat>& rvecs, const vector<Mat>& tvecs,
                                     const vector<float>& reprojErrs, const vector<vector<Point2f> >& imagePoints,
                                     double totalAvgErr )

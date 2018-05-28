@@ -29,7 +29,7 @@
 #endif
 
 #ifndef DEBUG_STEREO_CALIBRATION
-    #define DEBUG_CALIBRATION_STEREO 0
+    #define DEBUG_CALIBRATION_STEREO 1
 #endif
 
 #ifndef DEBUG_SETTINGS

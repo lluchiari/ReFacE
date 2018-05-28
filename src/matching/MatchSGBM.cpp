@@ -1,18 +1,16 @@
 #include <matching/MatchSGBM.h>
 
 MatchSGBM::MatchSGBM(){
-    this->_name = "Semiglobal Block Matching";
-    this->_matchSettings = new SettingsMatchingSGBM();
+    this->_name = consts::MATCHING_SGBM;
 }
 
 MatchSGBM::~MatchSGBM() {
-    delete this->_matchSettings;
 }
 
 int MatchSGBM::config(string filename){
     //TODO: Check the returns
-    this->_matchSettings->read(filename);
-    this->_matchSettings->interprate();
+    this->_matchSettings.read(filename);
+    this->_matchSettings.interprate();
     return 1;
 }
 

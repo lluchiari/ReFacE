@@ -3,6 +3,7 @@
 
 // Internal Modules
 #include <utils/common.h>
+#include <utils/consts.h>
 #include <utils/Module.hh>
 #include <utils/Settings.hh>
 #include <utils/Factory.hh>
@@ -15,7 +16,8 @@
 #include <matching/MatchBM.h>
 #include <matching/MatchSGBM.h>
 
-#include <viewer/Viewer3D.hh>
+#include <viewer/Viewer.hh>
+#include <viewer/Viewer3D.h>
 
 #include <3rdParty/TinyXML2/tinyxml2.h>
 
@@ -26,11 +28,6 @@ using namespace myMatching;
 
 namespace myMainController {
     class MainController;
-    enum runMode {
-      CALIBRATION_ONLY,
-      MATCHING_ONLY,
-      CALIBRATION_MATCHING
-    };
 }
 
 class myMainController::MainController : public Module
@@ -45,14 +42,14 @@ public:
 public:
 
     // Operation Mode
-    myMainController::runMode _mode;
+    consts::runMode _mode;
 
     // Modules to be loaded //
     Calibration *_calibModule = NULL;
     Matching *_matchModule = NULL;
     Viewer *_viewModule = NULL;
 
-    SettingsMainController *_settings = NULL;
+    SettingsMainController _settings;
 };
 
 

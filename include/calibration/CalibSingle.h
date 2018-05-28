@@ -42,7 +42,7 @@ public:
     int run() override;
 
 private:
-    SettingsSingle _s;            //Setting file to be read by the funciton
+    SettingsCalibSingle _s;            //Setting file to be read by the funciton
 
     enum {
         DETECTION = 0,      // This mode takes the images direct from a file
@@ -54,10 +54,10 @@ private:
     string _inputStackImageFile;
     string _OutputFileURL;
 
-    bool runCalibrationAndSave(SettingsSingle&, Size, Mat&, Mat&, vector<vector<Point2f>>);
-    void saveCameraParams( SettingsSingle&, Size&, Mat&, Mat&, const vector<Mat>&, const vector<Mat>&,
+    bool runCalibrationAndSave(SettingsCalibSingle&, Size, Mat&, Mat&, vector<vector<Point2f>>);
+    void saveCameraParams( SettingsCalibSingle&, Size&, Mat&, Mat&, const vector<Mat>&, const vector<Mat>&,
                                   const vector<float>&, const vector<vector<Point2f> >&, double);
-    bool runCalibration( SettingsSingle&, Size&, Mat&, Mat&, vector<vector<Point2f>>, vector<Mat>&, vector<Mat>&,
+    bool runCalibration( SettingsCalibSingle&, Size&, Mat&, Mat&, vector<vector<Point2f>>, vector<Mat>&, vector<Mat>&,
                                 vector<float>&,  double&);
 };
 

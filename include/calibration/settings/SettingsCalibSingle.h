@@ -1,5 +1,5 @@
-#ifndef __SETTINGS_SINGLE_H__
-#define __SETTINGS_SINGLE_H__
+#ifndef __SETTINGS_CALIB_SINGLE_H__
+#define __SETTINGS_CALIB_SINGLE_H__
 
 /* Internal Libs */
 #include <iostream>
@@ -41,11 +41,11 @@ using namespace cv;
 using namespace std;
 using namespace mySettings;
 
-class SettingsSingle : public Settings
+class SettingsCalibSingle : public Settings
 {
 public:
 
-    SettingsSingle() : goodInput(false) {}
+    SettingsCalibSingle() : goodInput(false) {}
 
     // Kinds of pattern for calibration
     enum Pattern { NOT_EXISTING, CHESSBOARD, CIRCLES_GRID, ASYMMETRIC_CIRCLES_GRID};
@@ -120,4 +120,4 @@ private:
 
 };
 
-#endif // __SETTINGS_SINGLE_H__
+#endif // __SETTINGS_CALIB_SINGLE_H__

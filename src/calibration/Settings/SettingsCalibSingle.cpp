@@ -1,6 +1,6 @@
 #include <calibration/settings/SettingsCalibSingle.h>
 
-//void SettingsSingle::write(SETTING_STORAGE& fs) const
+//void SettingsCalibSingle::write(SETTING_STORAGE& fs) const
 //{
 //    fs << "{" << "BoardSize_Width"  << this->boardSize.width
 //       << "BoardSize_Height" << this->boardSize.height
@@ -23,7 +23,7 @@
 //       << "}";
 //}
 
-//void SettingsSingle::read(const SETTING_NODE
+//void SettingsCalibSingle::read(const SETTING_NODE
 //                    & node)
 //{
 //    node["BoardSize_Width" ] >> this->boardSize.width;
@@ -48,7 +48,7 @@
 // * @brief This function reads the xml file and fullfill the class variables
 // * @param fileLocation
 // */
-//void SettingsSingle::read(string fileLocation)
+//void SettingsCalibSingle::read(string fileLocation)
 //{
 //    this->boardSize.width = 9;
 //    this->boardSize.height = 6;
@@ -71,11 +71,11 @@
  * @brief This function reads the xml file and fullfill the class variables
  * @param fileLocation
  */
-int SettingsSingle::read(string fileLocation)
+int SettingsCalibSingle::read(string fileLocation)
 {
     tinyxml2::XMLDocument doc;
     if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
-        cerr << "SettingsSingle::read: Error on reading the xml file!\n";
+        cerr << "SettingsCalibSingle::read: Error on reading the xml file!\n";
     }
 
     this->boardSize.width = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Width")->GetText());
@@ -96,21 +96,21 @@ int SettingsSingle::read(string fileLocation)
     return 0;
 }
 
-void SettingsSingle::setStackImage(string stackFileLocation){
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::setStackImage(): File: " << stackFileLocation << endl;}
+void SettingsCalibSingle::setStackImage(string stackFileLocation){
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::setStackImage(): File: " << stackFileLocation << endl;}
     this->input = stackFileLocation;
 }
 
-void SettingsSingle::setOutputFile(string outFileLocation){
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::setOutputFile(): File: " << outFileLocation << endl;}
+void SettingsCalibSingle::setOutputFile(string outFileLocation){
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::setOutputFile(): File: " << outFileLocation << endl;}
     this->outputFileName = outFileLocation;
 }
 
 /**
- * @brief SettingsSingle::interprate interprate the configure file given and check for errors
+ * @brief SettingsCalibSingle::interprate interprate the configure file given and check for errors
  * @author OpenCV
  */
-int SettingsSingle::interprate()
+int SettingsCalibSingle::interprate()
 {
     this->goodInput = true;
     if (this->boardSize.width <= 0 || this->boardSize.height <= 0)
@@ -133,7 +133,7 @@ int SettingsSingle::interprate()
     }
     if (this->input.empty())
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): Input is Empty!" << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): Input is Empty!" << endl;}
         this->inputType = INVALID;
         return -1;
     }
@@ -142,7 +142,7 @@ int SettingsSingle::interprate()
         // In the CAMERA case. Idicates the ID of the camera.
         if (this->input[0] >= '0' && this->input[0] <= '9')
         {
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): CAMERA Case" << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): CAMERA Case" << endl;}
             stringstream ss(this->input);
             ss >> this->cameraID;
             this->inputType = CAMERA;
@@ -151,33 +151,33 @@ int SettingsSingle::interprate()
         {
             if (isListOfImages(this->input) && readStringList(this->input, this->imageList))
             {
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): IMAGE_LIST mode " << endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): IMAGE_LIST mode " << endl;}
                 inputType = IMAGE_LIST;
                 this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;}
             }
             else {
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): VIDEO_FILE mode " << endl;}
+                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): VIDEO_FILE mode " << endl;}
                 inputType = VIDEO_FILE;
             }
         }
         if (inputType == CAMERA){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): CAMERA open mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): CAMERA open mode " << endl;}
             this->inputCapture.open(this->cameraID);
         }
         if (inputType == VIDEO_FILE){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): VIDEO_FILE open mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): VIDEO_FILE open mode " << endl;}
             this->inputCapture.open(input);
         }
         if (inputType != IMAGE_LIST && !this->inputCapture.isOpened()){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
+            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
             inputType = INVALID;
             return -1;
         }
     }
     if (inputType == INVALID)
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::interprate(): INVALID mode " << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): INVALID mode " << endl;}
         cerr << " Inexistent input: " << "'" << input << "'" << endl;
         goodInput = false;
     }
@@ -203,11 +203,11 @@ int SettingsSingle::interprate()
     return 0;
 }
 
-Mat SettingsSingle::nextImage(){
+Mat SettingsCalibSingle::nextImage(){
     Mat result;
     if( this->inputCapture.isOpened() )
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::nextImage(): 1 " << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::nextImage(): 1 " << endl;}
         Mat view0;
         this->inputCapture >> view0;
 
@@ -217,7 +217,7 @@ Mat SettingsSingle::nextImage(){
     else if( this->atImageList < (int)this->imageList.size() )
     {
         if(DEBUG_SETTINGS_SINGLE){
-            cout << "SettingsSingle::nextImage(): Reading Image " << this->imageList[this->atImageList] << endl;
+            cout << "SettingsCalibSingle::nextImage(): Reading Image " << this->imageList[this->atImageList] << endl;
         }
         result = imread(this->imageList[this->atImageList++], CV_LOAD_IMAGE_COLOR);
     }
@@ -225,56 +225,56 @@ Mat SettingsSingle::nextImage(){
 }
 
 /**
- * @brief SettingsSingle::_readStringList Read the xml file containing the list of images
+ * @brief SettingsCalibSingle::_readStringList Read the xml file containing the list of images
  * @param filename is the path of the xml file
  * @param l is the list where the images will be saved
  * @return true if everything is ok. False otherwise
  * @author OpenCV Library
  */
-bool SettingsSingle::readStringList( const string& filename, vector<string>& l )
+bool SettingsCalibSingle::readStringList( const string& filename, vector<string>& l )
 {
     l.clear();
     SETTING_STORAGE fs(filename, SETTING_STORAGE::READ);
     if( !fs.isOpened() ){
-        cerr << "SettingsSingle::readStringList: Error on opening Stacks File" << endl;
+        cerr << "SettingsCalibSingle::readStringList: Error on opening Stacks File" << endl;
         return false;
     }
     SETTING_NODE n = fs.getFirstTopLevelNode();
     if( n.type() != SETTING_NODE::SEQ ){
-        cerr << "SettingsSingle::readStringList: Error! Incorrect Syntax on file or File is not a sequence." << endl;
+        cerr << "SettingsCalibSingle::readStringList: Error! Incorrect Syntax on file or File is not a sequence." << endl;
         return false;
     }
     SETTING_NODE_ITERATOR it = n.begin(), it_end = n.end();
     for( ; it != it_end; ++it ){
         l.push_back((string)*it);
     }
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::readStringList(): Return True" << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::readStringList(): Return True" << endl;}
     return true;
 }
 
 /**
- * @brief SettingsSingle::isListOfImages look for the xml file
+ * @brief SettingsCalibSingle::isListOfImages look for the xml file
  * @param filename is the name (complete path) of the xml file
  * @return true if there is a file like filename, otherwise false
  * @author OpenCV Library
  */
-bool SettingsSingle::isListOfImages( const string& filename)
+bool SettingsCalibSingle::isListOfImages( const string& filename)
 {
     string s(filename);
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::isListOfImages(): String Name:"<< s << endl;}
+    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::isListOfImages(): String Name:"<< s << endl;}
     // Look for file extension
     if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
     {
-        cerr << "SettingsSingle::isListOfImages(): File extension is incorrect!" << endl;
+        cerr << "SettingsCalibSingle::isListOfImages(): File extension is incorrect!" << endl;
         return false;
     }
     else{
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsSingle::isListOfImages(): Return True" << endl;}
+        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::isListOfImages(): Return True" << endl;}
         return true;
     }
 }
 
-int SettingsSingle::print(){
+int SettingsCalibSingle::print(){
     cout << "Print:\n"
     << "boardSize.width: " << this->boardSize.width << std::endl
     << "boardSize.height: " << this->boardSize.height << std::endl

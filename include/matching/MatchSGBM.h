@@ -25,7 +25,7 @@ public:
     int match();
     int run();
 
-    SettingsMatchingSGBM *_matchSettings;
+    SettingsMatchingSGBM _matchSettings;
 };
 
 

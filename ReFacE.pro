@@ -54,6 +54,7 @@ HEADERS += \
         include/matching/settings/*.h \
 #
         include/viewer/*.hh \
+        include/viewer/*.h \
 #
         include/utils/*.h \
         include/utils/*.hh \

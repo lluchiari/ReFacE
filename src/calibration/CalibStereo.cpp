@@ -2,11 +2,11 @@
 
 CalibStereo::CalibStereo()
 {
+    _name = consts::CALIBRATION_STEREO;
     _configFlag = false;
 }
 
 CalibStereo::~CalibStereo(){
-    cout << "CalibStereo Destructor\n";
 }
 
 int CalibStereo::config(string configFile)

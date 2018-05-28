@@ -2,15 +2,13 @@
 
 myMainController::MainController::MainController()
 {
-    this->_name = "MainController";
-    _settings = new SettingsMainController();
+    this->_name = consts::MAIN_CONTROLLER;
 }
 
 myMainController::MainController::~MainController(){
-    if(_settings->has_calib_module && _calibModule != NULL){delete _calibModule;}
-    if(_settings->has_match_module && _matchModule != NULL){delete _matchModule;}
-    if(_settings->has_viewer_module && _viewModule != NULL){delete _viewModule;}
-    delete _settings;
+    if(_settings.has_calib_module && _calibModule != NULL){delete _calibModule;}
+    if(_settings.has_match_module && _matchModule != NULL){delete _matchModule;}
+    if(_settings.has_viewer_module && _viewModule != NULL){delete _viewModule;}
 }
 
 int myMainController::MainController::config(string fileLocation){
@@ -18,7 +16,7 @@ int myMainController::MainController::config(string fileLocation){
         cout << "MainController::config starting...\n";
     #endif
 
-    if(_settings->read(fileLocation) != 0){
+    if(_settings.read(fileLocation) != 0){
         cerr << "MainController::config(): Error on reading Setting file!\n";
         return -1;
     }
@@ -27,7 +25,7 @@ int myMainController::MainController::config(string fileLocation){
         cout << "MainController::interprate starting...\n";
     #endif
 
-    if (_settings->interprate() != 0){
+    if (_settings.interprate() != 0){
         cerr << "MainController::config(): Error on Setting File!\n";
         return -1;
     }
@@ -37,23 +35,23 @@ int myMainController::MainController::config(string fileLocation){
     #endif
 
     // Check the Operation Mode //
-    if(!_settings->runMode.compare("CALIBRATION_ONLY")) {
+    if(!_settings.runMode.compare("CALIBRATION_ONLY")) {
 //        _mode = myMainController::runMode::CALIBRATION_ONLY;
-        _mode = runMode::CALIBRATION_ONLY;
+        _mode = consts::runMode::CALIBRATION_ONLY;
         #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config(): operation mode CALIBRATION_ONLY\n";
         #endif
     }
-    else if(!_settings->runMode.compare("MATCHING_ONLY")) {
+    else if(!_settings.runMode.compare("MATCHING_ONLY")) {
 //        _mode = myMainController::runMode::MATCHING_ONLY;
-        _mode = runMode::MATCHING_ONLY;
+        _mode = consts::runMode::MATCHING_ONLY;
         #if DEBUG_MAIN_CONTROLLER
             cout << "MainController::config(): operation mode MATCHING_ONLY\n";
         #endif
     }
-    else if(!_settings->runMode.compare("CALIBRATION_MATCHING")) {
+    else if(!_settings.runMode.compare("CALIBRATION_MATCHING")) {
 //        _mode = myMainController::runMode::CALIBRATION_MATCHING;
-        _mode = runMode::CALIBRATION_MATCHING;
+        _mode = consts::runMode::CALIBRATION_MATCHING;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING\n";
         #endif
@@ -64,34 +62,32 @@ int myMainController::MainController::config(string fileLocation){
     }
 
 
-
-
     // Call modules configuration //
-    if(_settings->has_calib_module){
-        _calibModule = Factory::getNewClibModule(_settings->calibType);
+    if(_settings.has_calib_module){
+        _calibModule = Factory::getNewClibModule(_settings.calibType);
         if(_calibModule == NULL){
             cerr << "MainController::config(): Error on alocating Calibration class!\n";
             return -1;
         }
-        _calibModule->config(_settings->calibFile);
+        _calibModule->config(_settings.calibFile);
         cout << "Calibration Module Selected\n";
     }
-    if(_settings->has_match_module){
-        _matchModule = Factory::getNewMatchModule(_settings->matchType);
+    if(_settings.has_match_module){
+        _matchModule = Factory::getNewMatchModule(_settings.matchType);
         if(_matchModule == NULL){
             cerr << "MainController::config(): Error on alocating Matching class!\n";
             return -1;
         }
-        _matchModule->config(_settings->matchFile);
+        _matchModule->config(_settings.matchFile);
         cout << "Match Module Selected\n";
     }
-    if(_settings->has_viewer_module){
-        _viewModule = Factory::getNewViewModule(_settings->viewType);
+    if(_settings.has_viewer_module){
+        _viewModule = Factory::getNewViewModule(_settings.viewType);
         if(_viewModule == NULL){
             cerr << "MainController::config(): Error on alocating Viewer class!\n";
             return -1;
         }
-        _viewModule->config(_settings->viewFile);
+        _viewModule->config(_settings.viewFile);
         cout << "Viewer Module Selected\n";
     }
     return 0;
@@ -166,7 +162,21 @@ int myMainController::MainController::config(string fileLocation){
 }
 
 int myMainController::MainController::run(){
-    return 1;
+    if(_mode == consts::runMode::CALIBRATION_ONLY){
+        return _calibModule->run();
+    }
+    else if(_mode == consts::runMode::MATCHING_ONLY){
+        return _matchModule->run();
+    }
+    else if(_mode == consts::runMode::CALIBRATION_MATCHING){
+        if(!_calibModule->run() && !_matchModule->run()) {return 0;}
+        return -1;
+    }
+    else
+    {
+        cerr << "MainController::run(): Error on mode selecting! Mode doens't exist!\n";
+        return -1;
+    }
 }
 
 
