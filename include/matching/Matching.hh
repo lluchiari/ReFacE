@@ -25,7 +25,7 @@ class myMatching::Matching : public Module
 public:
 
     virtual int match()=0;
-    virtual ~Matching(){std::cout << "Matching Destructor\n";}
+    virtual ~Matching(){}
     static void saveXYZ(const char* filename, const Mat& mat)
     {
         const double max_z = 1.0e4;

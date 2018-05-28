@@ -1,78 +1,13 @@
 #include <calibration/settings/SettingsCalibSingle.h>
 
-//void SettingsCalibSingle::write(SETTING_STORAGE& fs) const
-//{
-//    fs << "{" << "BoardSize_Width"  << this->boardSize.width
-//       << "BoardSize_Height" << this->boardSize.height
-//       << "Square_Size"         << this->squareSize
-//       << "Calibrate_Pattern" << this->_patternToUse
-//       << "Calibrate_NrOfFrameToUse" << this->nrFrames
-//       << "Calibrate_FixAspectRatio" << this->aspectRatio
-//       << "Calibrate_AssumeZeroTangentialDistortion" << this->calibZeroTangentDist
-//       << "Calibrate_FixPrincipalPointAtTheCenter" << this->calibFixPrincipalPoint
-
-//       << "Write_DetectedFeaturePoints" << this->bwritePoints
-//       << "Write_extrinsicParameters"   << this->bwriteExtrinsics
-//       << "Write_outputFileName"  << this->outputFileName
-
-//       << "Show_UndistortedImage" << this->showUndistorsed
-
-//       << "Input_FlipAroundHorizontalAxis" << this->flipVertical
-//       << "Input_Delay" << this->delay
-//       << "Input" << this->input
-//       << "}";
-//}
-
-//void SettingsCalibSingle::read(const SETTING_NODE
-//                    & node)
-//{
-//    node["BoardSize_Width" ] >> this->boardSize.width;
-//    node["BoardSize_Height"] >> this->boardSize.height;
-//    node["Calibrate_Pattern"] >> this->_patternToUse;
-//    node["Square_Size"]  >> this->squareSize;
-//    node["Calibrate_NrOfFrameToUse"] >> this->nrFrames;
-//    node["Calibrate_FixAspectRatio"] >> this->aspectRatio;
-//    node["Write_DetectedFeaturePoints"] >> this->bwritePoints;
-//    node["Write_extrinsicParameters"] >> this->bwriteExtrinsics;
-//    node["Write_outputFileName"] >> this->outputFileName;
-//    node["Calibrate_AssumeZeroTangentialDistortion"] >> this->calibZeroTangentDist;
-//    node["Calibrate_FixPrincipalPointAtTheCenter"] >> this->calibFixPrincipalPoint;
-//    node["Input_FlipAroundHorizontalAxis"] >> this->flipVertical;
-//    node["Show_UndistortedImage"] >> this->showUndistorsed;
-//    node["Input"] >> this->input;
-//    node["Input_Delay"] >> this->delay;
-//    interprate();
-//}
-
-///**
-// * @brief This function reads the xml file and fullfill the class variables
-// * @param fileLocation
-// */
-//void SettingsCalibSingle::read(string fileLocation)
-//{
-//    this->boardSize.width = 9;
-//    this->boardSize.height = 6;
-//    this->_patternToUse = "CHESSBOARD";
-//    this->squareSize = 50;
-//    this->nrFrames = 7;
-//    this->aspectRatio = 1;
-//    this->bwritePoints = 1;
-//    this->bwriteExtrinsics = 1;
-//    //this->outputFileName = outFileLocation;
-//    this->calibZeroTangentDist = 1;
-//    this->calibFixPrincipalPoint = 1;
-//    this->flipVertical = 0;
-//    this->showUndistorsed = 1;
-//    this->input = fileLocation;
-//    this->delay = 100;
-//}
-
 /**
  * @brief This function reads the xml file and fullfill the class variables
  * @param fileLocation
  */
 int SettingsCalibSingle::read(string fileLocation)
 {
+    if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::read(): Starting...\n";}
+
     tinyxml2::XMLDocument doc;
     if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
         cerr << "SettingsCalibSingle::read: Error on reading the xml file!\n";
@@ -93,16 +28,22 @@ int SettingsCalibSingle::read(string fileLocation)
     this->showUndistorsed = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage")->GetText());
     this->input = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input")->GetText();
     this->delay = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay")->GetText());
+
+    if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::read(): Finish_OK!\n";}
     return 0;
 }
 
 void SettingsCalibSingle::setStackImage(string stackFileLocation){
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::setStackImage(): File: " << stackFileLocation << endl;}
+    #if DEBUG_SETTINGS_CALIB_SINGLE
+        cout << "SettingsCalibSingle::setStackImage(): Starting Stack File: '" << stackFileLocation << "'" << endl;
+    #endif
     this->input = stackFileLocation;
 }
 
 void SettingsCalibSingle::setOutputFile(string outFileLocation){
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::setOutputFile(): File: " << outFileLocation << endl;}
+     #if DEBUG_SETTINGS_CALIB_SINGLE
+        cout << "SettingsCalibSingle::setOutputFile(): File: " << outFileLocation << endl;
+    #endif
     this->outputFileName = outFileLocation;
 }
 
@@ -112,6 +53,7 @@ void SettingsCalibSingle::setOutputFile(string outFileLocation){
  */
 int SettingsCalibSingle::interprate()
 {
+    if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::interprate(): Starting...\n";}
     this->goodInput = true;
     if (this->boardSize.width <= 0 || this->boardSize.height <= 0)
     {
@@ -133,7 +75,9 @@ int SettingsCalibSingle::interprate()
     }
     if (this->input.empty())
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): Input is Empty!" << endl;}
+        #if(DEBUG_SETTINGS_SINGLE)
+            cout << "SettingsCalibSingle::interprate(): Input is Empty!" << endl;
+        #endif
         this->inputType = INVALID;
         return -1;
     }
@@ -142,7 +86,9 @@ int SettingsCalibSingle::interprate()
         // In the CAMERA case. Idicates the ID of the camera.
         if (this->input[0] >= '0' && this->input[0] <= '9')
         {
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): CAMERA Case" << endl;}
+             #if(DEBUG_SETTINGS_SINGLE)
+                cout << "SettingsCalibSingle::interprate(): CAMERA Case" << endl;
+            #endif
             stringstream ss(this->input);
             ss >> this->cameraID;
             this->inputType = CAMERA;
@@ -151,33 +97,47 @@ int SettingsCalibSingle::interprate()
         {
             if (isListOfImages(this->input) && readStringList(this->input, this->imageList))
             {
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): IMAGE_LIST mode " << endl;}
+                 #if(DEBUG_SETTINGS_SINGLE)
+                    cout << "SettingsCalibSingle::interprate(): IMAGE_LIST mode " << endl;
+                 #endif
                 inputType = IMAGE_LIST;
                 this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;}
+                 #if(DEBUG_SETTINGS_SINGLE)
+                    cout << "SettingsCalibSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;
+                #endif
             }
             else {
-                if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): VIDEO_FILE mode " << endl;}
+                 #if(DEBUG_SETTINGS_SINGLE)
+                    cout << "SettingsCalibSingle::interprate(): VIDEO_FILE mode " << endl;
+                 #endif
                 inputType = VIDEO_FILE;
             }
         }
         if (inputType == CAMERA){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): CAMERA open mode " << endl;}
+             #if(DEBUG_SETTINGS_SINGLE)
+                cout << "SettingsCalibSingle::interprate(): CAMERA open mode " << endl;
+            #endif
             this->inputCapture.open(this->cameraID);
         }
         if (inputType == VIDEO_FILE){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): VIDEO_FILE open mode " << endl;}
+             #if(DEBUG_SETTINGS_SINGLE)
+                cout << "SettingsCalibSingle::interprate(): VIDEO_FILE open mode " << endl;
+            #endif
             this->inputCapture.open(input);
         }
         if (inputType != IMAGE_LIST && !this->inputCapture.isOpened()){
-            if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;}
+             #if(DEBUG_SETTINGS_SINGLE)
+                cout << "SettingsCalibSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;
+            #endif
             inputType = INVALID;
             return -1;
         }
     }
     if (inputType == INVALID)
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::interprate(): INVALID mode " << endl;}
+         #if(DEBUG_SETTINGS_SINGLE)
+            cout << "SettingsCalibSingle::interprate(): INVALID mode " << endl;
+        #endif
         cerr << " Inexistent input: " << "'" << input << "'" << endl;
         goodInput = false;
     }
@@ -200,6 +160,8 @@ int SettingsCalibSingle::interprate()
         this->goodInput = false;
     }
     this->atImageList = 0;
+
+    if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::interprate(): Finish_OK!\n";}
     return 0;
 }
 
@@ -207,7 +169,9 @@ Mat SettingsCalibSingle::nextImage(){
     Mat result;
     if( this->inputCapture.isOpened() )
     {
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::nextImage(): 1 " << endl;}
+         #if(DEBUG_SETTINGS_SINGLE)
+            cout << "SettingsCalibSingle::nextImage(): 1 " << endl;
+        #endif
         Mat view0;
         this->inputCapture >> view0;
 
@@ -216,9 +180,9 @@ Mat SettingsCalibSingle::nextImage(){
     }
     else if( this->atImageList < (int)this->imageList.size() )
     {
-        if(DEBUG_SETTINGS_SINGLE){
+         #if(DEBUG_SETTINGS_SINGLE)
             cout << "SettingsCalibSingle::nextImage(): Reading Image " << this->imageList[this->atImageList] << endl;
-        }
+        #endif
         result = imread(this->imageList[this->atImageList++], CV_LOAD_IMAGE_COLOR);
     }
     return result;
@@ -234,21 +198,23 @@ Mat SettingsCalibSingle::nextImage(){
 bool SettingsCalibSingle::readStringList( const string& filename, vector<string>& l )
 {
     l.clear();
-    SETTING_STORAGE fs(filename, SETTING_STORAGE::READ);
+    FileStorage fs(filename, FileStorage::READ);
     if( !fs.isOpened() ){
         cerr << "SettingsCalibSingle::readStringList: Error on opening Stacks File" << endl;
         return false;
     }
-    SETTING_NODE n = fs.getFirstTopLevelNode();
-    if( n.type() != SETTING_NODE::SEQ ){
+    FileNode n = fs.getFirstTopLevelNode();
+    if( n.type() != FileNode::SEQ ){
         cerr << "SettingsCalibSingle::readStringList: Error! Incorrect Syntax on file or File is not a sequence." << endl;
         return false;
     }
-    SETTING_NODE_ITERATOR it = n.begin(), it_end = n.end();
+    FileNodeIterator it = n.begin(), it_end = n.end();
     for( ; it != it_end; ++it ){
         l.push_back((string)*it);
     }
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::readStringList(): Return True" << endl;}
+    #if(DEBUG_SETTINGS_SINGLE)
+        cout << "SettingsCalibSingle::readStringList(): Return True" << endl;
+    #endif
     return true;
 }
 
@@ -261,7 +227,9 @@ bool SettingsCalibSingle::readStringList( const string& filename, vector<string>
 bool SettingsCalibSingle::isListOfImages( const string& filename)
 {
     string s(filename);
-    if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::isListOfImages(): String Name:"<< s << endl;}
+    #if(DEBUG_SETTINGS_SINGLE)
+        cout << "SettingsCalibSingle::isListOfImages(): String Name:"<< s << endl;
+    #endif
     // Look for file extension
     if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
     {
@@ -269,7 +237,9 @@ bool SettingsCalibSingle::isListOfImages( const string& filename)
         return false;
     }
     else{
-        if(DEBUG_SETTINGS_SINGLE){cout << "SettingsCalibSingle::isListOfImages(): Return True" << endl;}
+        #if(DEBUG_SETTINGS_SINGLE)
+            cout << "SettingsCalibSingle::isListOfImages(): Return True" << endl;
+        #endif
         return true;
     }
 }

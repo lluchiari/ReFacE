@@ -24,18 +24,6 @@
 # define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#ifndef SETTING_STORAGE
-    #define SETTING_STORAGE FileStorage
-#endif
-
-#ifndef SETTING_NODE
-    #define SETTING_NODE FileNode
-#endif
-
-#ifndef SETTING_NODE_ITERATOR
-    #define SETTING_NODE_ITERATOR FileNodeIterator
-#endif
-
 
 using namespace cv;
 using namespace std;
@@ -49,20 +37,6 @@ public:
 
     // Kinds of pattern for calibration
     enum Pattern { NOT_EXISTING, CHESSBOARD, CIRCLES_GRID, ASYMMETRIC_CIRCLES_GRID};
-
-//    //Write serialization for this class
-//    void write(SETTING_STORAGE& fs) const;
-
-//    //Read serialization for this class
-//    void read(const SETTING_NODE& node);
-
-//    static void read(const SETTING_NODE& node, Settings& x, const Settings& default_value = Settings())
-//    {
-//        if(node.empty())
-//            x = default_value;
-//        else
-//            x.read(node);
-//    }
 
     // Kind of imput images
     enum InputType {

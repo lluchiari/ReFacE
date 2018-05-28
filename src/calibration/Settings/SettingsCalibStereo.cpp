@@ -19,6 +19,7 @@ SettingsStereo::~SettingsStereo(){
  */
 int SettingsStereo::read(string fileLocation)
 {
+   if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::read(): Starting...\n";}
     tinyxml2::XMLDocument doc;
     if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
         cerr << "SettingsStereo::read: Error on loaing xml file!";
@@ -35,14 +36,8 @@ int SettingsStereo::read(string fileLocation)
     this->_input = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input")->GetText();
     this->outputFileName = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName")->GetText();
     this->_showUndistorsed = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage")->GetText());
-//    this->nrFrames = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_NrOfFrameToUse")->GetText());
-//    this->aspectRatio = (float) std::atof(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixAspectRatio")->GetText());
-//    this->bwritePoints = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_DetectedFeaturePoints")->GetText());
-//    this->bwriteExtrinsics = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_extrinsicParameters")->GetText());
-//    this->calibZeroTangentDist = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_AssumeZeroTangentialDistortion")->GetText());
-//    this->calibFixPrincipalPoint = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixPrincipalPointAtTheCenter")->GetText());
-//    this->flipVertical = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_FlipAroundHorizontalAxis")->GetText());
-//    this->delay = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay")->GetText());
+
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::read(): Finish_OK!\n";}
     return 0;
 }
 
@@ -51,10 +46,14 @@ int SettingsStereo::read(string fileLocation)
  * @author OpenCV
  */
 int SettingsStereo::interprate(){
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::interprate(): Starting...\n";}
 
     if (this->_input.empty())
     {
-        if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Input is Empty!" << endl;}
+        #if DEBUG_SETTINGS_CALIB_STEREO
+            cout << "SettingsStereo::interprate(): Input is Empty!" << endl;
+        #endif
+
         this->_inputType = INVALID;
         return -1;
     }
@@ -63,7 +62,9 @@ int SettingsStereo::interprate(){
         // In the CAMERA case. Idicates the ID of the camera.
         if (this->_input[0] >= '0' && this->_input[0] <= '9')
         {
-            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): CAMERA Case" << endl;}
+            #if DEBUG_SETTINGS_CALIB_STEREO
+                cout << "SettingsStereo::interprate(): CAMERA Case" << endl;
+            #endif
             stringstream ss(this->_input);
             ss >> this->_cameraID;
             this->_inputType = CAMERA;
@@ -73,35 +74,44 @@ int SettingsStereo::interprate(){
             // If the input is the IMAGE LIST case
             if (_isListOfImages(this->_input) && _readStringList(this->_input, this->_imageList))
             {
-                if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): IMAGE_LIST mode " << endl;}
+                #if DEBUG_SETTINGS_CALIB_STEREO
+                    cout << "SettingsStereo::interprate(): IMAGE_LIST mode " << endl;
+                #endif
                 this->_inputType = IMAGE_LIST;
                 //this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
                 //                if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Number of Frames: " << this->nrFrames<< endl;}
             }
             // If the input is the VIDEO FILE case
             else {
-                if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): VIDEO_FILE mode " << endl;}
+                #if DEBUG_SETTINGS_CALIB_STEREO
+                    cout << "SettingsStereo::interprate(): VIDEO_FILE mode " << endl;
+                #endif
                 this->_inputType = VIDEO_FILE;
             }
         }
         if (this->_inputType == CAMERA){
-            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): CAMERA open mode " << endl;}
+            #if DEBUG_SETTINGS_CALIB_STEREO
+                cout << "SettingsStereo::interprate(): CAMERA open mode " << endl;
+            #endif
             //            this->inputCapture.open(this->cameraID);
         }
         if (this->_inputType == VIDEO_FILE){
-            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): VIDEO_FILE open mode " << endl;}
+            #if DEBUG_SETTINGS_CALIB_STEREO
+                cout << "SettingsStereo::interprate(): VIDEO_FILE open mode " << endl;
+            #endif
             //            this->inputCapture.open(input);
         }
         if (this->_inputType != IMAGE_LIST && !this->_inputCapture.isOpened()){
-            if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): INVALID mode! Error on opening the Camera System! " << endl;}
+            #if DEBUG_SETTINGS_CALIB_STEREO
+                cout << "SettingsStereo::interprate(): INVALID mode! Error on opening the Camera System! " << endl;
+            #endif
             this->_inputType = INVALID;
             return -1;
         }
     }
-    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Leaving Interprate\n";}
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::interprate(): Finish_OK!\n";}
     return 0;
 }
-
 
 /**
  * @brief SettingsStereo::isListOfImages look for the xml file
@@ -112,7 +122,9 @@ int SettingsStereo::interprate(){
 bool SettingsStereo::_isListOfImages( const string& filename)
 {
     string s(filename);
-    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::isListOfImages(): String Name:"<< s << endl;}
+    #if DEBUG_SETTINGS_CALIB_STEREO
+        cout << "SettingsStereo::isListOfImages(): String Name:"<< s << endl;
+    #endif
     // Look for file extension
     if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
     {
@@ -120,7 +132,9 @@ bool SettingsStereo::_isListOfImages( const string& filename)
         return false;
     }
     else{
-        if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::isListOfImages(): Return True" << endl;}
+        #if DEBUG_SETTINGS_CALIB_STEREO
+            cout << "SettingsStereo::isListOfImages(): Return True" << endl;
+        #endif
         return true;
     }
 }
@@ -150,14 +164,16 @@ bool SettingsStereo::_readStringList( const string& filename, vector<string>& l 
     for( ; it != it_end; ++it ){
         l.push_back((string)*it);
     }
-    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::readStringList(): Return True" << endl;}
+    #if DEBUG_SETTINGS_CALIB_STEREO
+        cout << "SettingsStereo::readStringList(): Return True" << endl;
+    #endif
     return true;
 }
 
 
 
 int SettingsStereo::print(){
-    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Start printing...\n";}
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::print(): Start printing...\n";}
     cout << "Image List:\t";
     for(int i=0; i < this->_imageList.size(); i++)
     {
@@ -191,14 +207,7 @@ int SettingsStereo::print(){
             break;
     };
     cout << "CameraID: " << this->_cameraID  << std::endl;
-//    << "nrFrames: " << this->nrFrames  << std::endl
-//    << "aspectRatio: " << this->aspectRatio << std::endl
-//    << "bwritePoints: " << this->bwritePoints << std::endl
-//    << "bwriteExtrinsics: " << this->bwriteExtrinsics << std::endl
-//    << "calibZeroTangentDist: " << this->calibZeroTangentDist << std::endl
-//    << "calibFixPrincipalPoint: " << this->calibFixPrincipalPoint << std::endl
-//    << "flipVertical: " << this->flipVertical << std::endl
-//    << "delay: " << this->delay << std::endl;
-    if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::print(): Leaving.\n";}
+
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::print(): Finish_OK!\n";}
     return 0;
 }

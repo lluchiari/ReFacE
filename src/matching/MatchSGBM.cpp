@@ -8,16 +8,22 @@ MatchSGBM::~MatchSGBM() {
 }
 
 int MatchSGBM::config(string filename){
-    //TODO: Check the returns
-    this->_matchSettings.read(filename);
-    this->_matchSettings.interprate();
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::config(): Start...\n";}
+
+    if(this->_matchSettings.read(filename) != 0 || this->_matchSettings.interprate() != 0){return -1;}
+
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::config(): Finish_OK!\n";}
     return 1;
 }
 
 int MatchSGBM::match(){
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::match(): Start...\n";}
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::match(): Finish_OK!\n";}
     return 1;
 }
 
 int MatchSGBM::run(){
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::run(): Start...\n";}
+    if(LOG_MAIN_CONTROLLER){cout << "MatchSGBM::run(): Finish_OK!\n";}
     return 1;
 }

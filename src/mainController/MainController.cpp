@@ -12,6 +12,8 @@ myMainController::MainController::~MainController(){
 }
 
 int myMainController::MainController::config(string fileLocation){
+    if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Start...\n";}
+
     #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config starting...\n";
     #endif
@@ -36,21 +38,18 @@ int myMainController::MainController::config(string fileLocation){
 
     // Check the Operation Mode //
     if(!_settings.runMode.compare("CALIBRATION_ONLY")) {
-//        _mode = myMainController::runMode::CALIBRATION_ONLY;
         _mode = consts::runMode::CALIBRATION_ONLY;
         #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config(): operation mode CALIBRATION_ONLY\n";
         #endif
     }
     else if(!_settings.runMode.compare("MATCHING_ONLY")) {
-//        _mode = myMainController::runMode::MATCHING_ONLY;
         _mode = consts::runMode::MATCHING_ONLY;
         #if DEBUG_MAIN_CONTROLLER
             cout << "MainController::config(): operation mode MATCHING_ONLY\n";
         #endif
     }
     else if(!_settings.runMode.compare("CALIBRATION_MATCHING")) {
-//        _mode = myMainController::runMode::CALIBRATION_MATCHING;
         _mode = consts::runMode::CALIBRATION_MATCHING;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING\n";
@@ -70,7 +69,6 @@ int myMainController::MainController::config(string fileLocation){
             return -1;
         }
         _calibModule->config(_settings.calibFile);
-        cout << "Calibration Module Selected\n";
     }
     if(_settings.has_match_module){
         _matchModule = Factory::getNewMatchModule(_settings.matchType);
@@ -79,7 +77,6 @@ int myMainController::MainController::config(string fileLocation){
             return -1;
         }
         _matchModule->config(_settings.matchFile);
-        cout << "Match Module Selected\n";
     }
     if(_settings.has_viewer_module){
         _viewModule = Factory::getNewViewModule(_settings.viewType);
@@ -88,8 +85,9 @@ int myMainController::MainController::config(string fileLocation){
             return -1;
         }
         _viewModule->config(_settings.viewFile);
-        cout << "Viewer Module Selected\n";
     }
+
+    if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Finish_OK!\n";}
     return 0;
 
 
@@ -162,15 +160,39 @@ int myMainController::MainController::config(string fileLocation){
 }
 
 int myMainController::MainController::run(){
+    if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Start...\n";}
+
     if(_mode == consts::runMode::CALIBRATION_ONLY){
-        return _calibModule->run();
+        if(_calibModule->run() != 0){
+            cerr << "MainController::run(): Error on running calibration module!\n";
+            return -1;
+        }
+        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
+        return 0;
     }
     else if(_mode == consts::runMode::MATCHING_ONLY){
-        return _matchModule->run();
+        if(_matchModule->run() != 0)
+        {
+            cerr << "MainController::run(): Error on running matching module!\n";
+            return -1;
+        }
+        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
+        return 0;
     }
     else if(_mode == consts::runMode::CALIBRATION_MATCHING){
-        if(!_calibModule->run() && !_matchModule->run()) {return 0;}
-        return -1;
+        if(_calibModule->run() != 0)
+        {
+            cerr << "MainController::run(): Error on running calibration module!\n";
+            return -1;
+        }
+        if(_matchModule->run() != 0)
+        {
+            cerr << "MainController::run(): Error on running matching module!\n";
+            return -1;
+        }
+
+        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
+        return 0;
     }
     else
     {
@@ -178,29 +200,3 @@ int myMainController::MainController::run(){
         return -1;
     }
 }
-
-
-//Module *myMainController::MainController::_getType(string type){
-//    if(!type.compare(NameOfModules.CALIBRATION_SINGLE)){
-//        Module *ptr = new CalibSingle();
-//        return ptr;
-//    }
-//    else if(!type.compare(NameOfModules.CALIBRATION_STEREO)){
-//        Module *ptr = new CalibStereo();
-//        return ptr;
-//    }
-//    else if(!type.compare(NameOfModules.MATCHING_BM)){
-//        Module *ptr = new MatchBM();
-//        return ptr;
-//    }
-//    else if(!type.compare(NameOfModules.MATCHING_SGBM)){
-//        Module *ptr = new MatchSGBM();
-//        return ptr;
-//    }
-////    else if(!type.compare(NameOfModules.VEWER3D)){
-
-////    }
-//    else{
-//        return NULL;
-//    }
-//}

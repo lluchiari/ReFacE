@@ -11,6 +11,7 @@ SettingsMainController::~SettingsMainController(){
 }
 
 int SettingsMainController::read(string fileLocation){
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::read(): Start...\n";}
 
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement *aux;
@@ -21,7 +22,7 @@ int SettingsMainController::read(string fileLocation){
         cerr << "SettingsMainController::read: Error on loaing xml file!\n";
         return -1;
     }
-    #if DEBUG_MAIN_CONTROLLER_SETTINGS
+    #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful open the file.\n";
     #endif
 
@@ -48,7 +49,7 @@ int SettingsMainController::read(string fileLocation){
         this->has_calib_module = false;
     }
 
-    #if DEBUG_MAIN_CONTROLLER_SETTINGS
+    #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful read Calib_Config: '" << this->calibFile << "'. Type: " << this->calibType << "\n";
     #endif
 
@@ -73,7 +74,7 @@ int SettingsMainController::read(string fileLocation){
         this->matchFile = "";
         this->has_match_module = false;
     }
-    #if DEBUG_MAIN_CONTROLLER_SETTINGS
+    #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful read Match_Config: '" << this->matchFile << "'. Type: " << this->matchType << "\n";
     #endif
 
@@ -98,7 +99,7 @@ int SettingsMainController::read(string fileLocation){
         this->viewFile = "";
         this->has_viewer_module = false;
     }
-    #if DEBUG_MAIN_CONTROLLER_SETTINGS
+    #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful read View_Config: '" << this->viewFile << "'. Type: " << this->viewType << "\n";
     #endif
 
@@ -109,14 +110,18 @@ int SettingsMainController::read(string fileLocation){
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Run_Mode");
     if(aux != NULL){this->runMode = aux->GetText();}
     else{this->runMode = "";}
-    #if DEBUG_MAIN_CONTROLLER_SETTINGS
+    #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful read Run_Mode: '" << this->runMode << "'\n";
     #endif
 
+
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::read(): Finish_OK!...\n";}
     return 0;
 }
 
 int SettingsMainController::interprate(){
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::interprate(): Start...\n";}
+
     if(runMode.empty()){
         cerr << "SettingsMainController::interprate() Error: Not specified Run Mode!\n";
         return -1;
@@ -132,14 +137,17 @@ int SettingsMainController::interprate(){
     if(!viewFile.empty()){
         has_viewer_module = true;
     }
+
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::interprate(): Finish_OK!\n";}
     return 0;
 }
 
 int SettingsMainController::print(){
-    cout << "SettingsMainController:\n";
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::print(): Start...\n";}
     cout << "Run Mode: " << this->runMode << endl;
     cout << "Calib File: " << this->calibFile << endl;
     cout << "Match File: " << this->matchFile << endl;
     cout << "View File: " << this->viewFile << endl;
-    return 1;
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::print(): Finish_OK!\n";}
+    return 0;
 }

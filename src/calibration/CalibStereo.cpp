@@ -11,7 +11,9 @@ CalibStereo::~CalibStereo(){
 
 int CalibStereo::config(string configFile)
 {
-    #if DEBUG_CALIBRATION_STEREO
+    if(LOG_CALIB_STEREO){cout << "CalibStereo::config(): Start...\n";}
+
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::config(): Configurating....\n";
     #endif
@@ -19,18 +21,22 @@ int CalibStereo::config(string configFile)
     this->_s.read(configFile);
     this->_s.interprate();
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         this->_s.print();
         cout << "SteroCalib::config(): Leaving Configurate.\n";
     #endif
 
     _configFlag = true;
+
+    if(LOG_CALIB_STEREO){cout << "CalibStereo::config(): Finish_OK!\n";}
     return 0;
 }
 
 int CalibStereo::run()
 {
-    #if DEBUG_CALIBRATION_STEREO
+    if(LOG_CALIB_STEREO){cout << "CalibStereo::run(): Start...\n";}
+
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::calibrate(): Calibrating...\n";
     #endif
@@ -49,7 +55,7 @@ int CalibStereo::run()
         return -1;
     }
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "SteroCalib::calibrate(): Running stereo calibration ...\n";
     #endif
 
@@ -68,7 +74,7 @@ int CalibStereo::run()
             CALIB_FIX_K3 + CALIB_FIX_K4 + CALIB_FIX_K5,
             TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 100, 1e-5) );
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "Done with RMS error=" << _rms << endl;
     #endif
 
@@ -85,16 +91,17 @@ int CalibStereo::run()
         return -1;
     }
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "End of Calibration! Everything is fine!\n";
     #endif
 
+    if(LOG_CALIB_STEREO){cout << "CalibStereo::run(): Finish_OK!\n";}
     return 0;
 }
 
 int CalibStereo::rectificate()
 {
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::rectificate(): Rectificating...\n";
     #endif
@@ -123,7 +130,7 @@ int CalibStereo::rectificate()
        _showRectification();
     }
 
-    #if (DEBUG_CALIBRATION_STEREO)
+    #if (DEBUG_CALIB_STEREO)
         cout << "End of Rectification!\n";
     #endif
     return 0;
@@ -140,7 +147,7 @@ int CalibStereo::load(string filename){
 
 int CalibStereo::_pairDetect()
 {
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::_pairDetect(): Starting Pair Detection.....\n";
     #endif
@@ -152,7 +159,7 @@ int CalibStereo::_pairDetect()
         return -1;
     }
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "SteroCalib::_pairDetect(): Image list is not odd!\n" << this->_s._imageList.size() << endl;
     #endif
 
@@ -166,7 +173,7 @@ int CalibStereo::_pairDetect()
     _imagePoints[0].resize(nimages);
     _imagePoints[1].resize(nimages);
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "SteroCalib::_pairDetect(): Starting corner detection\n";
     #endif
 
@@ -176,12 +183,12 @@ int CalibStereo::_pairDetect()
     {
         for( k = 0; k < 2; k++ )
         {
-            #if DEBUG_CALIBRATION_STEREO
+            #if DEBUG_CALIB_STEREO
                 cout << "SteroCalib::_pairDetect(): K = " << k << endl;
             #endif
             const string& filename = this->_s._imageList[i*2+k];
 
-            #if DEBUG_CALIBRATION_STEREO
+            #if DEBUG_CALIB_STEREO
                 cout << "SteroCalib::_pairDetect() for loop: " << filename << endl;
             #endif
 
@@ -194,7 +201,7 @@ int CalibStereo::_pairDetect()
             {
                 imageSize = img.size();
 
-                #if DEBUG_CALIBRATION_STEREO
+                #if DEBUG_CALIB_STEREO
                     cout << "SteroCalib::_pairDetect(): Size:" << imageSize << endl;
                 #endif
             }
@@ -229,7 +236,7 @@ int CalibStereo::_pairDetect()
                         Mat cornersMat(corners);
                         cornersMat *= 1./scale;
                     }
-                    #if DEBUG_CALIBRATION_STEREO
+                    #if DEBUG_CALIB_STEREO
                         cout << "SteroCalib::_pairDetect(): Corners FOUND!\n";
                     #endif
                     break;
@@ -267,7 +274,7 @@ int CalibStereo::_pairDetect()
         // Stores the good pair of images  //
         if( k == 2 )
         {
-            #if DEBUG_CALIBRATION_STEREO
+            #if DEBUG_CALIB_STEREO
                 cout << "SteroCalib::_pairDetect(): Good Image Saved!" << endl;
             #endif
             _goodImageList.push_back(this->_s._imageList[i*2]);
@@ -276,7 +283,7 @@ int CalibStereo::_pairDetect()
         }
     }    
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "SteroCalib::_pairDetect(): " << j << " pairs have been successfully detected.\n";
     #endif
 
@@ -306,7 +313,7 @@ int CalibStereo::_pairDetect()
 
 int CalibStereo::_calibCheck()
 {
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::_calibCheck(): Starting Calibration Check.....\n";
     #endif
@@ -335,17 +342,16 @@ int CalibStereo::_calibCheck()
         npoints += npt;
     }
 
-    if(DEBUG_CALIBRATION_STEREO)
-    {
+    #if DEBUG_CALIB_STEREO
         cout << "Average epipolar err = " <<  err/npoints << endl;
-    }
+    #endif
 
     return 0;
 }
 
 int CalibStereo::_calibStereoSaveOutputParam(){
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::_calibStereoSaveOutputParam(): Starting Saving Calib Parameters.....\n";
     #endif
@@ -353,7 +359,7 @@ int CalibStereo::_calibStereoSaveOutputParam(){
     // save intrinsic parameters
     FileStorage fs(this->_s.outputFileName, FileStorage::WRITE);
 
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "SteroCalib::_calibStereoSaveOutputParam(): Saving Parameters on file '" << this->_s.outputFileName << "'\n";
     #endif
 
@@ -372,7 +378,7 @@ int CalibStereo::_calibStereoSaveOutputParam(){
 
 void CalibStereo::_showRectification()
 {
-    #if DEBUG_CALIBRATION_STEREO
+    #if DEBUG_CALIB_STEREO
         cout << "################################################\n";
         cout << "SteroCalib::_showRectification(): Starting Showing Rectification.....\n";
     #endif

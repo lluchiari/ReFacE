@@ -17,17 +17,7 @@ CalibSingle::~CalibSingle()
  */
 int CalibSingle::config(string inputFile, string stackFile, string outFile)
 {
-    // Read the settings
-    //    FileStorage fs(inputSettingsFile, FileStorage::READ);
-    //    if (!fs.isOpened())
-    //    {
-    //        cout << "Could not open the configuration file: \"" << inputSettingsFile << "\"" << endl;
-    //        return -1;
-    //    }
-    //    fs["Settings"] >> (this->_s);
-
-    //    // Close Settings file
-    //    fs.release();
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::config(3): Start...\n";}
 
     // Read Configuration File
     this->_s.read(inputFile);
@@ -37,7 +27,9 @@ int CalibSingle::config(string inputFile, string stackFile, string outFile)
     // Check if the input is valid
     this->_s.interprate();
 
-if(DEBUG_CALIBRATION){cout << "After Read" << endl;}
+    #if DEBUG_CALIB_SINGLE
+        cout << "After Read" << endl;
+    #endif
 
     // Check if the configure file process is good
     if (!this->_s.goodInput)
@@ -46,6 +38,7 @@ if(DEBUG_CALIBRATION){cout << "After Read" << endl;}
         return -1;
     }
 
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::config(3): Finish_OK!\n";}
     return 0;
 }
 
@@ -54,6 +47,7 @@ if(DEBUG_CALIBRATION){cout << "After Read" << endl;}
  * @return (0) if ok. (-1) if any error occured
  */
 int CalibSingle::config(string inputFile){
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::config(): Start...\n";}
 
     this->_s.read(inputFile);
     // Check if the input is valid
@@ -66,10 +60,12 @@ int CalibSingle::config(string inputFile){
         return -1;
     }
 
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::config(): Finish_OK!\n";}
     return 0;
 }
 
 int CalibSingle::run() {
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::run(): Start...\n";}
 
     vector<vector<Point2f> > imagePoints;       // Vector containig the points of each image
     Mat cameraMatrix;                           //
@@ -78,7 +74,9 @@ int CalibSingle::run() {
 
     // Verify the input mode from the setting file
     int mode = (this->_s.inputType == SettingsCalibSingle::IMAGE_LIST) ? CAPTURING : DETECTION;
-    if(DEBUG_CALIBRATION) {cout << "Calibration::calibrate(): Mode " << ((mode == CAPTURING) ? "CAPTURING" : "DETECTION") << endl;}
+    #if DEBUG_CALIB_SINGLE
+        cout << "Calibration::calibrate(): Mode " << ((mode == CAPTURING) ? "CAPTURING" : "DETECTION") << endl;
+    #endif
 
     clock_t prevTimestamp = 0;
 
@@ -89,10 +87,9 @@ int CalibSingle::run() {
     const char ESC_KEY = 27;
     for(int i=0;;i++)
     {
-        if(DEBUG_CALIBRATION)
-        {
+        #if DEBUG_CALIB_SINGLE
             cout << "______________Loop Start i=" << i << "_______________" << endl;
-        }
+        #endif
         Mat view;
         bool blinkOutput = false;
 
@@ -101,7 +98,9 @@ int CalibSingle::run() {
         //If no more image, or got enough, then stop calibration and show result
         if( mode == CAPTURING && imagePoints.size() >= (unsigned)this->_s.nrFrames )
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(1)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(1)" << endl;
+            #endif
             if(this->runCalibrationAndSave(this->_s, imageSize,  cameraMatrix, distCoeffs, imagePoints))
                 mode = CALIBRATED;
             else
@@ -111,9 +110,13 @@ int CalibSingle::run() {
         // If no more images then run calibration, save and stop loop.
         if(view.empty())
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(2)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(2)" << endl;
+            #endif
             if(mode != CALIBRATED && !imagePoints.empty()){
-                if(DEBUG_CALIBRATION) {cout << "calibrate(2.1)" << endl;}
+                #if DEBUG_CALIB_SINGLE
+                    cout << "calibrate(2.1)" << endl;
+                #endif
                 this->runCalibrationAndSave(this->_s, imageSize,  cameraMatrix, distCoeffs, imagePoints);
             }
             break;
@@ -123,7 +126,9 @@ int CalibSingle::run() {
         imageSize = view.size();
 
         if(this->_s.flipVertical){
-            if(DEBUG_CALIBRATION) {cout << "calibrate(3)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(3)" << endl;
+            #endif
             flip( view, view, 0 );
         }
 
@@ -135,20 +140,29 @@ int CalibSingle::run() {
         switch(this->_s.calibrationPattern )
         {
         case SettingsCalibSingle::CHESSBOARD:
-            if(DEBUG_CALIBRATION) {cout << "Case CHESSBOARD" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "Case CHESSBOARD" << endl;
+            #endif
+
             found = findChessboardCorners( view, this->_s.boardSize, pointBuf,
                                            CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
             break;
         case SettingsCalibSingle::CIRCLES_GRID:
-            if(DEBUG_CALIBRATION) {cout << "Case CIRCLES_GRID" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "Case CIRCLES_GRID" << endl;
+            #endif
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf );
             break;
         case SettingsCalibSingle::ASYMMETRIC_CIRCLES_GRID:
-            if(DEBUG_CALIBRATION) {cout << "Case ASYMMETRIC_CIRCLES_GRID" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "Case ASYMMETRIC_CIRCLES_GRID" << endl;
+            #endif
             found = findCirclesGrid( view, this->_s.boardSize, pointBuf, CALIB_CB_ASYMMETRIC_GRID );
             break;
         case SettingsCalibSingle::NOT_EXISTING:
-            if(DEBUG_CALIBRATION) {cout << "Case NOT_EXISTING" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "Case NOT_EXISTING" << endl;
+            #endif
             found = false;
             break;
         }
@@ -156,11 +170,15 @@ int CalibSingle::run() {
         // If find pattern with success...
         if (found)
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(4)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(4)" << endl;
+            #endif
             // improve the found corners' coordinate accuracy for chessboard
             if( this->_s.calibrationPattern == SettingsCalibSingle::CHESSBOARD)
             {
-                if(DEBUG_CALIBRATION) {cout << "calibrate(4.1)" << endl;}
+                #if DEBUG_CALIB_SINGLE
+                    cout << "calibrate(4.1)" << endl;
+                #endif
                 Mat viewGray;
                 cvtColor(view, viewGray, COLOR_BGR2GRAY);
                 cornerSubPix( viewGray, pointBuf, Size(11,11),
@@ -171,7 +189,9 @@ int CalibSingle::run() {
             if( mode == CAPTURING &&
                     (!this->_s.inputCapture.isOpened() || (clock() - prevTimestamp) > this->_s.delay*1e-3*CLOCKS_PER_SEC) )
             {
-                if(DEBUG_CALIBRATION) {cout << "calibrate(4.2)" << endl;}
+                #if DEBUG_CALIB_SINGLE
+                    cout << "calibrate(4.2)" << endl;
+                #endif
                 imagePoints.push_back(pointBuf);
                 prevTimestamp = clock();
                 blinkOutput = this->_s.inputCapture.isOpened();
@@ -180,7 +200,9 @@ int CalibSingle::run() {
             // Draw the corners.
             drawChessboardCorners( view, this->_s.boardSize, Mat(pointBuf), found);
         }
-        if(DEBUG_CALIBRATION) {cout << "calibrate(5)" << endl;}
+        #if DEBUG_CALIB_SINGLE
+            cout << "calibrate(5)" << endl;
+        #endif
         //----------------------------- Output Text ------------------------------------------------
         string msg = (mode == CAPTURING) ? "100/100" :
                                            mode == CALIBRATED ? "Calibrated" : "Press 'g' to start";
@@ -190,7 +212,9 @@ int CalibSingle::run() {
 
         if( mode == CAPTURING )
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(6)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(6)" << endl;
+            #endif
             if(this->_s.showUndistorsed)
                 msg = format( "%d/%d Undist", (int)imagePoints.size(), this->_s.nrFrames );
             else
@@ -200,42 +224,62 @@ int CalibSingle::run() {
         putText( view, msg, textOrigin, 1, 1, mode == CALIBRATED ?  GREEN : RED);
 
         if( blinkOutput )
-            if(DEBUG_CALIBRATION) {cout << "calibrate(7)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(7)" << endl;
+            #endif
             bitwise_not(view, view);
 
         //------------------------- Video capture  output  undistorted ------------------------------
         if( mode == CALIBRATED && this->_s.showUndistorsed )
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(8)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(8)" << endl;
+            #endif
             Mat temp = view.clone();
             undistort(temp, view, cameraMatrix, distCoeffs);
-            if(DEBUG_CALIBRATION) {cout << "calibrate(8.1)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(8.1)" << endl;
+            #endif
         }
 
         //------------------------------ Show image and check for input commands -------------------
         imshow("Image View", view);
-        if(DEBUG_CALIBRATION) {cout << "calibrate(9)" << endl;}
+        #if DEBUG_CALIB_SINGLE
+            cout << "calibrate(9)" << endl;
+        #endif
         char key = (char)waitKey(this->_s.inputCapture.isOpened() ? 50 : this->_s.delay);
-        if(DEBUG_CALIBRATION) {cout << "calibrate(10)" << endl;}
+        #if DEBUG_CALIB_SINGLE
+            cout << "calibrate(10)" << endl;
+        #endif
 
         if( key  == ESC_KEY ){
-            if(DEBUG_CALIBRATION) {cout << "calibrate(11)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(11)" << endl;
+            #endif
             break;
         }
 
         if( key == 'u' && mode == CALIBRATED ){
-            if(DEBUG_CALIBRATION) {cout << "calibrate(12)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+                cout << "calibrate(12)" << endl;
+            #endif
             this->_s.showUndistorsed = !this->_s.showUndistorsed;
         }
 
         if( this->_s.inputCapture.isOpened() && key == 'g' )
         {
-            if(DEBUG_CALIBRATION) {cout << "calibrate(13)" << endl;}
+            #if DEBUG_CALIB_SINGLE
+            cout << "calibrate(13)" << endl;
+            #endif
             mode = CAPTURING;
             imagePoints.clear();
         }
     }
-    if(DEBUG_CALIBRATION) {cout << "End of calibrate" << endl;}
+    #if DEBUG_CALIB_SINGLE
+        cout << "End of calibrate" << endl;
+    #endif
+
+    if(LOG_CALIB_SINGLE){cout << "CalibSingle::run(): Finish_OK!\n";}
     return 0;
 }
 

@@ -10,6 +10,6 @@
   MATCHING_ONLY			:		Runs only the Matching Module (Assuming that calibration has already been made)
   CALIBRATION_MATCHING	:		Runs Calibration and Matching Modules sequentially.
   -->
-  <Run_Mode>MATCHING_ONLY</Run_Mode>
+  <Run_Mode>CALIBRATION_ONLY</Run_Mode>
 </Config_System>
 </ReFacE>
