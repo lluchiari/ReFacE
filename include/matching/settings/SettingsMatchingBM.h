@@ -50,16 +50,9 @@ public:
     int cameraLeftID;
     int cameraRightID;
 
-    vector<string> imageList;
 
 
 
-
-
-
-    /* Stereo Camera Parameters */
-    Mat _cameraMatrix[2];                                // Stores the cameras matrix containing all the information for stereo process. //
-    Mat _distCoeffs[2];                                  // Distortion coeficient matrix //
     Mat _R, _T, _E, _F;                                  // All the main matrix that describes the camera and the image system //
 
     /* Rectified coeficients for stereo matching */
@@ -74,10 +67,6 @@ public:
     double _rms;                                         // Erro for calibration
     vector<vector<Point2f> > _imagePoints[2];            // The corners of the chessboard found //
     vector<vector<Point3f> > _objectPoints;              // Vector of vectors containing the calibration pattern points. If changes the pattern, than changes the way this is calculated //
-
-private:
-    bool _isListOfImages(const string&);
-    bool _readStringList(const string&, vector<string>&);
 };
 
 #endif // __SETTINGS_MATCHING_BM_H__

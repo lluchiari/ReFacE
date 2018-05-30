@@ -8,7 +8,9 @@
 		-->
   <Input>../config/stack/stack_stereo_VID5.xml</Input>
   
+  <!-- This file contains the calibration matrix for stereo correlation -->
   <Calib_File_Input>../output/calib/output_calib_stereo_system1.xml</Calib_File_Input>
+  
   
   <!-- Location of the matching directory containing all the output generated from the stereo methdo -->
   <Write_outputFileName>../output/match/system1/</Write_outputFileName>

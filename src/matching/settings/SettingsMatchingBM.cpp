@@ -61,21 +61,21 @@ int SettingsMatchingBM::interprate(){
             #if DEBUG_SETTINGS_MATCHING_BM
                 cout << "SettingsMatchingBM()::interprate(): CAMERA Case" << endl;
             #endif
-            this->cameraRightID = this->input[0];
-            this->cameraLeftID = this->input[2];
+
+            this->cameraRightID = (int)std::atoi(&this->input[0]);
+            this->cameraLeftID = (int)std::atoi(&this->input[2]);
+
             this->inputType = consts::CAMERA;
         }
         else
         {
             // If the input is the IMAGE LIST case
-            if (_isListOfImages(this->input) && _readStringList(this->input, this->imageList))
+            if (Settings::isListOfImages(this->input))
             {
                 #if DEBUG_SETTINGS_MATCHING_BM
                     cout << "SettingsMatchingBM()::interprate(): IMAGE_LIST mode " << endl;
                 #endif
                 this->inputType = consts::IMAGE_LIST;
-                //this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
-                //                if(DEBUG_SETTINGS_STEREO){cout << "SettingsMatchingBM()::interprate(): Number of Frames: " << this->nrFrames<< endl;}
             }
             // If the input is the VIDEO FILE case
             else {
@@ -85,26 +85,6 @@ int SettingsMatchingBM::interprate(){
                 this->inputType = consts::VIDEO_FILE;
             }
         }
-        if (this->inputType == consts::CAMERA){
-            #if DEBUG_SETTINGS_MATCHING_BM
-                cout << "SettingsMatchingBM()::interprate(): CAMERA open mode " << endl;
-            #endif
-            //            this->inputCapture.open(this->cameraID);
-        }
-        if (this->inputType == consts::VIDEO_FILE){
-            #if DEBUG_SETTINGS_MATCHING_BM
-                cout << "SettingsMatchingBM()::interprate(): VIDEO_FILE open mode " << endl;
-            #endif
-            //            this->inputCapture.open(input);
-        }
-//        if (this->inputType != consts::IMAGE_LIST && !this->inputCapture.isOpened()){
-//            #if DEBUG_SETTINGS_MATCHING_BM
-//                cout << "SettingsMatchingBM()::interprate(): INVALID mode! Error on opening the Camera System! " << endl;
-//            #endif
-//            this->inputType = consts::INVALID;
-//            cerr << "SettingsMatchingBM::interprate(): Error! Invalid input detected!\n";
-//            return -1;
-//        }
     }
 
 
@@ -140,54 +120,3 @@ int SettingsMatchingBM::print(){
     return 0;
 
 }
-
-bool SettingsMatchingBM::_isListOfImages( const string& filename)
-{
-    string s(filename);
-    #if DEBUG_SETTINGS_MATCHING_BM
-        cout << "SettingsMatchingBM::isListOfImages(): String Name:"<< s << endl;
-    #endif
-    // Look for file extension
-    if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
-    {
-        cerr << "SettingsMatchingBM::isListOfImages(): File extension is incorrect!" << endl;
-        return false;
-    }
-    else{
-        #if DEBUG_SETTINGS_MATCHING_BM
-            cout << "SettingsMatchingBM::isListOfImages(): Return True" << endl;
-        #endif
-        return true;
-    }
-}
-
-/**
- * @brief SettingsStereo::_readStringList Read the xml file containing the list of images
- * @param filename is the path of the xml file
- * @param l is the list where the images will be saved
- * @return true if everything is ok. False otherwise
- * @author OpenCV Library
- */
-bool SettingsMatchingBM::_readStringList( const string& filename, vector<string>& l )
-{
-    l.clear();
-    FileStorage fs(filename, FileStorage::READ);
-    if( !fs.isOpened() ){
-        cerr << "SettingsMatchingBM::readStringList: Error on opening Stacks File" << endl;
-        return false;
-    }
-    FileNode n = fs.getFirstTopLevelNode();
-    if( n.type() != FileNode::SEQ ){
-        cerr << "SettingsMatchingBM::readStringList: Error! Incorrect Syntax on file or File is not a sequence." << endl;
-        return false;
-    }
-    FileNodeIterator it = n.begin(), it_end = n.end();
-    for( ; it != it_end; ++it ){
-        l.push_back((string)*it);
-    }
-    #if DEBUG_SETTINGS_CALIB_STEREO
-        cout << "SettingsMatchingBM::readStringList(): Return True" << endl;
-    #endif
-    return true;
-}
-

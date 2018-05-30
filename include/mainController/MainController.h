@@ -49,6 +49,7 @@ public:
     Matching *_matchModule = NULL;
     Viewer *_viewModule = NULL;
 
+
     SettingsMainController _settings;
 };
 

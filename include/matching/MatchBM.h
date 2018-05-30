@@ -5,6 +5,7 @@
 #include <matching/Matching.hh>
 #include <matching/settings/SettingsMatchingBM.h>
 #include <utils/common.h>
+#include <utils/Settings.hh>
 
 // OpenCV Libs
 #include <opencv2/calib3d/calib3d.hpp>
@@ -26,6 +27,11 @@ private:
     const int _colorMode=0;
     Mat _cameraMatrix[2];
     Mat _distCoeffs[2];
+
+    VideoCapture inputCaptureLeft;
+    VideoCapture inputCaptureRight;
+
+    vector<string> imageList;
 
     SettingsMatchingBM _matchSettings;
 
