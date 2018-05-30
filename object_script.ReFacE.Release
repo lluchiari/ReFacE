@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\MainController.o
+./release\SettingsMainController.o
+./release\CalibSingle.o
+./release\CalibStereo.o
+./release\SettingsCalibSingle.o
+./release\SettingsCalibStereo.o
+./release\MatchBM.o
+./release\MatchSGBM.o
+./release\SettingsMatchingBM.o
+./release\SettingsMatchingSGBM.o
+./release\Viewer3D.o
+./release\tinyxml2.o
+);

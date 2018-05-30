@@ -20,15 +20,15 @@
 
 /////////////////////////////////
 #ifndef DEBUG_SETTINGS_CALIB_SINGLE
-    #define DEBUG_SETTINGS_CALIB_SINGLE 0
+    #define DEBUG_SETTINGS_CALIB_SINGLE 1
 #endif
 
 #ifndef DEBUG_SETTINGS_CALIB_STEREO
-    #define DEBUG_SETTINGS_CALIB_STEREO 0
+    #define DEBUG_SETTINGS_CALIB_STEREO 1
 #endif
 
 #ifndef DEBUG_CALIB_SINGLE
-    #define DEBUG_CALIB_SINGLE 0
+    #define DEBUG_CALIB_SINGLE 1
 #endif
 
 #ifndef DEBUG_CALIB_STEREO
@@ -100,19 +100,19 @@
 
 /////////////////////////////////
 #ifndef LOG_SETTINGS_CALIB_SINGLE
-#define LOG_SETTINGS_CALIB_SINGLE 0
+#define LOG_SETTINGS_CALIB_SINGLE 1
 #endif
 
 #ifndef LOG_SETTINGS_CALIB_STEREO
-#define LOG_SETTINGS_CALIB_STEREO 0
+#define LOG_SETTINGS_CALIB_STEREO 1
 #endif
 
 #ifndef LOG_CALIB_SINGLE
-#define LOG_CALIB_SINGLE 0
+#define LOG_CALIB_SINGLE 1
 #endif
 
 #ifndef LOG_CALIB_STEREO
-#define LOG_CALIB_STEREO 0
+#define LOG_CALIB_STEREO 1
 #endif
 /////////////////////////////////
 
@@ -122,7 +122,7 @@
 #endif
 
 #ifndef LOG_MATCHING_SGBM
-#define LOG_MATCHING_SGBM 0
+#define LOG_MATCHING_SGBM 1
 #endif
 
 #ifndef LOG_SETTINGS_MATCHING_BM
@@ -130,17 +130,17 @@
 #endif
 
 #ifndef LOG_SETTINGS_MATCHING_SGBM
-#define LOG_SETTINGS_MATCHING_SGBM 0
+#define LOG_SETTINGS_MATCHING_SGBM 1
 #endif
 /////////////////////////////////
 
 /////////////////////////////////
 #ifndef LOG_VIEWER_3D
-#define LOG_VIEWER_3D 0
+#define LOG_VIEWER_3D 1
 #endif
 
 #ifndef LOG_SETTINGS_VIEWER_3D
-#define LOG_SETTINGS_VIEWER_3D 0
+#define LOG_SETTINGS_VIEWER_3D 1
 #endif
 /////////////////////////////////
 
@@ -155,6 +155,7 @@
 //###################################################################
 //#                         LOG ALL                               #
 //###################################################################
+
 #ifdef LOG_ALL
     #define LOG_SETTINGS_CALIB_SINGLE 1
     #define LOG_SETTINGS_CALIB_STEREO 1

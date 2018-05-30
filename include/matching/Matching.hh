@@ -23,8 +23,6 @@ namespace myMatching {
 class myMatching::Matching : public Module
 {
 public:
-
-    virtual int match()=0;
     virtual ~Matching(){}
     static void saveXYZ(const char* filename, const Mat& mat)
     {

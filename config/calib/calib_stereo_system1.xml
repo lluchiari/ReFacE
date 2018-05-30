@@ -30,7 +30,7 @@
   <Input>../config/stack/stack_stereo_VID5.xml</Input>
   
   <!-- The name of the output log file. -->
-  <Write_outputFileName>../config/output/out_camera_stereo.xml</Write_outputFileName>
+  <Write_outputFileName>../output/calib/output_calib_stereo_system1.xml</Write_outputFileName>
   
   
   

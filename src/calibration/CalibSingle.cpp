@@ -73,7 +73,7 @@ int CalibSingle::run() {
     Size imageSize;                             //
 
     // Verify the input mode from the setting file
-    int mode = (this->_s.inputType == SettingsCalibSingle::IMAGE_LIST) ? CAPTURING : DETECTION;
+    int mode = (this->_s.inputType == consts::IMAGE_LIST) ? CAPTURING : DETECTION;
     #if DEBUG_CALIB_SINGLE
         cout << "Calibration::calibrate(): Mode " << ((mode == CAPTURING) ? "CAPTURING" : "DETECTION") << endl;
     #endif

@@ -23,9 +23,11 @@
 #include <calibration/Calibration.hh>
 #include <calibration/settings/SettingsCalibStereo.h>
 #include <utils/common.h>
+#include <3rdParty/TinyXML2/tinyxml2.h>
 
 using namespace std;
 using namespace cv;
+using namespace tinyxml2;
 
 
 class CalibStereo : public Calibration
@@ -71,7 +73,7 @@ private:
     vector<string> _goodImageList;                       // Vector containnig the path of good pair of images //
 
 
-    SettingsStereo _s;                                   // Configuration object. Stores all the informations about the calibration. //
+    SettingsCalibStereo _s;                                   // Configuration object. Stores all the informations about the calibration. //
 };
 
 #endif // __STEROCALIB_H__

@@ -1,5 +1,5 @@
-#ifndef __SETTINGS_STEREO_H__
-#define __SETTINGS_STEREO_H__
+#ifndef __SETTINGS_CALIB_STEREO_H__
+#define __SETTINGS_CALIB_STEREO_H__
 
 /* Internal Libs */
 #include <iostream>
@@ -23,27 +23,20 @@
 
 using namespace cv;
 using namespace std;
+using namespace consts;
 using namespace mySettings;
 
-class SettingsStereo : public Settings
+class SettingsCalibStereo : public Settings
 {
 public:
 
-    SettingsStereo();
-    ~SettingsStereo();
+    SettingsCalibStereo();
+    ~SettingsCalibStereo();
 
     //Read vector for this class
     int read(string);
     int interprate();
     int print();
-
-    // Kind of imput images
-    enum InputType {
-        INVALID,        //Not valid input image
-        CAMERA,         //Images coming from the camera
-        VIDEO_FILE,     //Images coming from a video file
-        IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
-    };
 
 private:
     bool _isListOfImages(const string&);
@@ -83,4 +76,4 @@ public:
 
 };
 
-#endif // SETTINGS_STEREO_H
+#endif // SETTINGS_CALIB_STEREO_H

@@ -2,8 +2,8 @@
 <ReFacE>
 <Config_System>
   <!-- Module Section -->
-  <Calib_Config name='Stereo Calib'>../config/calib/calib_stereo.xml</Calib_Config>
-  <Match_Config name='Block Matching'>../config/match/match_bm.xml</Match_Config>  
+  <Calib_Config name='Stereo Calib'>../config/calib/calib_stereo_system1.xml</Calib_Config>
+  <Match_Config name='Block Matching'>../config/match/match_bm_system1.xml</Match_Config>  
   
   <!-- Run Mode Section
   CALIBRATION_ONLY		:		Runs only the Calibration Module

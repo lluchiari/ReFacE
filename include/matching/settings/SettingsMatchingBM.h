@@ -20,6 +20,7 @@
 
 using namespace cv;
 using namespace std;
+using namespace consts;
 using namespace mySettings;
 
 class SettingsMatchingBM : public Settings
@@ -34,6 +35,27 @@ public:
     int read(string);
     int interprate();
     int print();
+
+
+
+    // Read from input file//
+    string input;
+    InputType inputType;
+    string outputFileName;
+    float scale;
+    int windowSize;
+    string camParametersFile;                               //Parameters of the camera stored inside a file
+    int maxDisparity;
+
+    int cameraLeftID;
+    int cameraRightID;
+
+    vector<string> imageList;
+
+
+
+
+
 
     /* Stereo Camera Parameters */
     Mat _cameraMatrix[2];                                // Stores the cameras matrix containing all the information for stereo process. //
@@ -53,6 +75,9 @@ public:
     vector<vector<Point2f> > _imagePoints[2];            // The corners of the chessboard found //
     vector<vector<Point3f> > _objectPoints;              // Vector of vectors containing the calibration pattern points. If changes the pattern, than changes the way this is calculated //
 
+private:
+    bool _isListOfImages(const string&);
+    bool _readStringList(const string&, vector<string>&);
 };
 
 #endif // __SETTINGS_MATCHING_BM_H__

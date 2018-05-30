@@ -21,10 +21,14 @@ public:
     ~MatchBM();
 
     int config(string);
-    int match();
     int run();
+private:
+    const int _colorMode=0;
+    Mat _cameraMatrix[2];
+    Mat _distCoeffs[2];
 
     SettingsMatchingBM _matchSettings;
+
 };
 
 #endif //__MATCH_BLOCKMATCHING_H__

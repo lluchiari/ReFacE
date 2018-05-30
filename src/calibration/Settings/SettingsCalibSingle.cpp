@@ -78,7 +78,7 @@ int SettingsCalibSingle::interprate()
         #if(DEBUG_SETTINGS_SINGLE)
             cout << "SettingsCalibSingle::interprate(): Input is Empty!" << endl;
         #endif
-        this->inputType = INVALID;
+        this->inputType = consts::INVALID;
         return -1;
     }
     else
@@ -91,7 +91,7 @@ int SettingsCalibSingle::interprate()
             #endif
             stringstream ss(this->input);
             ss >> this->cameraID;
-            this->inputType = CAMERA;
+            this->inputType = consts::CAMERA;
         }
         else
         {
@@ -100,7 +100,7 @@ int SettingsCalibSingle::interprate()
                  #if(DEBUG_SETTINGS_SINGLE)
                     cout << "SettingsCalibSingle::interprate(): IMAGE_LIST mode " << endl;
                  #endif
-                inputType = IMAGE_LIST;
+                inputType = consts::IMAGE_LIST;
                 this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
                  #if(DEBUG_SETTINGS_SINGLE)
                     cout << "SettingsCalibSingle::interprate(): Number of Frames: " << this->nrFrames<< endl;
@@ -110,30 +110,30 @@ int SettingsCalibSingle::interprate()
                  #if(DEBUG_SETTINGS_SINGLE)
                     cout << "SettingsCalibSingle::interprate(): VIDEO_FILE mode " << endl;
                  #endif
-                inputType = VIDEO_FILE;
+                inputType = consts::VIDEO_FILE;
             }
         }
-        if (inputType == CAMERA){
+        if (inputType == consts::CAMERA){
              #if(DEBUG_SETTINGS_SINGLE)
                 cout << "SettingsCalibSingle::interprate(): CAMERA open mode " << endl;
             #endif
             this->inputCapture.open(this->cameraID);
         }
-        if (inputType == VIDEO_FILE){
+        if (inputType == consts::VIDEO_FILE){
              #if(DEBUG_SETTINGS_SINGLE)
                 cout << "SettingsCalibSingle::interprate(): VIDEO_FILE open mode " << endl;
             #endif
             this->inputCapture.open(input);
         }
-        if (inputType != IMAGE_LIST && !this->inputCapture.isOpened()){
+        if (inputType != consts::IMAGE_LIST && !this->inputCapture.isOpened()){
              #if(DEBUG_SETTINGS_SINGLE)
                 cout << "SettingsCalibSingle::interprate(): INVALID !IMAGE_LIST mode " << endl;
             #endif
-            inputType = INVALID;
+            inputType = consts::INVALID;
             return -1;
         }
     }
-    if (inputType == INVALID)
+    if (inputType == consts::INVALID)
     {
          #if(DEBUG_SETTINGS_SINGLE)
             cout << "SettingsCalibSingle::interprate(): INVALID mode " << endl;

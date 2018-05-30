@@ -1,13 +1,13 @@
 #include <calibration/settings/SettingsCalibStereo.h>
 
-SettingsStereo::SettingsStereo(){
+SettingsCalibStereo::SettingsCalibStereo(){
     _displayCorners = false;
     _useCalibrated = true;
     _showRectified = true;
     _cameraID = 0;
 }
 
-SettingsStereo::~SettingsStereo(){
+SettingsCalibStereo::~SettingsCalibStereo(){
 
 }
 
@@ -17,12 +17,12 @@ SettingsStereo::~SettingsStereo(){
  * @return void
  * @author Lluchiari
  */
-int SettingsStereo::read(string fileLocation)
+int SettingsCalibStereo::read(string fileLocation)
 {
    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::read(): Starting...\n";}
     tinyxml2::XMLDocument doc;
     if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
-        cerr << "SettingsStereo::read: Error on loaing xml file!";
+        cerr << "SettingsCalibStereo::read: Error on loaing xml file!";
         return -1;
     }
 
@@ -42,19 +42,19 @@ int SettingsStereo::read(string fileLocation)
 }
 
 /**
- * @brief SettingsStereo::interprate Interprate the input files and fill all the class required information for calibration
+ * @brief SettingsCalibStereo::interprate Interprate the input files and fill all the class required information for calibration
  * @author OpenCV
  */
-int SettingsStereo::interprate(){
+int SettingsCalibStereo::interprate(){
     if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::interprate(): Starting...\n";}
 
     if (this->_input.empty())
     {
         #if DEBUG_SETTINGS_CALIB_STEREO
-            cout << "SettingsStereo::interprate(): Input is Empty!" << endl;
+            cout << "SettingsCalibStereo::interprate(): Input is Empty!" << endl;
         #endif
 
-        this->_inputType = INVALID;
+        this->_inputType = consts::INVALID;
         return -1;
     }
     else
@@ -63,11 +63,11 @@ int SettingsStereo::interprate(){
         if (this->_input[0] >= '0' && this->_input[0] <= '9')
         {
             #if DEBUG_SETTINGS_CALIB_STEREO
-                cout << "SettingsStereo::interprate(): CAMERA Case" << endl;
+                cout << "SettingsCalibStereo::interprate(): CAMERA Case" << endl;
             #endif
             stringstream ss(this->_input);
             ss >> this->_cameraID;
-            this->_inputType = CAMERA;
+            this->_inputType = consts::CAMERA;
         }
         else
         {
@@ -75,41 +75,41 @@ int SettingsStereo::interprate(){
             if (_isListOfImages(this->_input) && _readStringList(this->_input, this->_imageList))
             {
                 #if DEBUG_SETTINGS_CALIB_STEREO
-                    cout << "SettingsStereo::interprate(): IMAGE_LIST mode " << endl;
+                    cout << "SettingsCalibStereo::interprate(): IMAGE_LIST mode " << endl;
                 #endif
-                this->_inputType = IMAGE_LIST;
+                this->_inputType = consts::IMAGE_LIST;
                 //this->nrFrames = (this->nrFrames < (int)imageList.size()) ? this->nrFrames : (int)imageList.size();
-                //                if(DEBUG_SETTINGS_STEREO){cout << "SettingsStereo::interprate(): Number of Frames: " << this->nrFrames<< endl;}
+                //                if(DEBUG_SETTINGS_STEREO){cout << "SettingsCalibStereo::interprate(): Number of Frames: " << this->nrFrames<< endl;}
             }
             // If the input is the VIDEO FILE case
             else {
                 #if DEBUG_SETTINGS_CALIB_STEREO
-                    cout << "SettingsStereo::interprate(): VIDEO_FILE mode " << endl;
+                    cout << "SettingsCalibStereo::interprate(): VIDEO_FILE mode " << endl;
                 #endif
-                this->_inputType = VIDEO_FILE;
+                this->_inputType = consts::VIDEO_FILE;
             }
         }
-        if (this->_inputType == CAMERA){
+        if (this->_inputType == consts::CAMERA){
             #if DEBUG_SETTINGS_CALIB_STEREO
-                cout << "SettingsStereo::interprate(): CAMERA open mode " << endl;
+                cout << "SettingsCalibStereo::interprate(): CAMERA open mode " << endl;
             #endif
             //            this->inputCapture.open(this->cameraID);
         }
-        if (this->_inputType == VIDEO_FILE){
+        if (this->_inputType == consts::VIDEO_FILE){
             #if DEBUG_SETTINGS_CALIB_STEREO
-                cout << "SettingsStereo::interprate(): VIDEO_FILE open mode " << endl;
+                cout << "SettingsCalibStereo::interprate(): VIDEO_FILE open mode " << endl;
             #endif
             //            this->inputCapture.open(input);
         }
-        if (this->_inputType != IMAGE_LIST && !this->_inputCapture.isOpened()){
+        if (this->_inputType != consts::IMAGE_LIST && !this->_inputCapture.isOpened()){
             #if DEBUG_SETTINGS_CALIB_STEREO
-                cout << "SettingsStereo::interprate(): INVALID mode! Error on opening the Camera System! " << endl;
+                cout << "SettingsCalibStereo::interprate(): INVALID mode! Error on opening the Camera System! " << endl;
             #endif
-            this->_inputType = INVALID;
+            this->_inputType = consts::INVALID;
             return -1;
         }
     }
-    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::interprate(): Finish_OK!\n";}
+    if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsCalibStereo::interprate(): Finish_OK!\n";}
     return 0;
 }
 
@@ -119,21 +119,21 @@ int SettingsStereo::interprate(){
  * @return true if there is a file like filename, otherwise false
  * @author OpenCV Library
  */
-bool SettingsStereo::_isListOfImages( const string& filename)
+bool SettingsCalibStereo::_isListOfImages( const string& filename)
 {
     string s(filename);
     #if DEBUG_SETTINGS_CALIB_STEREO
-        cout << "SettingsStereo::isListOfImages(): String Name:"<< s << endl;
+        cout << "SettingsCalibStereo::isListOfImages(): String Name:"<< s << endl;
     #endif
     // Look for file extension
     if( s.find(".xml") == string::npos && s.find(".yaml") == string::npos && s.find(".yml") == string::npos )
     {
-        cerr << "SettingsStereo::isListOfImages(): File extension is incorrect!" << endl;
+        cerr << "SettingsCalibStereo::isListOfImages(): File extension is incorrect!" << endl;
         return false;
     }
     else{
         #if DEBUG_SETTINGS_CALIB_STEREO
-            cout << "SettingsStereo::isListOfImages(): Return True" << endl;
+            cout << "SettingsCalibStereo::isListOfImages(): Return True" << endl;
         #endif
         return true;
     }
@@ -147,7 +147,7 @@ bool SettingsStereo::_isListOfImages( const string& filename)
  * @return true if everything is ok. False otherwise
  * @author OpenCV Library
  */
-bool SettingsStereo::_readStringList( const string& filename, vector<string>& l )
+bool SettingsCalibStereo::_readStringList( const string& filename, vector<string>& l )
 {
     l.clear();
     FileStorage fs(filename, FileStorage::READ);
@@ -172,7 +172,7 @@ bool SettingsStereo::_readStringList( const string& filename, vector<string>& l 
 
 
 
-int SettingsStereo::print(){
+int SettingsCalibStereo::print(){
     if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::print(): Start printing...\n";}
     cout << "Image List:\t";
     for(int i=0; i < this->_imageList.size(); i++)
@@ -207,6 +207,7 @@ int SettingsStereo::print(){
             break;
     };
     cout << "CameraID: " << this->_cameraID  << std::endl;
+
 
     if(LOG_SETTINGS_CALIB_STEREO){cout << "SettingsStereo::print(): Finish_OK!\n";}
     return 0;

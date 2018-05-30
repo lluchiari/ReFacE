@@ -22,7 +22,6 @@ public:
     ~MatchSGBM() override;
 
     int config(string);
-    int match();
     int run();
 
     SettingsMatchingSGBM _matchSettings;

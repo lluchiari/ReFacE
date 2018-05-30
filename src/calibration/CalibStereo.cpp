@@ -376,6 +376,41 @@ int CalibStereo::_calibStereoSaveOutputParam(){
     }
 }
 
+//int CalibStereo::_calibStereoSaveOutputParam(){
+
+
+//#if DEBUG_CALIB_STEREO
+//    cout << "################################################\n";
+//    cout << "SteroCalib::_calibStereoSaveOutputParam(): Starting Saving Calib Parameters.....\n";
+//#endif
+
+//    XMLDocument xmlDoc;
+//    int i, j;
+
+//    // Creating root element //
+//    XMLNode * pRoot = xmlDoc.NewElement("ReFacE");
+//    xmlDoc.InsertFirstChild(pRoot);
+
+//    XMLElement * calibElement = xmlDoc.NewElement("Calibration");
+//    pRoot->InsertEndChild(calibElement);
+
+//    XMLElement * m1Element = xmlDoc.NewElement("M1");
+
+//    XMLElement * m1Row = xmlDoc.NewElement("rows");
+//    XMLElement * m1Colum = xmlDoc.NewElement("cols");
+
+//    for(i=0; i<_cameraMatrix[0].rows; i++)
+//    {
+//        for(j=0; j<_cameraMatrix[0].cols; j++)
+//        {
+
+//        }
+//    }
+
+
+
+//}
+
 void CalibStereo::_showRectification()
 {
     #if DEBUG_CALIB_STEREO

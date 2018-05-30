@@ -40,13 +40,13 @@ int main(int argc, char *argv[])
         delete mainControl;
         return -1;
     }
-    if(mainControl->run() !=  0){
-        cerr << "Something went wrong on MainController::run()! Please Check it!\n";
-        delete mainControl;
-        return -1;
-    }
+//    if(mainControl->run() !=  0){
+//        cerr << "Something went wrong on MainController::run()! Please Check it!\n";
+//        delete mainControl;
+//        return -1;
+//    }
     delete mainControl;
-    return 0;
+    return 1;
 }
 
 
