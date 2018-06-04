@@ -14,90 +14,97 @@ myMainController::MainController::~MainController(){
 int myMainController::MainController::config(string fileLocation){
     if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Start...\n";}
 
-    if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Reading setting file...\n";}
-    if(_settings.read(fileLocation) != 0){
-        cerr << "MainController::config(): Error on reading Setting file!\n";
-        return -1;
-    }
+    if(_settings.read(fileLocation) != 0){cerr << "MainController::config(): Error on reading Setting file!\n";return -1;}
+    if (_settings.interprate() != 0){cerr << "MainController::config(): Error on Setting File!\n";return -1;}
 
-    if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Interprate Settings starting...\n";}
-    if (_settings.interprate() != 0){
-        cerr << "MainController::config(): Error on Setting File!\n";
-        return -1;
-    }
-//#################################################################
-//#################################################################
 
-    if(LOG_MAIN_CONTROLLER){cout << "MainController::config(): Operation mode checker starting...\n";}
-
+    //---------------------------------------------------------------
+    //                      CAPTURE_IMAGES
+    //---------------------------------------------------------------
     // Check the Operation Mode //
-    if(!_settings.runMode.compare("CALIBRATION_ONLY")) {
+    if(!_settings.runMode.compare("CAPTURE_IMAGES")) {
+        _mode = consts::runMode::CAPTURE_IMAGES;
+    }
+    //---------------------------------------------------------------
+    //                      CALIBRATION_ONLY
+    //---------------------------------------------------------------
+    else if(!_settings.runMode.compare("CALIBRATION_ONLY")) {
         _mode = consts::runMode::CALIBRATION_ONLY;
         #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config(): operation mode CALIBRATION_ONLY\n";
         #endif
 
-        // Calibration Module Config //
+        //###################################
+        //#         CALIB MODULE            #
+        //###################################
         if(_settings.has_calib_module)
         {
             _calibModule = Factory::getNewClibModule(_settings.calibType);
-            if(_calibModule == NULL){
-                cerr << "MainController::config(): Error on alocating Calibration class!\n";
-                return -1;
-            }
-            _calibModule->config(_settings.calibFile);
+            if(_calibModule == NULL){cerr << "MainController::config(): Error on alocating Calibration class of CALIBRATION_ONLY!\n";return -1;}
+
+            if(_calibModule->config(_settings.calibFile) != 0){cerr << "MainController::config(): Error on config of Calibration module on CALIBRATION_ONLY!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No calib module found!\n";
             return -1;
         }
     }
+
+    //---------------------------------------------------------------
+    //                              MATCHING_ONLY
+    //---------------------------------------------------------------
     else if(!_settings.runMode.compare("MATCHING_ONLY")) {
         _mode = consts::runMode::MATCHING_ONLY;
         #if DEBUG_MAIN_CONTROLLER
             cout << "MainController::config(): operation mode MATCHING_ONLY\n";
         #endif
 
+        //###################################
+        //#         MATCH MODULE            #
+        //###################################
         if(_settings.has_match_module){
             _matchModule = Factory::getNewMatchModule(_settings.matchType);
-            if(_matchModule == NULL){
-                cerr << "MainController::config(): Error on alocating Matching class!\n";
-                return -1;
-            }
-            _matchModule->config(_settings.matchFile);
+            if(_matchModule == NULL){cerr << "MainController::config(): Error on alocating Matching class of MATCHING_ONLY!\n";return -1;}
+
+            if(_matchModule->config(_settings.matchFile) != 0){cerr << "MainController::config(): Error on Matching Module of MATCHING_ONLY!\n";return -1;}
         }
         else {
             cerr << "MainController::config(): No match module found!\n";
             return -1;
         }
     }
+
+    //---------------------------------------------------------------
+    //                      CALIBRATION_MATCHING
+    //---------------------------------------------------------------
     else if(!_settings.runMode.compare("CALIBRATION_MATCHING")) {
         _mode = consts::runMode::CALIBRATION_MATCHING;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING\n";
         #endif
 
+        //###################################
+        //#         CALIB MODULE            #
+        //###################################
         if(_settings.has_calib_module)
         {
             _calibModule = Factory::getNewClibModule(_settings.calibType);
-            if(_calibModule == NULL){
-                cerr << "MainController::config(): Error on alocating Calibration class!\n";
-                return -1;
-            }
-            _calibModule->config(_settings.calibFile);
+            if(_calibModule == NULL){cerr << "MainController::config(): Error on alocating Calibration class of CALIBRATION_MATCHING!\n";return -1;}
+
+            if(_calibModule->config(_settings.calibFile) != 0){cerr << "MainController::config(): Error on config of Calibration module on CALIBRATION_MATCHING!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No calib module found!\n";
             return -1;
         }
 
+        //###################################
+        //#         MATCH MODULE            #
+        //###################################
         if(_settings.has_match_module){
             _matchModule = Factory::getNewMatchModule(_settings.matchType);
-            if(_matchModule == NULL){
-                cerr << "MainController::config(): Error on alocating Matching class!\n";
-                return -1;
-            }
-            _matchModule->config(_settings.matchFile);
+            if(_matchModule == NULL){cerr << "MainController::config(): Error on alocating Matching class of CALIBRATION_MATCHING!\n";return -1;}
+            if(_matchModule->config(_settings.matchFile) != 0){cerr << "MainController::config(): Error on Matching Module of CALIBRATION_MATCHING!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No match module found!\n";
@@ -105,46 +112,50 @@ int myMainController::MainController::config(string fileLocation){
         }
 
     }
+
+    //---------------------------------------------------------------
+    //                      CALIBRATION_MATCHING_VIEW
+    //---------------------------------------------------------------
     else if(!_settings.runMode.compare("CALIBRATION_MATCHING_VIEW")){
         _mode = consts::runMode::CALIBRATION_MATCHING_VIEW;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING_VIEW\n";
         #endif
 
+        //###################################
+        //#         CALIB MODULE            #
+        //###################################
         if(_settings.has_calib_module)
         {
             _calibModule = Factory::getNewClibModule(_settings.calibType);
-            if(_calibModule == NULL){
-                cerr << "MainController::config(): Error on alocating Calibration class!\n";
-                return -1;
-            }
-            _calibModule->config(_settings.calibFile);
+            if(_calibModule == NULL){cerr << "MainController::config(): Error on alocating Calibration class of CALIBRATION_MATCHING_VIEW!\n";return -1;}
+            if(_calibModule->config(_settings.calibFile) != 0){cerr << "MainController::config(): Error on config of Calibration module on CALIBRATION_MATCHING_VIEW!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No calib module found!\n";
             return -1;
         }
 
+        //###################################
+        //#         MATCH MODULE            #
+        //###################################
         if(_settings.has_match_module){
             _matchModule = Factory::getNewMatchModule(_settings.matchType);
-            if(_matchModule == NULL){
-                cerr << "MainController::config(): Error on alocating Matching class!\n";
-                return -1;
-            }
-            _matchModule->config(_settings.matchFile);
+            if(_matchModule == NULL){cerr << "MainController::config(): Error on alocating Matching class of CALIBRATION_MATCHING_VIEW!\n";return -1;}
+            if(_matchModule->config(_settings.matchFile) != 0){cerr << "MainController::config(): Error on Matching Module of CALIBRATION_MATCHING_VIEW!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No match module found!\n";
             return -1;
         }
 
+        //###################################
+        //#         VIEWER MODULE           #
+        //###################################
         if(_settings.has_viewer_module){
             _viewModule = Factory::getNewViewModule(_settings.viewType);
-            if(_viewModule == NULL){
-                cerr << "MainController::config(): Error on alocating Viewer class!\n";
-                return -1;
-            }
-            _viewModule->config(_settings.viewFile);
+            if(_viewModule == NULL){cerr << "MainController::config(): Error on alocating Viewer class of CALIBRATION_MATCHING_VIEW!\n";return -1;}
+            if(_viewModule->config(_settings.viewFile) != 0){cerr << "MainController::config(): Error on config Viewer module of CALIBRATION_MATCHING_VIEW!\n";return -1;}
         }
         else{
             cerr << "MainController::config(): No viewer module found!\n";
@@ -164,44 +175,28 @@ int myMainController::MainController::config(string fileLocation){
     return 0;
 }
 
-int myMainController::MainController::run(){
+int myMainController::MainController::run()
+{
     if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Start...\n";}
 
-    if(_mode == consts::runMode::CALIBRATION_ONLY){
-        if(_calibModule->run() != 0){
-            cerr << "MainController::run(): Error on running calibration module!\n";
-            return -1;
-        }
-        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
-        return 0;
+    if(_mode == consts::runMode::CAPTURE_IMAGES){
+        CameraCapture::stereoCapture("../images/StereoDataset/", this->_settings.systemName,1,2);
+    }
+    else if(_mode == consts::runMode::CALIBRATION_ONLY){
+        if(_calibModule->run() != 0){cerr << "MainController::run(): Error on running calibration module!\n";return -1;}
     }
     else if(_mode == consts::runMode::MATCHING_ONLY){
-        if(_matchModule->run() != 0)
-        {
-            cerr << "MainController::run(): Error on running matching module!\n";
-            return -1;
-        }
-        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
-        return 0;
+        if(_matchModule->run() != 0) {cerr << "MainController::run(): Error on running matching module!\n";return -1;}
     }
     else if(_mode == consts::runMode::CALIBRATION_MATCHING){
-        if(_calibModule->run() != 0)
-        {
-            cerr << "MainController::run(): Error on running calibration module!\n";
-            return -1;
-        }
-        if(_matchModule->run() != 0)
-        {
-            cerr << "MainController::run(): Error on running matching module!\n";
-            return -1;
-        }
-
-        if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
-        return 0;
+        if(_calibModule->run() != 0){cerr << "MainController::run(): Error on running calibration module!\n";return -1;}
+        if(_matchModule->run() != 0){cerr << "MainController::run(): Error on running matching module!\n";return -1;}
     }
     else
     {
         cerr << "MainController::run(): Error on mode selecting! Mode doens't exist!\n";
         return -1;
     }
+    if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Finish_OK!\n";}
+    return 0;
 }

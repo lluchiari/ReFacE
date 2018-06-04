@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Settings sys_name='system2'>
+	<!-- REGARDS -->
+	<!-- This script works like these instructions:
+		* On IMAGE_LIST mode, it will do everything automatically
+		* On CAMERA mode the program will initialize the stereo camera passed by ID and opent two windows. 
+			- Press 't' to Take a picture!
+				After pressing the algorithm will check the chessboard corners. If no corners were found it will unfreeze and start the camera capturing process again. In this case align correctlly the chessboard and press 't' again.
+			
+			If found the corners a freezed picture will be shown.
+			- Press 's' if you want to save the picture and it's calibration parameters, otherwise press anything else to discart and start the capturing proccess again.
+			
+			- Press ESC key at any momment to skip and finish the calibration process and save the parameters if the case.
+	-->
+
+  <!-- Number of inner corners per a item row and column. (square, circle) -->
+  <BoardSize_Width>7</BoardSize_Width>
+  <BoardSize_Height>7</BoardSize_Height>
+  
+  <!-- The size of a square in some user defined metric system (pixel, millimeter)-->
+  <Square_Size>26</Square_Size>
+  
+  <!-- The type of input used for camera calibration. One of: CHESSBOARD CIRCLES_GRID ASYMMETRIC_CIRCLES_GRID -->
+  <Calibrate_Pattern>CHESSBOARD</Calibrate_Pattern>
+  
+  <!-- If true (non-zero) Display corners on the runtime - Debug purpose-->
+  <Display_Corner>0</Display_Corner>
+  
+  <!-- If true (non-zero) use calibrated image on realtime -->
+  <Use_Calibrated>0</Use_Calibrated>
+  
+  <!-- If true (non-zero) shows rectified image on realtime -->
+  <Show_Rectified>0</Show_Rectified>
+  
+  <!-- If true (non-zero) we show after calibration the undistorted images. -->
+  <Show_UndistortedImage>0</Show_UndistortedImage>
+  
+  <!-- The input to use for calibration. 
+		To use an stereo CAMERA -> give the ID of both camera in the right and left order, like "1,2". 1 is the id of RIGHT camera and 2 is LEFT
+		(NOT SUPORTED YET!) To use an input video  -> give the path of the input video, like "/tmp/x.avi"
+		To use an IMAGE LIST   -> give the path to the XML file containing the list of the images, like "/tmp/circles_list.xml"
+		-->
+  <Input>1,2</Input>
+  
+  <!-- The name of the output log file. -->
+  <Output_Camera_FileName>../output/calib/output_calib_stereo_camera_system2.xml</Output_Camera_FileName>
+  <Output_Intrinsic_FileName>../output/calib/output_calib_stereo_intrinsic_system2.xml</Output_Intrinsic_FileName>
+  <Output_Extrinsic_FileName>../output/calib/output_calib_stereo_extrinsic_system2.xml</Output_Extrinsic_FileName>
+  
+  
+  <!-- NOT USED YET! -->
+  <!-- Time delay between frames in case of camera. -->
+  <Input_Delay>100</Input_Delay>
+  
+  <!-- How many frames to use, for calibration.-->
+  <Calibrate_NrOfFrameToUse>15</Calibrate_NrOfFrameToUse>
+ 
+</Settings>
+</opencv_storage>

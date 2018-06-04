@@ -224,10 +224,11 @@ int CalibSingle::run() {
         putText( view, msg, textOrigin, 1, 1, mode == CALIBRATED ?  GREEN : RED);
 
         if( blinkOutput )
-            #if DEBUG_CALIB_SINGLE
-                cout << "calibrate(7)" << endl;
-            #endif
             bitwise_not(view, view);
+
+        #if DEBUG_CALIB_SINGLE
+            cout << "calibrate(7)" << endl;
+        #endif
 
         //------------------------- Video capture  output  undistorted ------------------------------
         if( mode == CALIBRATED && this->_s.showUndistorsed )

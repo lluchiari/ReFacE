@@ -31,6 +31,7 @@ public:
     string viewType;
 
     string runMode;
+    string systemName;
 
 
     bool has_calib_module;

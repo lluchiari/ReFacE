@@ -10,6 +10,7 @@ static void show_usage(std::string name) {
 
 int main(int argc, char *argv[])
 {
+    if(DEBUG){cout << "Main Starting...\n";}
     //Files declaration
     std::string mainConfigFile;
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
 //#############################################################################################
 
     MainController *mainControl = new MainController();
+    if(DEBUG){cout << "Main Config...\n";}
     if(mainControl->config(mainConfigFile) != 0){
         cerr << "Something went wrong on MainController::config()! Please Check it!\n";
         delete mainControl;

@@ -7,6 +7,7 @@
 #include <utils/Module.hh>
 #include <utils/Settings.hh>
 #include <utils/Factory.hh>
+#include <utils/CameraCapture.hh>
 
 #include <calibration/Calibration.hh>
 #include <calibration/CalibSingle.h>
@@ -25,6 +26,7 @@
 
 using namespace myModule;
 using namespace myMatching;
+using namespace myCameraCapture;
 
 namespace myMainController {
     class MainController;
@@ -40,7 +42,6 @@ public:
     int run();
 
 public:
-
     // Operation Mode
     consts::runMode _mode;
 

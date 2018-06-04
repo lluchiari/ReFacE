@@ -43,19 +43,22 @@ private:
     bool _readStringList(const string&, vector<string>&);
 
 public:
-    vector<string> _imageList;        // List with addres of image files
-    cv::Size _boardSize;              // The size of the board -> Number of items by width and height
-    string _patternToUse;
-    float _squareSize;                // The size of a square in your defined unit (point, millimeter,etc).
-    bool _displayCorners;
-    bool _useCalibrated;
-    bool _showRectified;              // Shows the rectified images after the calibration
-    bool _showUndistorsed;            // Show undistorted images after calibration
-    string _input;                    // The input ->
-    string outputFileName;           // The name of the file where to write
-    InputType _inputType;             // It's the type of input used on calibration. Could be camera, video, set of image
-    int _cameraID;
-    VideoCapture _inputCapture;       //
+    string systemName;
+    vector<string> imageList;        // List with addres of image files
+    cv::Size boardSize;              // The size of the board -> Number of items by width and height
+    string patternToUse;
+    float squareSize;                // The size of a square in your defined unit (point, millimeter,etc).
+    bool displayCorners;
+    bool useCalibrated;
+    bool showRectified;              // Shows the rectified images after the calibration
+    bool showUndistorsed;            // Show undistorted images after calibration
+    string input;                    // The input ->
+    string outputCameraFilename;
+    string outputExtrinsicFilename;
+    string outputIntrinsicFilename;
+    InputType inputType;             // It's the type of input used on calibration. Could be camera, video, set of image
+    int cameraLeftID;
+    int cameraRightID;
 
 //    Pattern calibrationPattern;     // One of the Chessboard, circles, or asymmetric circle pattern
 //    int nrFrames;                   // The number of frames to use from the input for calibration

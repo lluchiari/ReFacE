@@ -7,7 +7,8 @@ MatchBM::MatchBM(){
 MatchBM::~MatchBM() {
 }
 
-int MatchBM::config(string filename){
+int MatchBM::config(string filename)
+{
     if(LOG_MATCHING_BM){cout << "MatchBM::config(): Start...\n";}
     if(this->_matchSettings.read(filename) != 0){
         cerr << "MatchBM::config(): Error on read settings!\n";
@@ -15,29 +16,6 @@ int MatchBM::config(string filename){
     }    
     if(this->_matchSettings.interprate() != 0){
         cerr << "MatchBM::config(): Error on interprate!\n";
-        return -1;
-    }
-
-    // Load the configuration matrix //
-    FileStorage fs(_matchSettings.camParametersFile, FileStorage::READ);
-
-    if( !fs.isOpened() ){
-        cerr << "MatchBM::config(): Error on opening Camera Matrix File" << endl;
-        return -1;
-    }
-
-    fs["M1"] >> _cameraMatrix[0];
-    fs["M2"] >> _cameraMatrix[1];
-    fs["D1"] >> _distCoeffs[0];
-    fs["D2"] >> _distCoeffs[1];
-    fs.release();
-
-    if(_cameraMatrix[0].empty() || _cameraMatrix[1].empty()){
-        cerr << "MatchBM::config(): Error on reading camera matrix!\n";
-        return -1;
-    }
-    if(_distCoeffs[0].empty() || _distCoeffs[1].empty()){
-        cerr << "MatchBM::config(): Error on reading distance coefficients!\n";
         return -1;
     }
 
@@ -65,7 +43,6 @@ int MatchBM::config(string filename){
         }
 
         #if DEBUG_MATCHING_BM
-            cout << "TODO: Take this debug out!\n";
             cout << "MatchBM::config(): Is a list of images! Here are the images:\n";
             for(std::vector<string>::iterator it = imageList.begin(); it != imageList.end(); ++it){
                 cout << *it;
@@ -86,17 +63,113 @@ int MatchBM::config(string filename){
     return 0;
 }
 
-
-
 int MatchBM::run(){
     if(LOG_MATCHING_BM){cout << "MatchBM::run(): Start...\n";}
 
 
-    //Ptr<StereoBM> bm = StereoBM::create;
+    if(_loadCameraParameters() != 0){
+        cerr << "MatchBM::config(): Error on loading camera Matrix\n";
+        return -1;
+    }
+
+    /* Configure Block Matching Prameters */
+    bm = StereoBM::create(_matchSettings.maxDisparity, _matchSettings.windowSize);
+//    cout << "Valid ROI:\n" << _validRoi[0];
+
+    bm->setROI1(_validRoi[0]);
+    bm->setROI2(_validRoi[1]);
+    bm->setPreFilterCap(31);
+    bm->setBlockSize(_matchSettings.windowSize);
+    bm->setMinDisparity(0);
+    bm->setNumDisparities(_matchSettings.maxDisparity);
+    bm->setTextureThreshold(10);
+    bm->setUniquenessRatio(15);
+    bm->setSpeckleWindowSize(100);
+    bm->setSpeckleRange(32);
+    bm->setDisp12MaxDiff(1);
 
     if(_matchSettings.inputType == IMAGE_LIST)
     {
-        // TODO: Take the first two images
+        Mat aux[2];
+        Mat img1, img2;
+        string imgName1, imgName2;
+        int imgCount=0;
+        for(std::vector<string>::iterator it = imageList.begin(); it != imageList.end(); ++it, imgCount++)
+        {
+            imgName1 = it->data();
+            img1 = imread(it->data(), _colorMode);
+            ++it;
+            imgName2 = it->data();
+            img2 = imread(it->data(), _colorMode);
+
+            // Check the images existence //
+            if (img1.empty())
+            {
+                cerr << "MatchBM::run(): Error on loading '" << imgName1 << "' image from imageList! Not existing image! Check your files!\n";
+                return -1;
+            }
+            if (img2.empty())
+            {
+                cerr << "MatchBM::run(): Error on loading '" << imgName2 << "' image from imageList! Not existing image! Check your files!\n";
+                return -1;
+            }
+
+// TODO: Check if this is necessary, once we've made on calibration process!
+//            // Scale if necessary //
+//            if (_matchSettings.scale != 1.f)
+//            {
+//                Mat temp1, temp2;
+//                int method = _matchSettings.scale < 1 ? INTER_AREA : INTER_CUBIC;
+//                resize(img1, temp1, Size(), _matchSettings.scale, _matchSettings.scale, method);
+//                img1 = temp1;
+//                resize(img2, temp2, Size(), _matchSettings.scale, _matchSettings.scale, method);
+//                img2 = temp2;
+//            }
+
+            remap(img1, aux[0], _mapCam1[0], _mapCam1[1], INTER_LINEAR);
+            remap(img2, aux[1], _mapCam2[0], _mapCam2[1], INTER_LINEAR);
+
+            img1 = aux[0];
+            img2 = aux[1];
+
+//            imshow("bla", img1);
+
+//            char c = (char)waitKey();
+//            if( c == 27 || c == 'q' || c == 'Q' )
+//                break;
+
+            // Compute the stereo itself! //
+            bm->compute(img1, img2, disp);
+
+            disp.convertTo(disp8, CV_8U);
+
+            //Write on output file:
+            string outpuFileName;
+            outpuFileName = _matchSettings.outputFileName + "output_match_bm_" + _matchSettings.systemName + "_" +to_string(imgCount) + ".jpg";
+            cout << outpuFileName << endl;
+
+//            double sf1 = (600./MAX(img1.cols, img1.rows));
+//            Rect vroi1(cvRound(_validRoi[0].x*sf1), cvRound(_validRoi[0].y*sf1),
+//                      cvRound(_validRoi[0].width*sf1), cvRound(_validRoi[0].height*sf1));
+//            rectangle(img1, vroi1, Scalar(0,0,255), 3, 8);
+
+//            double sf2 = (600./MAX(img2.cols, img2.rows));
+//            Rect vroi2(cvRound(_validRoi[1].x*sf2), cvRound(_validRoi[1].y*sf2),
+//                      cvRound(_validRoi[1].width*sf2), cvRound(_validRoi[1].height*sf2));
+//            rectangle(img2, vroi2, Scalar(0,0,255), 3, 8);
+
+            namedWindow("left", 1);
+            imshow("left", img1);
+            namedWindow("right", 1);
+            imshow("right", img2);
+            namedWindow("disparity", 0);
+            imshow("disparity", disp8);
+            printf("press any key to continue...");
+            fflush(stdout);
+            waitKey();
+            printf("\n");
+            imwrite(outpuFileName, disp8);
+        }
     }
     else if(_matchSettings.inputType == CAMERA)
     {
@@ -130,3 +203,39 @@ int MatchBM::run(){
     if(LOG_MATCHING_BM){cout << "MatchBM::run(): Finish_OK!\n";}
     return 0;
 }
+
+
+int MatchBM::_loadCameraParameters()
+{
+    // Load the configuration matrix //
+    FileStorage fs(_matchSettings.camParamFile, FileStorage::READ);
+
+    if( !fs.isOpened() ){
+        cerr << "MatchBM::_loadCameraParameters(): Error on opening Camera Matrix File" << endl;
+        return -1;
+    }
+
+    fs["MAP1_CAM1"] >> _mapCam1[0];
+    fs["MAP2_CAM1"] >> _mapCam1[1];
+    fs["MAP1_CAM2"] >> _mapCam2[0];
+    fs["MAP2_CAM2"] >> _mapCam2[1];
+    fs["ROI1"] >> _validRoi[0];
+    fs["ROI2"] >> _validRoi[1];
+    fs.release();
+
+    if(_mapCam1[0].empty() || _mapCam1[1].empty()){
+        cerr << "MatchBM::_loadCameraParameters(): Error on reading camera1 matrix!\n";
+        return -1;
+    }
+    if(_mapCam2[0].empty() || _mapCam2[1].empty()){
+        cerr << "MatchBM::_loadCameraParameters(): Error on reading camera2 matrix!\n";
+        return -1;
+    }
+//    if(_validRoi[0].empty() || _validRoi[1].empty()){
+//        cerr << "MatchBM::_loadCameraParameters(): Error on reading ROI matrix!\n";
+//        return -1;
+//    }
+    return 0;
+}
+
+

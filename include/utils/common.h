@@ -14,7 +14,7 @@
 
 /////////////////////////////////
 #ifndef DEBUG
-    #define DEBUG 0
+    #define DEBUG 1
 #endif
 /////////////////////////////////
 
@@ -32,25 +32,25 @@
 #endif
 
 #ifndef DEBUG_CALIB_STEREO
-    #define DEBUG_CALIB_STEREO 0
+    #define DEBUG_CALIB_STEREO 1
 #endif
 /////////////////////////////////
 
 /////////////////////////////////
 #ifndef DEBUG_MATCHING_BM
-#define DEBUG_MATCHING_BM 0
+#define DEBUG_MATCHING_BM 1
 #endif
 
 #ifndef DEBUG_MATCHING_SGBM
-#define DEBUG_MATCHING_SGBM 0
+#define DEBUG_MATCHING_SGBM 1
 #endif
 
 #ifndef DEBUG_SETTINGS_MATCHING_BM
-#define DEBUG_SETTINGS_MATCHING_BM 0
+#define DEBUG_SETTINGS_MATCHING_BM 1
 #endif
 
 #ifndef DEBUG_SETTINGS_MATCHING_SGBM
-#define DEBUG_SETTINGS_MATCHING_SGBM 0
+#define DEBUG_SETTINGS_MATCHING_SGBM 1
 #endif
 /////////////////////////////////
 
@@ -66,11 +66,11 @@
 
 /////////////////////////////////
 #ifndef DEBUG_MAIN_CONTROLLER
-#define DEBUG_MAIN_CONTROLLER 0
+#define DEBUG_MAIN_CONTROLLER 1
 #endif
 
 #ifndef DEBUG_SETTINGS_MAIN_CONTROLLER
-#define DEBUG_SETTINGS_MAIN_CONTROLLER 0
+#define DEBUG_SETTINGS_MAIN_CONTROLLER 1
 #endif
 //###################################################################
 //#                         DEBUG ALL                               #

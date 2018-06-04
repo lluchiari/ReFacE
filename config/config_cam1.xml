@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Config_System sys_name='cam1'>
+  
+  <!-- Module Section -->
+  <Calib_Config name='Single Calib'>../config/calib/calib_simple_cam1.xml</Calib_Config>
+  
+  <!-- Run Mode Section
+  CALIBRATION_ONLY		:		Runs only the Calibration Module
+  -->
+  <Run_Mode>CALIBRATION_ONLY</Run_Mode>
+</Config_System>
+</ReFacE>

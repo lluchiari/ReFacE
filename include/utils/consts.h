@@ -2,7 +2,10 @@
 #define __CONSTS_H__
 
 #include <string>
+#include <opencv2/core.hpp>
+#include <opencv2/calib3d.hpp>
 
+using namespace cv;
 using namespace std;
 
 namespace consts{
@@ -16,11 +19,18 @@ const string MATCHING_SGBM = "Semi-Global Block Matching";
 const string VEWER3D = "3D Viewer";
 
 
+// Key Constants
+const char ESC_KEY = 27;
+const char d_KEY = 100;
+const char s_KEY = 115;
+const char t_KEY = 116;
+
 enum runMode {
-  CALIBRATION_ONLY,
-  MATCHING_ONLY,
-  CALIBRATION_MATCHING,
-  CALIBRATION_MATCHING_VIEW
+    CAPTURE_IMAGES,
+    CALIBRATION_ONLY,
+    MATCHING_ONLY,
+    CALIBRATION_MATCHING,
+    CALIBRATION_MATCHING_VIEW
 };
 
 
@@ -31,7 +41,6 @@ enum InputType {
     VIDEO_FILE,     //Images coming from a video file
     IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
 };
-
 
 }
 #endif //__CONSTS_H__

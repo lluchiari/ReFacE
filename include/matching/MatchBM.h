@@ -23,17 +23,38 @@ public:
 
     int config(string);
     int run();
-private:
-    const int _colorMode=0;
-    Mat _cameraMatrix[2];
-    Mat _distCoeffs[2];
 
+private:
     VideoCapture inputCaptureLeft;
     VideoCapture inputCaptureRight;
 
     vector<string> imageList;
 
+    Ptr<StereoBM> bm;
+
+    /* Calibration Parameters */
+    const int _colorMode=0;
+    Mat _mapCam1[2];
+    Mat _mapCam2[2];
+    Mat _distCoeffs[2];
+
+    Mat disp, disp8;
+
+    Mat _R, _T, _E, _F;                                  // All the main matrix that describes the camera and the image system //
+
+    /* Rectified coeficients for stereo matching */
+    Mat _R1;                                             // Output 3x3 rectification transform (rotation matrix) for the first camera.
+    Mat _R2;                                             // Output 3x3 rectification transform (rotation matrix) for the second camera.
+    Mat _P1;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera.
+    Mat _P2;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.
+    Mat _Q;
+
+    Rect _validRoi[2];
+
     SettingsMatchingBM _matchSettings;
+
+private:
+    int _loadCameraParameters();
 
 };
 

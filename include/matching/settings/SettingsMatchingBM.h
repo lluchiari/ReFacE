@@ -39,30 +39,19 @@ public:
 
 
     // Read from input file//
+    string systemName;
     string input;
     InputType inputType;
     string outputFileName;
     float scale;
     int windowSize;
-    string camParametersFile;                               //Parameters of the camera stored inside a file
     int maxDisparity;
+
+    string camParamFile;                               //Parameters of the camera stored inside a file
 
     int cameraLeftID;
     int cameraRightID;
 
-
-
-
-    Mat _R, _T, _E, _F;                                  // All the main matrix that describes the camera and the image system //
-
-    /* Rectified coeficients for stereo matching */
-    Mat _R1;                                             // Output 3x3 rectification transform (rotation matrix) for the first camera.
-    Mat _R2;                                             // Output 3x3 rectification transform (rotation matrix) for the second camera.
-    Mat _P1;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera.
-    Mat _P2;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.
-    Mat _Q;
-
-    Rect _validRoi[2];
     bool _configFlag;
     double _rms;                                         // Erro for calibration
     vector<vector<Point2f> > _imagePoints[2];            // The corners of the chessboard found //

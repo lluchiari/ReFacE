@@ -17,11 +17,14 @@ int SettingsMatchingBM::read(string fileLocation){
          cerr << "SettingsMatchingBM()::read(): Error on loaing xml file!";
          return -1;
      }
+
+     this->systemName = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->Attribute("sys_name");
+
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Input");
      if(aux != NULL){this->input = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Input\n"; return -1;}
 
-     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Calib_File_Input");
-     if(aux != NULL){this->camParametersFile = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Calib_Fileinput\n";return -1;}
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Calib_Param_File");
+     if(aux != NULL){this->camParamFile = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Calib_Param_File\n";return -1;}
 
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName");
      if(aux != NULL){this->outputFileName = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Write_outputFileName\n";return -1;}
@@ -39,7 +42,8 @@ int SettingsMatchingBM::read(string fileLocation){
     return 0;
 }
 
-int SettingsMatchingBM::interprate(){
+int SettingsMatchingBM::interprate()
+{
     if(LOG_SETTINGS_MATCHING_BM){cout << "SettingsMatchingBM()::interprate(): Start...\n";}
 
     // Input Check //
@@ -95,19 +99,26 @@ int SettingsMatchingBM::interprate(){
     }
 
     // Scale Check //
-    if(scale <0){
+    if(scale < 0){
         cerr << "SettingsMatchingBM::interprate(): Error! Invalid scale detected!\n";
         return -1;
     }
 
+    if(maxDisparity % 16 != 0){
+        cerr << "SettingsMatchingBM::interprate(): Error! Disparity must be divisible by 16!\n";
+        return -1;
+    }
+
     // Window Check //
-    if(windowSize < 1 || windowSize % 2 != 1){
+    if(windowSize < 5 || windowSize > 256 || windowSize % 2 != 1){
         cerr << "SettingsMatchingBM::interprate(): Error! Invalid window detected!\n";
+        return -1;
     }
 
     // Parameters File //
-    if(camParametersFile.empty()){
+    if(camParamFile.empty()){
         cerr << "SettingsMatchingBM::interprate(): Error! Parameters file is empty!\n";
+        return -1;
     }
 
     if(LOG_SETTINGS_MATCHING_BM){cout << "SettingsMatchingBM()::interprate(): Finish_OK!\n";}

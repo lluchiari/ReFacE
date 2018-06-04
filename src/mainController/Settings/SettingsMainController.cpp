@@ -22,12 +22,20 @@ int SettingsMainController::read(string fileLocation){
         cerr << "SettingsMainController::read: Error on loaing xml file!\n";
         return -1;
     }
+
     #if DEBUG_SETTINGS_MAIN_CONTROLLER
         cout << "SettingsMainController::read: Successful open the file.\n";
     #endif
 
+    aux = doc.FirstChildElement("ReFacE");
+    if(aux == NULL){cerr << "SettingsMainController::read(): Error on xml file! 'ReFacE' tag could not be found!\n" ;return -1;}
 
+    aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System");
+    if(aux == NULL){cerr << "SettingsMainController::read(): Error on xml file! 'Config_System' tag could not be found!\n" ;return -1;}
 
+    this->systemName = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->Attribute("sys_name");
+
+    if(LOG_SETTINGS_MAIN_CONTROLLER){cout << "SettingsMainController::read(): System Name: "<< this->systemName << "\n";}
 
     // Calibration Mode //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Config_System")->FirstChildElement("Calib_Config");

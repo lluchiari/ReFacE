@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Config_System sys_name='system2'>
+  
+  <!-- Module Section -->
+  <Calib_Config name='Stereo Calib'>../config/calib/calib_stereo_system2.xml</Calib_Config>
+  <Match_Config name='Block Matching'>../config/match/match_bm_system2.xml</Match_Config>  
+  
+  <!-- Run Mode Section
+  CAPTURE_IMAGES		:		Runs the function for capturing images
+  CALIBRATION_ONLY		:		Runs only the Calibration Module
+  MATCHING_ONLY			:		Runs only the Matching Module (Assuming that calibration has already been made)
+  CALIBRATION_MATCHING	:		Runs Calibration and Matching Modules sequentially.
+  -->
+  <Run_Mode>CAPTURE_IMAGES</Run_Mode>
+</Config_System>
+</ReFacE>

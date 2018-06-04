@@ -9,25 +9,63 @@ int SettingsCalibSingle::read(string fileLocation)
     if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::read(): Starting...\n";}
 
     tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement *aux;
     if(doc.LoadFile(fileLocation.c_str()) != tinyxml2::XMLError::XML_SUCCESS){
         cerr << "SettingsCalibSingle::read: Error on reading the xml file!\n";
     }
 
-    this->boardSize.width = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Width")->GetText());
-    this->boardSize.height = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Height")->GetText());
-    this->_patternToUse = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_Pattern")->GetText();
-    this->squareSize = (float) std::atof(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Square_Size")->GetText());
-    this->nrFrames = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_NrOfFrameToUse")->GetText());
-    this->aspectRatio = (float) std::atof(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixAspectRatio")->GetText());
-    this->bwritePoints = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_DetectedFeaturePoints")->GetText());
-    this->bwriteExtrinsics = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_extrinsicParameters")->GetText());
-    this->outputFileName = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName")->GetText();
-    this->calibZeroTangentDist = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_AssumeZeroTangentialDistortion")->GetText());
-    this->calibFixPrincipalPoint = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixPrincipalPointAtTheCenter")->GetText());
-    this->flipVertical = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_FlipAroundHorizontalAxis")->GetText());
-    this->showUndistorsed = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage")->GetText());
-    this->input = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input")->GetText();
-    this->delay = std::atoi(doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay")->GetText());
+    aux = doc.FirstChildElement("opencv_storage");
+    if(aux == NULL){cerr << "SettingsCalibSingle::read(): Error on xml file! 'opencv_storage' tag could not be found!\n" ;return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings");
+    if(aux == NULL){cerr << "SettingsCalibSingle::read(): Error on xml file! 'Settings' tag could not be found!\n" ;return -1;}
+
+    this->systemName = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->Attribute("sys_name");
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Width");
+    if(aux != NULL){this->boardSize.width =  std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on BoardSize_Width\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("BoardSize_Height");
+    if(aux != NULL){this->boardSize.height =  std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on BoardSize_Width\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_Pattern");
+    if(aux != NULL){this->_patternToUse =  aux->GetText();} else {cerr << "SettingsCalibSingle()::read(): Error on Calibrate_Pattern\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Square_Size");
+    if(aux != NULL){this->squareSize =  (float) std::atof(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Square_Size\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_NrOfFrameToUse");
+    if(aux != NULL){this->nrFrames =  std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Calibrate_NrOfFrameToUse\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixAspectRatio");
+    if(aux != NULL){this->aspectRatio =  (float) std::atof(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Calibrate_FixAspectRatio\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_DetectedFeaturePoints");
+    if(aux != NULL){this->bwritePoints =  std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Write_DetectedFeaturePoints\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_extrinsicParameters");
+    if(aux != NULL){this->bwriteExtrinsics =  std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Write_extrinsicParameters\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName");
+    if(aux != NULL){this->outputFileName =  aux->GetText();} else {cerr << "SettingsCalibSingle()::read(): Error on Write_outputFileName\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_AssumeZeroTangentialDistortion");
+    if(aux != NULL){this->calibZeroTangentDist = std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Calibrate_AssumeZeroTangentialDistortion\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Calibrate_FixPrincipalPointAtTheCenter");
+    if(aux != NULL){this->calibFixPrincipalPoint = std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Calibrate_FixPrincipalPointAtTheCenter\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_FlipAroundHorizontalAxis");
+    if(aux != NULL){this->flipVertical = std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Input_FlipAroundHorizontalAxis\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Show_UndistortedImage");
+    if(aux != NULL){this->showUndistorsed = std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Show_UndistortedImage\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input");
+    if(aux != NULL){this->input = aux->GetText();} else {cerr << "SettingsCalibSingle()::read(): Error on Input\n"; return -1;}
+
+    aux = doc.FirstChildElement("opencv_storage")->FirstChildElement("Settings")->FirstChildElement("Input_Delay");
+    if(aux != NULL){this->delay = std::atoi(aux->GetText());} else {cerr << "SettingsCalibSingle()::read(): Error on Input_Delay\n"; return -1;}
 
     if(LOG_SETTINGS_CALIB_SINGLE){cout << "SettingsCalibSingle::read(): Finish_OK!\n";}
     return 0;
@@ -212,7 +250,7 @@ bool SettingsCalibSingle::readStringList( const string& filename, vector<string>
     for( ; it != it_end; ++it ){
         l.push_back((string)*it);
     }
-    #if(DEBUG_SETTINGS_SINGLE)
+    #if DEBUG_SETTINGS_SINGLE
         cout << "SettingsCalibSingle::readStringList(): Return True" << endl;
     #endif
     return true;

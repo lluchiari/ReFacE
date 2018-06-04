@@ -1,27 +1,29 @@
 <?xml version="1.0"?>
 <ReFacE>
-<Settings>
+<Settings sys_name='system1'>
+
   <!-- The input to use for calibration. 
 		To use an input cameras -> give the ID of the cameras in the {right, left} format without brenkts: 1,2. (In this example the right camera is number 1 and left number 2)
 		To use an input video   -> give the path of the input video, like "/tmp/x.avi"
 		To use an image list    -> give the path to the XML or YAML file containing the list of the images, like "/tmp/circles_list.xml"
 		-->
-  <Input>../config/stack/stack_stereo_VID5.xml</Input>
+  <Input>../config/stack/stack_stereo_system1.xml</Input>
   
   <!-- This file contains the calibration matrix for stereo correlation -->
-  <Calib_File_Input>../output/calib/output_calib_stereo_system1.xml</Calib_File_Input>
+  <Calib_Param_File>../output/calib/output_calib_stereo_camera_system1.xml</Calib_Param_File>
   
   
   <!-- Location of the matching directory containing all the output generated from the stereo methdo -->
+  <!-- If on IMAGE_LIST mode, this becomes a directory destination and the output is a composition of sys_name atribute of Settings tag in this file with a counter -->
   <Write_outputFileName>../output/match/system1/</Write_outputFileName>
   
   <!-- Number of max disparity. It's a number greater than 1 and divisible by 16. -->
   <Max_Disparity>16</Max_Disparity>
   
   <!-- The scale factor must be a positive floating-point number -->
-  <Scale>2</Scale>
+  <Scale>1</Scale>
   
   <!-- The block size must be a positive odd number -->
-  <Window_Size>9</Window_Size>  
+  <Window_Size>5</Window_Size>  
 </Settings>
 </ReFacE>
