@@ -13,6 +13,7 @@
 // Internal Libs //
 #include <utils/common.h>
 #include <utils/Settings.hh>
+#include <GUI/SetMatchParamWindow.h>
 
 // 3rd Party Libs //
 #include <3rdParty/TinyXML2/tinyxml2.h>
@@ -36,30 +37,27 @@ public:
     int interprate();
     int print();
 
-
-
     // Read from input file//
     string systemName;
     string input;
     InputType inputType;
     string outputFileName;
+    string camParamFile;                               //Parameters of the camera stored inside a file
+
+    int cameraRightID;
+    int cameraLeftID;
+
+    // Matchign Parameters //
     float scale;
     int windowSize;
     int maxDisparity;
-
-    // Matchign Parameters //
     int preFilterCarp;
-    int textureThreshold;
     int uniquenessRatio;
     int speckleWindowSize;
     int speckleRange;
     int disp12MaxDiff;
-
-
-    string camParamFile;                               //Parameters of the camera stored inside a file
-
-    int cameraLeftID;
-    int cameraRightID;
+    //Different
+    int textureThreshold;
 
     bool _configFlag;
     double _rms;                                         // Erro for calibration

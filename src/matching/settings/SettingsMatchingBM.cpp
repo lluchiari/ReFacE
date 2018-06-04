@@ -1,11 +1,9 @@
 #include <matching/settings/SettingsMatchingBM.h>
 
 SettingsMatchingBM::SettingsMatchingBM(){
-
 }
 
 SettingsMatchingBM::~SettingsMatchingBM(){
-
 }
 
 int SettingsMatchingBM::read(string fileLocation){

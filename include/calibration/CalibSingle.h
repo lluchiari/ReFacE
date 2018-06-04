@@ -21,7 +21,6 @@
 #include <opencv2/highgui/highgui.hpp>
 
 /* Internal Libs */
-#include <mainwindow.h>
 #include <utils/Module.hh>
 #include <calibration/Calibration.hh>
 #include <calibration/settings/SettingsCalibSingle.h>

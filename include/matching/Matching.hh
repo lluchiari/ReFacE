@@ -39,6 +39,38 @@ public:
         }
         fclose(fp);
     }
+
+    virtual void setScale(float){}
+    virtual float getScale(){return 0;}
+
+    virtual void setWindowSize(int){}
+    virtual int getWindowSize(){return 0;}
+
+    virtual void setMaxDisparity(int){}
+    virtual int getMaxDisparity(){return 0;}
+
+    virtual void setPreFilterCarp(int){}
+    virtual int getPreFilterCarp(){return 0;}
+
+    virtual void setUniquenessRatio(int){}
+    virtual int getUniquenessRatio(){return 0;}
+
+    virtual void setSpeckleWindowSize(int){}
+    virtual int getSpeckleWindowSize(){return 0;}
+
+    virtual void setSpeckleRange(int){}
+    virtual int getSpeckleRange(){return 0;}
+
+    virtual void setDisp12MaxDiff(int){}
+    virtual int getDisp12MaxDiff(){return 0;}
+
+    //Different
+    virtual void setTextureThreshold(int){}
+    virtual int getTextureThreshold(){return 0;}
+
+    virtual void setAlgorithm(string){}
+    virtual string getAlgorithm(){return NULL;}
+
 };
 
 #endif //__MATCHING_H__

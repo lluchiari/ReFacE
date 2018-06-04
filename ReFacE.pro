@@ -26,6 +26,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         src/main.cpp \
 #
+        src/GUI/*.cpp \
+#
         src/mainController/*.cpp \
         src/mainController/Settings/*.cpp \
 #
@@ -41,6 +43,8 @@ SOURCES += \
 
 HEADERS += \
         include/ReFacE.h \
+#
+        include/GUI/*.h \
 #
         include/mainController/*.h \
         include/mainController/Settings/*.h \
@@ -63,7 +67,8 @@ HEADERS += \
         include/3rdParty/TinyXML2/*.h
 
 FORMS += \
-        mainwindow.ui
+        forms/mainwindow.ui \
+        forms/setmatchparamwindow.ui
 
 DESTDIR = bin
 

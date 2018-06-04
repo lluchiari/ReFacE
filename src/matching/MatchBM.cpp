@@ -2,6 +2,7 @@
 
 MatchBM::MatchBM(){
     this->_name = consts::MATCHING_BM;
+    setParam = new SetMatchParamWindow(consts::MATCHING_BM, this);
 }
 
 MatchBM::~MatchBM() {
@@ -55,8 +56,11 @@ int MatchBM::config(string filename)
         return -1;
     }
     else if(_matchSettings.inputType == InputType::INVALID){
-        cerr << "MatchBM::config(): Error! Invalid Input type mode!\n";
+        cerr << "MatchBM::config(): Error! INVALID Input type mode!\n";
         return -1;
+    }
+    else{
+        cerr << "MatchBM::config(): Error! Not Recognized Input Type! Please check it in your config file.\n";
     }
 
     if(LOG_MATCHING_BM){cout << "MatchBM::config(): Finish_OK!\n";}
@@ -74,7 +78,6 @@ int MatchBM::run(){
 
     /* Configure Block Matching Prameters */
     bm = StereoBM::create(_matchSettings.maxDisparity, _matchSettings.windowSize);
-//    cout << "Valid ROI:\n" << _validRoi[0];
 
     bm->setROI1(_validRoi[0]);
     bm->setROI2(_validRoi[1]);
@@ -88,7 +91,24 @@ int MatchBM::run(){
     bm->setSpeckleRange(_matchSettings.speckleRange);
     bm->setDisp12MaxDiff(_matchSettings.disp12MaxDiff);
 
-    if(_matchSettings.inputType == IMAGE_LIST)
+
+    if(_matchSettings.inputType == CAMERA)
+    {
+        if(!inputCaptureLeft.isOpened()){
+            cerr << "MatchBM::run(): Error on opening left camera!\n";
+            return -1;
+        }
+        if(!inputCaptureRight.isOpened()){
+            cerr << "MatchBM::run(): Error on opening right camera!\n";
+            return -1;
+        }
+
+        inputCaptureLeft.release();
+        inputCaptureRight.release();
+
+//        Mat imgRight, imgLeft;
+    }
+    else if(_matchSettings.inputType == IMAGE_LIST)
     {
         Mat aux[2];
         Mat img1, img2;
@@ -132,12 +152,6 @@ int MatchBM::run(){
             img1 = aux[0];
             img2 = aux[1];
 
-//            imshow("bla", img1);
-
-//            char c = (char)waitKey();
-//            if( c == 27 || c == 'q' || c == 'Q' )
-//                break;
-
             // Compute the stereo itself! //
             bm->compute(img1, img2, disp);
 
@@ -171,22 +185,6 @@ int MatchBM::run(){
             imwrite(outpuFileName, disp8);
         }
     }
-    else if(_matchSettings.inputType == CAMERA)
-    {
-        if(!inputCaptureLeft.isOpened()){
-            cerr << "MatchBM::run(): Error on opening left camera!\n";
-            return -1;
-        }
-        if(!inputCaptureRight.isOpened()){
-            cerr << "MatchBM::run(): Error on opening right camera!\n";
-            return -1;
-        }
-
-        inputCaptureLeft.release();
-        inputCaptureRight.release();
-
-//        Mat imgRight, imgLeft;
-    }
     else if(_matchSettings.inputType == VIDEO_FILE)
     {
         // TODO: Take a frame (future)
@@ -204,9 +202,10 @@ int MatchBM::run(){
     return 0;
 }
 
-
 int MatchBM::_loadCameraParameters()
 {
+    if(LOG_MATCHING_BM){cout << "MatchBM::_loadCameraParameters(): Start...\n";}
+
     // Load the configuration matrix //
     FileStorage fs(_matchSettings.camParamFile, FileStorage::READ);
 
@@ -231,10 +230,12 @@ int MatchBM::_loadCameraParameters()
         cerr << "MatchBM::_loadCameraParameters(): Error on reading camera2 matrix!\n";
         return -1;
     }
-//    if(_validRoi[0].empty() || _validRoi[1].empty()){
-//        cerr << "MatchBM::_loadCameraParameters(): Error on reading ROI matrix!\n";
-//        return -1;
-//    }
+    if(_validRoi[0].empty() || _validRoi[1].empty()){
+        cerr << "MatchBM::_loadCameraParameters(): Error on reading ROI matrix!\n";
+        return -1;
+    }
+
+    if(LOG_MATCHING_BM){cout << "MatchBM::_loadCameraParameters(): Finish_OK!\n";}
     return 0;
 }
 

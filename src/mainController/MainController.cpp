@@ -8,7 +8,7 @@ myMainController::MainController::MainController()
 myMainController::MainController::~MainController(){
     if(_settings.has_calib_module && _calibModule != NULL){delete _calibModule;}
     if(_settings.has_match_module && _matchModule != NULL){delete _matchModule;}
-    if(_settings.has_viewer_module && _viewModule != NULL){delete _viewModule;}
+    if(_settings.has_viewer_module && _viewModule != NULL){delete _viewModule;}    
 }
 
 int myMainController::MainController::config(string fileLocation){
