@@ -47,6 +47,15 @@ public:
     int windowSize;
     int maxDisparity;
 
+    // Matchign Parameters //
+    int preFilterCarp;
+    int textureThreshold;
+    int uniquenessRatio;
+    int speckleWindowSize;
+    int speckleRange;
+    int disp12MaxDiff;
+
+
     string camParamFile;                               //Parameters of the camera stored inside a file
 
     int cameraLeftID;

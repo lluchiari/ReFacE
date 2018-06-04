@@ -1,7 +1,23 @@
 <?xml version="1.0"?>
 <opencv_storage>
-<images sys_name='system2'>
-../images/StereoDataset/left13.jpg
-../images/StereoDataset/right13.jpg
+<images>
+../images/StereoDataset/myDataSet/system2Right0.png
+../images/StereoDataset/myDataSet/system2Left0.png
+../images/StereoDataset/myDataSet/system2Right1.png
+../images/StereoDataset/myDataSet/system2Left1.png
+../images/StereoDataset/myDataSet/system2Right2.png
+../images/StereoDataset/myDataSet/system2Left2.png
+../images/StereoDataset/myDataSet/system2Right3.png
+../images/StereoDataset/myDataSet/system2Left3.png
+../images/StereoDataset/myDataSet/system2Right4.png
+../images/StereoDataset/myDataSet/system2Left4.png
+../images/StereoDataset/myDataSet/system2Right5.png
+../images/StereoDataset/myDataSet/system2Left5.png
+../images/StereoDataset/myDataSet/system2Right6.png
+../images/StereoDataset/myDataSet/system2Left6.png
+../images/StereoDataset/myDataSet/system2Right7.png
+../images/StereoDataset/myDataSet/system2Left7.png
+../images/StereoDataset/myDataSet/system2Right8.png
+../images/StereoDataset/myDataSet/system2Left8.png
 </images>
 </opencv_storage>

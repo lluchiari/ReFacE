@@ -78,15 +78,15 @@ int MatchBM::run(){
 
     bm->setROI1(_validRoi[0]);
     bm->setROI2(_validRoi[1]);
-    bm->setPreFilterCap(31);
+    bm->setPreFilterCap(_matchSettings.preFilterCarp);
     bm->setBlockSize(_matchSettings.windowSize);
     bm->setMinDisparity(0);
     bm->setNumDisparities(_matchSettings.maxDisparity);
-    bm->setTextureThreshold(10);
-    bm->setUniquenessRatio(15);
-    bm->setSpeckleWindowSize(100);
-    bm->setSpeckleRange(32);
-    bm->setDisp12MaxDiff(1);
+    bm->setTextureThreshold(_matchSettings.textureThreshold);
+    bm->setUniquenessRatio(_matchSettings.uniquenessRatio);
+    bm->setSpeckleWindowSize(_matchSettings.speckleWindowSize);
+    bm->setSpeckleRange(_matchSettings.speckleRange);
+    bm->setDisp12MaxDiff(_matchSettings.disp12MaxDiff);
 
     if(_matchSettings.inputType == IMAGE_LIST)
     {

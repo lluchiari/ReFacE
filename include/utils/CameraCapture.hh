@@ -23,11 +23,11 @@ public:
     static int stereoCapture(string fileLocation, string defaultName, int camRightID, int camLeftID, bool generateList=false, string listFileLocation="")
     {
         VideoCapture rightCam, leftCam;
-        vector<Mat> images;
         vector<string> imagesFiles;
-        string auxName = "";
+        string nameRight, nameLeft;
         Mat right, left;
         char key;
+        int count=0;
 
         vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
@@ -50,10 +50,10 @@ public:
 
         for(int i=0;;i++)
         {
-            cout << "CameraCapture::stereoCapture(): Capturing Image " << images.size() << endl;
+            cout << "CameraCapture::stereoCapture(): Capturing Image " << count << endl;
             do{
-                rightCam >> right ;
-                leftCam >> left ;
+                rightCam.read(right);
+                leftCam.read(left);
 
                 imshow("Right", right);
                 imshow("Left", left);
@@ -64,42 +64,39 @@ public:
             if(key == consts::ESC_KEY){break;}
             else if(key == t_KEY)
             {
-                images.push_back(right);
-                images.push_back(left);
-            }
-            else{
-                //Do nothing
-                // Is the same as deleting and not save the image
-            }
-        }
+                nameRight.clear();
+                nameLeft.clear();
 
-        //Saving loop //
-        cout << "CameraCapture::stereoCapture(): Saving:\n";
-        for(int i=0; i<images.size()/2; i++)
-        {
-            for(int k=0;k<2;k++)
-            {
-                auxName.clear();
-                auxName.append(fileLocation+defaultName);
-                if(k==0){auxName.append("Right");}
-                else{auxName.append("Left");}
-                auxName.append(to_string(i));
-                auxName.append(".png");
+                nameRight.append(fileLocation+defaultName);
+                nameLeft.append(fileLocation+defaultName);
 
-                cout << "\t" << auxName << endl;
-                imagesFiles.push_back(auxName);
+                nameRight.append("Right");
+                nameLeft.append("Left");
+
+                nameRight.append(to_string(count));
+                nameLeft.append(to_string(count));
+
+                nameRight.append(".png");
+                nameLeft.append(".png");
 
                 try {
-                    imshow("Saving", images.at(i*2+k));
-                    waitKey();
-                    imwrite(auxName, images.at(i*2+k), compression_params);
+                    imwrite(nameRight, right, compression_params);
+                    imwrite(nameLeft, left, compression_params);
                 }
                 catch (runtime_error& ex) {
                     cerr << "Exception converting image to PNG format: %s\n" << ex.what();
                     return -1;
                 }
+
+                imagesFiles.push_back(nameRight);
+                imagesFiles.push_back(nameLeft);
+                count++;
+
             }
-            cout << endl;
+            else{
+                //Do nothing
+                // Is the same as deleting and not save the image
+            }
         }
 
         //Close camera //
