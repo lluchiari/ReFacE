@@ -13,7 +13,6 @@
 // Internal Libs //
 #include <utils/common.h>
 #include <utils/Settings.hh>
-#include <GUI/SetMatchParamWindow.h>
 
 // 3rd Party Libs //
 #include <3rdParty/TinyXML2/tinyxml2.h>

@@ -42,5 +42,8 @@ enum InputType {
     IMAGE_LIST      //Images coming from a image list (remember to ennumerate the immage list)
 };
 
+
+const int MIN_DISPARITY = -31;
+
 }
 #endif //__CONSTS_H__

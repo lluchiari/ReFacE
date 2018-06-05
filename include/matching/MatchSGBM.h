@@ -5,6 +5,8 @@
 #include <utils/common.h>
 #include <utils/consts.h>
 
+#include <GUI/SetMatchParamWindow.h>
+
 #include <matching/Matching.hh>
 #include <matching/settings/SettingsMatchingSGBM.h>
 
@@ -93,7 +95,7 @@ private:
     Ptr<StereoSGBM> sgbm;
 
     /* Calibration Parameters */
-    const int _colorMode=CV_LOAD_IMAGE_GRAYSCALE;
+    const int _colorMode=IMREAD_UNCHANGED;
     Mat _mapCam1[2];
     Mat _mapCam2[2];
     Mat _distCoeffs[2];
@@ -101,7 +103,7 @@ private:
 
     Mat disp, disp8;
 
-//    SetMatchParamWindow *setParam;
+    SetMatchParamWindow *setParam;
     SettingsMatchingSGBM _matchSettings;
 private:
     int _loadCameraParameters();

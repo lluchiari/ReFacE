@@ -5,9 +5,11 @@ MatchSGBM::MatchSGBM(){
 }
 
 MatchSGBM::~MatchSGBM() {
+    if(setParam!= NULL){delete setParam;}
 }
 
-int MatchSGBM::config(string filename){
+int MatchSGBM::config(string filename)
+{
     if(LOG_SETTINGS_MATCHING_SGBM){cout << "MatchSGBM::config(): Start...\n";}
 
     if(this->_matchSettings.read(filename) != 0){
@@ -70,7 +72,7 @@ int MatchSGBM::run(){
     if(LOG_SETTINGS_MATCHING_SGBM){cout << "MatchSGBM::run(): Start...\n";}
 
     if(_loadCameraParameters() != 0){
-        cerr << "MatchBM::config(): Error on loading camera Matrix\n";
+        cerr << "MatchSGBM::config(): Error on loading camera Matrix\n";
         return -1;
     }
 
@@ -81,7 +83,7 @@ int MatchSGBM::run(){
     sgbm->setBlockSize(_matchSettings.windowSize);
     sgbm->setP1(8*_matchSettings.channels*_matchSettings.windowSize*_matchSettings.windowSize);
     sgbm->setP2(32*_matchSettings.channels*_matchSettings.windowSize*_matchSettings.windowSize);
-    sgbm->setMinDisparity(0);
+    sgbm->setMinDisparity(consts::MIN_DISPARITY);
     sgbm->setNumDisparities(_matchSettings.maxDisparity);
     sgbm->setUniquenessRatio(_matchSettings.uniquenessRatio);
     sgbm->setSpeckleWindowSize(_matchSettings.speckleWindowSize);
@@ -98,12 +100,67 @@ int MatchSGBM::run(){
     if(_matchSettings.inputType == CAMERA)
     {
         if(!inputCaptureLeft.isOpened()){
-            cerr << "MatchBM::run(): Error on opening left camera!\n";
+            cerr << "MatchSGBM::run(): Error on opening left camera!\n";
             return -1;
         }
         if(!inputCaptureRight.isOpened()){
-            cerr << "MatchBM::run(): Error on opening right camera!\n";
+            cerr << "MatchSGBM::run(): Error on opening right camera!\n";
             return -1;
+        }
+
+        // Check if there is Parameters Real-Time Setter
+        if(this->_matchSettings.hasRealTimeSetter){
+            setParam = new SetMatchParamWindow(consts::MATCHING_SGBM, this, NULL);
+            setParam->show();
+        }
+
+        char key;
+        Mat imgRight, imgLeft;
+//        Mat imgBlackRight, imgBlackLeft;
+        Mat auxRight, auxLeft;
+
+        for(int i=0;;i++){
+            inputCaptureRight >> imgRight;
+            inputCaptureLeft >> imgLeft;
+
+            cout << "Image Channels: " << imgRight.channels() << endl;
+
+            if(imgRight.empty() || imgLeft.empty()){
+                cerr << "MatchSGBM::run():: CAMERA_MODE: Error on capturing camera images. One of those are empty!\n";
+                return -1;
+            }
+
+//            cvtColor(imgRight, imgBlackRight, COLOR_BGR2GRAY);
+//            cvtColor(imgLeft, imgBlackLeft, COLOR_BGR2GRAY);
+
+            remap(imgRight, auxRight, _mapCam1[0], _mapCam1[1], INTER_LINEAR);
+            remap(imgLeft, auxLeft, _mapCam2[0], _mapCam2[1], INTER_LINEAR);
+
+//            do{key = waitKey(10);}
+//            while(key != consts::ESC_KEY);
+
+            imgRight = auxRight;
+            imgLeft = auxLeft;
+
+            // Compute the stereo itself! //
+            sgbm->compute(imgRight, imgLeft, disp);
+
+            disp.convertTo(disp8, CV_8UC1);
+
+            Mat outColor;
+             applyColorMap(disp8, outColor, COLORMAP_JET  );
+
+            cout << "DISP Channels: " << disp.channels() << endl;
+
+            namedWindow("left", 1);
+            imshow("left", imgRight);
+            namedWindow("right", 1);
+            imshow("right", imgLeft);
+            namedWindow("disparity", 0);
+            imshow("disparity", outColor);
+
+            key = waitKey(10);
+            if(key == consts::ESC_KEY){break;}
         }
 
         inputCaptureLeft.release();
@@ -147,7 +204,7 @@ int MatchSGBM::run(){
             // Compute the stereo itself! //
             sgbm->compute(imgRight, imgLeft, disp);
 
-            disp.convertTo(disp8, CV_8U);
+            disp.convertTo(disp8, CV_32S);
 
             //Write on output file:
             string outpuFileName;
@@ -164,16 +221,13 @@ int MatchSGBM::run(){
 //                      cvRound(_validRoi[1].width*sf2), cvRound(_validRoi[1].height*sf2));
 //            rectangle(imgLeft, vroi2, Scalar(0,0,255), 3, 8);
 
-            namedWindow("left", 1);
             imshow("right", imgRight);
-            namedWindow("right", 1);
             imshow("left", imgLeft);
-            namedWindow("disparity", 0);
-            imshow("disparity", disp8);
+            imshow("disparity", disp);
             printf("press any key to continue...");
             waitKey();
             printf("\n");
-            imwrite(outpuFileName, disp8);
+            imwrite(outpuFileName, disp);
         }
     }
     else if(_matchSettings.inputType == VIDEO_FILE)

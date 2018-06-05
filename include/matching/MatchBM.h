@@ -4,7 +4,8 @@
 // Internal LIBs
 #include <utils/common.h>
 #include <utils/Settings.hh>
-#include <utils/SetMatchThread.hh>
+
+#include <GUI/SetMatchParamWindow.h>
 
 #include <matching/Matching.hh>
 #include <matching/settings/SettingsMatchingBM.h>
@@ -99,6 +100,7 @@ private:
     Rect _validRoi[2];
 
     Mat disp, disp8;
+    Mat _Q;
 
     SetMatchParamWindow *setParam;
     SettingsMatchingBM _matchSettings;

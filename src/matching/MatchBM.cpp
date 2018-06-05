@@ -1,7 +1,5 @@
 #include <matching/MatchBM.h>
 
-#include <QThread>
-
 MatchBM::MatchBM(){
     this->_name = consts::MATCHING_BM;
 }
@@ -13,6 +11,7 @@ MatchBM::~MatchBM() {
 int MatchBM::config(string filename)
 {
     if(LOG_MATCHING_BM){cout << "MatchBM::config(): Start...\n";}
+
     if(this->_matchSettings.read(filename) != 0){
         cerr << "MatchBM::config(): Error on read settings!\n";
         return -1;
@@ -85,7 +84,7 @@ int MatchBM::run(){
     bm->setROI2(_validRoi[1]);
     bm->setPreFilterCap(_matchSettings.preFilterCarp);
     bm->setBlockSize(_matchSettings.windowSize);
-    bm->setMinDisparity(0);
+    bm->setMinDisparity(consts::MIN_DISPARITY);
     bm->setNumDisparities(_matchSettings.maxDisparity);
     bm->setTextureThreshold(_matchSettings.textureThreshold);
     bm->setUniquenessRatio(_matchSettings.uniquenessRatio);
@@ -140,14 +139,19 @@ int MatchBM::run(){
             // Compute the stereo itself! //
             bm->compute(imgRight, imgLeft, disp);
 
-            disp.convertTo(disp8, CV_8U);
+            Mat disparity_float;
+
+            // Another option for the image quality
+            normalize(disp, disparity_float, 0, 1, CV_MINMAX, CV_32FC1);
+
+//            disp.convertTo(disp8, CV_8U);
 
             namedWindow("left", 1);
             imshow("left", imgRight);
             namedWindow("right", 1);
             imshow("right", imgLeft);
             namedWindow("disparity", 0);
-            imshow("disparity", disp8);
+            imshow("disparity", disparity_float);
 
             key = waitKey(10);
             if(key == consts::ESC_KEY){break;}
@@ -203,11 +207,21 @@ int MatchBM::run(){
             // Compute the stereo itself! //
             bm->compute(img1, img2, disp);
 
+            Mat disparity_float;
+
+            // Another option for the image quality
+            normalize(disp, disparity_float, 0, 1, CV_MINMAX, CV_32FC1);
+
+            Mat xyz;
+            reprojectImageTo3D(disparity_float, xyz, _Q, true);
+
             disp.convertTo(disp8, CV_8U);
 
             //Write on output file:
-            string outpuFileName;
-            outpuFileName = _matchSettings.outputFileName + "output_match_bm_" + _matchSettings.systemName + "_" +to_string(imgCount) + ".jpg";
+            string outputFileName, xyzFileName;
+            outputFileName = _matchSettings.outputFileName + "output_match_bm_" + _matchSettings.systemName + "_" +to_string(imgCount) + ".jpg";
+            xyzFileName = _matchSettings.outputFileName + "output_match_bm_3d_" + _matchSettings.systemName + "_" +to_string(imgCount) + ".jpg";
+            saveXYZ(xyzFileName, xyz);
             cout << outpuFileName << endl;
 
 //            double sf1 = (600./MAX(img1.cols, img1.rows));

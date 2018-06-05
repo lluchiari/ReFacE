@@ -33,23 +33,19 @@ int SettingsMatchingBM::read(string fileLocation){
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName");
      if(aux != NULL){this->outputFileName = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Write_outputFileName\n";return -1;}
 
-     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Max_Disparity");
-     if(aux != NULL){this->maxDisparity = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Max_Disparity\n";return -1;}
-
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Scale");
      if(aux != NULL){this->scale = (float) std::atof(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Scale\n";return -1;}
-
-     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Window_Size");
-     if(aux != NULL){this->windowSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Window_Size\n";return -1;}
 
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Real_Time_Setter");
      if(aux != NULL){this->hasRealTimeSetter = std::atoi(aux->GetText());} else {this->hasRealTimeSetter = false;}
 
      // Block Matching Parameters //
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Window_Size");
+     if(aux != NULL){this->windowSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Window_Size\n";return -1;}
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Max_Disparity");
+     if(aux != NULL){this->maxDisparity = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Max_Disparity\n";return -1;}
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("PreFilterCarp");
      if(aux != NULL){this->preFilterCarp = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on PreFilterCarp\n";return -1;}
-     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("TextureThreshold");
-     if(aux != NULL){this->textureThreshold = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on TextureThreshold\n";return -1;}
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("UniquenessRatio");
      if(aux != NULL){this->uniquenessRatio = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on UniquenessRatio\n";return -1;}
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("SpeckleWindowSize");
@@ -59,8 +55,12 @@ int SettingsMatchingBM::read(string fileLocation){
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Disp12MaxDiff");
      if(aux != NULL){this->disp12MaxDiff = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Disp12MaxDiff\n";return -1;}
 
-    if(LOG_SETTINGS_MATCHING_BM){cout << "SettingsMatchingBM()::read(): Finish_OK!\n";}
-    return 0;
+     // Specific Parameters //
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("TextureThreshold");
+     if(aux != NULL){this->textureThreshold = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on TextureThreshold\n";return -1;}
+
+     if(LOG_SETTINGS_MATCHING_BM){cout << "SettingsMatchingBM()::read(): Finish_OK!\n";}
+     return 0;
 }
 
 int SettingsMatchingBM::interprate()
