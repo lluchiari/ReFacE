@@ -61,6 +61,7 @@ int MatchSGBM::config(string filename){
         cerr << "MatchSGBM::config(): Error! Not Recognized Input Type! Please check it in your config file.\n";
     }
 
+
     if(LOG_SETTINGS_MATCHING_SGBM){cout << "MatchSGBM::config(): Finish_OK!\n";}
     return 0;
 }

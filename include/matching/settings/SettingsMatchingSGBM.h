@@ -42,6 +42,7 @@ public:
     InputType inputType;
     string outputFileName;
     int channels;
+    bool hasRealTimeSetter;
 
     int cameraRightID;
     int cameraLeftID;

@@ -37,12 +37,13 @@ public:
     int interprate();
     int print();
 
-    // Read from input file//
+    // General Parameters//
     string systemName;
     string input;
     InputType inputType;
     string outputFileName;
     string camParamFile;                               //Parameters of the camera stored inside a file
+    bool hasRealTimeSetter;
 
     int cameraRightID;
     int cameraLeftID;

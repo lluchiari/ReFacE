@@ -16,6 +16,12 @@ int SettingsMatchingBM::read(string fileLocation){
          return -1;
      }
 
+     aux = doc.FirstChildElement("ReFacE");
+     if(aux == NULL){cerr << "SettingsMatchingBM::read(): Error on xml file! 'ReFacE' tag could not be found!\n" ;return -1;}
+
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings");
+     if(aux == NULL){cerr << "SettingsMatchingBM::read(): Error on xml file! 'Settings' tag could not be found!\n" ;return -1;}
+
      this->systemName = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->Attribute("sys_name");
 
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Input");
@@ -36,6 +42,8 @@ int SettingsMatchingBM::read(string fileLocation){
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Window_Size");
      if(aux != NULL){this->windowSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Window_Size\n";return -1;}
 
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Real_Time_Setter");
+     if(aux != NULL){this->hasRealTimeSetter = std::atoi(aux->GetText());} else {this->hasRealTimeSetter = false;}
 
      // Block Matching Parameters //
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("PreFilterCarp");

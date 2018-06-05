@@ -1,11 +1,13 @@
 #include <matching/MatchBM.h>
 
+#include <QThread>
+
 MatchBM::MatchBM(){
     this->_name = consts::MATCHING_BM;
-    setParam = new SetMatchParamWindow(consts::MATCHING_BM, this);
 }
 
 MatchBM::~MatchBM() {
+    if(setParam!= NULL){delete setParam;}
 }
 
 int MatchBM::config(string filename)
@@ -94,19 +96,65 @@ int MatchBM::run(){
 
     if(_matchSettings.inputType == CAMERA)
     {
-        if(!inputCaptureLeft.isOpened()){
-            cerr << "MatchBM::run(): Error on opening left camera!\n";
-            return -1;
-        }
         if(!inputCaptureRight.isOpened()){
             cerr << "MatchBM::run(): Error on opening right camera!\n";
             return -1;
         }
+        if(!inputCaptureLeft.isOpened()){
+            cerr << "MatchBM::run(): Error on opening left camera!\n";
+            return -1;
+        }
+
+        // Check if there is Parameters Real-Time Setter
+        if(this->_matchSettings.hasRealTimeSetter){
+            setParam = new SetMatchParamWindow(consts::MATCHING_BM, this, NULL);
+            setParam->show();
+        }
+
+        char key;
+        Mat imgRight, imgLeft;
+        Mat imgBlackRight, imgBlackLeft;
+        Mat auxRight, auxLeft;
+
+        for(int i=0;;i++){
+            inputCaptureRight >> imgRight;
+            inputCaptureLeft >> imgLeft;
+
+            if(imgRight.empty() || imgLeft.empty()){
+                cerr << "MatchBM::run():: CAMERA_MODE: Error on capturing camera images. One of those are empty!\n";
+                return -1;
+            }
+
+            cvtColor(imgRight, imgBlackRight, COLOR_BGR2GRAY);
+            cvtColor(imgLeft, imgBlackLeft, COLOR_BGR2GRAY);
+
+            remap(imgBlackRight, auxRight, _mapCam1[0], _mapCam1[1], INTER_LINEAR);
+            remap(imgBlackLeft, auxLeft, _mapCam2[0], _mapCam2[1], INTER_LINEAR);
+
+//            do{key = waitKey(10);}
+//            while(key != consts::ESC_KEY);
+
+            imgRight = auxRight;
+            imgLeft = auxLeft;
+
+            // Compute the stereo itself! //
+            bm->compute(imgRight, imgLeft, disp);
+
+            disp.convertTo(disp8, CV_8U);
+
+            namedWindow("left", 1);
+            imshow("left", imgRight);
+            namedWindow("right", 1);
+            imshow("right", imgLeft);
+            namedWindow("disparity", 0);
+            imshow("disparity", disp8);
+
+            key = waitKey(10);
+            if(key == consts::ESC_KEY){break;}
+        }
 
         inputCaptureLeft.release();
         inputCaptureRight.release();
-
-//        Mat imgRight, imgLeft;
     }
     else if(_matchSettings.inputType == IMAGE_LIST)
     {

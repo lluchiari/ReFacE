@@ -31,6 +31,7 @@ public:
     }
     static Matching *getNewMatchModule(string type)
     {
+        cout << "Factory::getNewMatchModule(): Input >> " << type << endl;
         if(!type.compare(consts::MATCHING_BM)){
             cout << "Factory::getNewMatchModule(): MATCHING_BM selected\n";
             return new MatchBM();

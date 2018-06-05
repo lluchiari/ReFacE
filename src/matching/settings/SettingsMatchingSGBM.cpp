@@ -18,6 +18,12 @@ int SettingsMatchingSGBM::read(string fileLocation){
         return -1;
     }
 
+    aux = doc.FirstChildElement("ReFacE");
+    if(aux == NULL){cerr << "SettingsMatchingSGBM::read(): Error on xml file! 'ReFacE' tag could not be found!\n" ;return -1;}
+
+    aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings");
+    if(aux == NULL){cerr << "SettingsMatchingSGBM::read(): Error on xml file! 'Settings' tag could not be found!\n" ;return -1;}
+
     this->systemName = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->Attribute("sys_name");
 
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Input");
@@ -38,6 +44,9 @@ int SettingsMatchingSGBM::read(string fileLocation){
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Window_Size");
     if(aux != NULL){this->windowSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on Window_Size\n";return -1;}
 
+    aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Real_Time_Setter");
+    if(aux != NULL){this->hasRealTimeSetter = std::atoi(aux->GetText());} else {this->hasRealTimeSetter = false;}
+
 
     // Block Matching Parameters //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("PreFilterCarp");
@@ -56,7 +65,7 @@ int SettingsMatchingSGBM::read(string fileLocation){
     if(aux != NULL){this->disp12MaxDiff = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on Disp12MaxDiff\n";return -1;}
 
     if(LOG_SETTINGS_MATCHING_SGBM){cout << "SettingsMatchingSGBM::read(): Finish_OK!\n";}
-    return 1;
+    return 0;
 }
 
 int SettingsMatchingSGBM::interprate(){
@@ -144,7 +153,7 @@ int SettingsMatchingSGBM::interprate(){
     }
 
     if(LOG_SETTINGS_MATCHING_SGBM){cout << "SettingsMatchingSGBM::interprate(): Finish_OK!\n";}
-    return 1;
+    return 0;
 }
 
 int SettingsMatchingSGBM::print(){

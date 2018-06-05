@@ -22,9 +22,15 @@
    </property>
    <item>
     <widget class="QWidget" name="Window_Size" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="Window_SizeLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Window Size</string>
         </property>
@@ -32,8 +38,27 @@
       </item>
       <item>
        <widget class="QSlider" name="Window_SizeHorizontalSlider">
+        <property name="maximum">
+         <number>256</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="Window_SizeLineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -42,9 +67,15 @@
    </item>
    <item>
     <widget class="QWidget" name="Max_Disparity" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="Max_DisparityLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Max Disparity</string>
         </property>
@@ -52,8 +83,36 @@
       </item>
       <item>
        <widget class="QSlider" name="Max_DisparityHorizontalSlider">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>1024</number>
+        </property>
+        <property name="singleStep">
+         <number>16</number>
+        </property>
+        <property name="pageStep">
+         <number>16</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="Max_DisparityLineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -62,9 +121,15 @@
    </item>
    <item>
     <widget class="QWidget" name="PreFilterCarp" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="PreFilterCarpLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Pre Filter Carp</string>
         </property>
@@ -77,14 +142,48 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="PreFilterCarpLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QWidget" name="TextureThreshold" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QLabel" name="TextureThresholdLabel">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Texture Threshold</string>
         </property>
@@ -97,14 +196,39 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="TextureThresholdLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QWidget" name="UniquenessRatio" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <widget class="QLabel" name="UniquenessRatioLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Uniqueness Ratio</string>
         </property>
@@ -117,14 +241,45 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="UniquenessRatioLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QWidget" name="SpeckleWindowSize" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
        <widget class="QLabel" name="SpeckleWindowSizeLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Speckle Window Size</string>
         </property>
@@ -132,8 +287,30 @@
       </item>
       <item>
        <widget class="QSlider" name="SpeckleWindowSizeHorizontalSlider">
+        <property name="maximum">
+         <number>999</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="SpeckleWindowSizeLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -142,9 +319,15 @@
    </item>
    <item>
     <widget class="QWidget" name="SpeckleRange" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_7">
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
        <widget class="QLabel" name="SpeckleRangeLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Speckle Range</string>
         </property>
@@ -157,14 +340,39 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="SpeckleRangeLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QWidget" name="Disp12MaxDiff" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_8">
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
       <item>
        <widget class="QLabel" name="Disp12MaxDiffLabel">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Disp12 Max Diff</string>
         </property>
@@ -172,8 +380,30 @@
       </item>
       <item>
        <widget class="QSlider" name="Disp12MaxDiffHorizontalSlider">
+        <property name="maximum">
+         <number>999</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="Disp12MaxDiffLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -204,6 +434,9 @@
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

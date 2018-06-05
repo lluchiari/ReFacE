@@ -1,7 +1,6 @@
 #ifndef __CAMERA_CAPTURE_H__
 #define __CAMERA_CAPTURE_H__
 
-
 #include <utils/common.h>
 #include <utils/consts.h>
 
@@ -14,7 +13,7 @@
 using namespace std;
 using namespace cv;
 
-namespace myCameraCapture{
+namespace myCameraCapture {
     class CameraCapture;
 }
 

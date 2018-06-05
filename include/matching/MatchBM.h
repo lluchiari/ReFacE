@@ -2,10 +2,12 @@
 #define __MATCH_BLOCKMATCHING_H__
 
 // Internal LIBs
-#include <matching/Matching.hh>
-#include <matching/settings/SettingsMatchingBM.h>
 #include <utils/common.h>
 #include <utils/Settings.hh>
+#include <utils/SetMatchThread.hh>
+
+#include <matching/Matching.hh>
+#include <matching/settings/SettingsMatchingBM.h>
 
 // OpenCV Libs
 #include <opencv2/calib3d/calib3d.hpp>
@@ -19,7 +21,7 @@
 
 using namespace myMatching;
 
-class myMatching::MatchBM : public Matching, public QObject
+class myMatching::MatchBM : public Matching
 {
 public:
     MatchBM();
@@ -31,30 +33,55 @@ public:
     void setScale(float aux){this->_matchSettings.scale = aux;}
     float getScale(){return this->_matchSettings.scale;}
 
-    void setWindowSize(int aux){this->_matchSettings.windowSize = aux;}
+    void setWindowSize(int aux){
+        _matchSettings.windowSize = aux;
+        bm->setBlockSize(aux);
+    }
     int getWindowSize(){return this->_matchSettings.windowSize;}
 
-    void setMaxDisparity(int aux){this->_matchSettings.maxDisparity = aux;}
+    void setMaxDisparity(int aux){
+        _matchSettings.maxDisparity = aux;
+        bm->setNumDisparities(aux);
+    }
     int getMaxDisparity(){return this->_matchSettings.maxDisparity;}
 
-    void setPreFilterCarp(int aux){this->_matchSettings.preFilterCarp = aux;}
+    void setPreFilterCarp(int aux){
+        _matchSettings.preFilterCarp = aux;
+        bm->setPreFilterCap(aux);
+    }
     int getPreFilterCarp(){return this->_matchSettings.preFilterCarp;}
 
-    void setUniquenessRatio(int aux){this->_matchSettings.uniquenessRatio = aux;}
+    void setUniquenessRatio(int aux){
+        this->_matchSettings.uniquenessRatio = aux;
+        bm->setUniquenessRatio(aux);
+    }
     int getUniquenessRatio(){return this->_matchSettings.uniquenessRatio;}
 
-    void setSpeckleWindowSize(int aux){this->_matchSettings.speckleWindowSize = aux;}
+    void setSpeckleWindowSize(int aux){
+        this->_matchSettings.speckleWindowSize = aux;
+        bm->setSpeckleWindowSize(aux);
+    }
     int getSpeckleWindowSize(){return this->_matchSettings.speckleWindowSize;}
 
-    void setSpeckleRange(int aux){this->_matchSettings.speckleRange = aux;}
+    void setSpeckleRange(int aux){
+        this->_matchSettings.speckleRange = aux;
+        bm->setSpeckleRange(aux);
+    }
     int getSpeckleRange(){return this->_matchSettings.speckleRange;}
 
-    void setDisp12MaxDiff(int aux){this->_matchSettings.disp12MaxDiff = aux;}
+    void setDisp12MaxDiff(int aux){
+        this->_matchSettings.disp12MaxDiff = aux;
+        bm->setDisp12MaxDiff(aux);
+    }
     int getDisp12MaxDiff(){return this->_matchSettings.disp12MaxDiff;}
 
     //Different
-    void setTextureThreshold(int aux){this->_matchSettings.textureThreshold = aux;}
+    void setTextureThreshold(int aux){
+        this->_matchSettings.textureThreshold = aux;
+        bm->setTextureThreshold(aux);
+    }
     int getTextureThreshold(){return this->_matchSettings.textureThreshold;}
+
 
 private:
     VideoCapture inputCaptureLeft;
@@ -65,25 +92,15 @@ private:
     Ptr<StereoBM> bm;
 
     /* Calibration Parameters */
-    const int _colorMode=0;
-    Mat _mapCam1[2];
-    Mat _mapCam2[2];
+    const int _colorMode=CV_LOAD_IMAGE_GRAYSCALE;
+    Mat _mapCam1[2];                                        //Right Cam
+    Mat _mapCam2[2];                                        //Left Cam
     Mat _distCoeffs[2];
     Rect _validRoi[2];
 
     Mat disp, disp8;
 
-//    Mat _R, _T, _E, _F;                                  // All the main matrix that describes the camera and the image system //
-
-    /* Rectified coeficients for stereo matching */
-//    Mat _R1;                                             // Output 3x3 rectification transform (rotation matrix) for the first camera.
-//    Mat _R2;                                             // Output 3x3 rectification transform (rotation matrix) for the second camera.
-//    Mat _P1;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera.
-//    Mat _P2;                                             // Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.
-//    Mat _Q;
-
     SetMatchParamWindow *setParam;
-
     SettingsMatchingBM _matchSettings;
 
 private:

@@ -10,6 +10,9 @@ static void show_usage(std::string name) {
 
 int main(int argc, char *argv[])
 {
+
+    QApplication app(argc, argv);
+
     if(DEBUG){cout << "Main Starting...\n";}
     //Files declaration
     std::string mainConfigFile;
@@ -48,7 +51,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     delete mainControl;
-    return 1;
+    return 0;
 }
 
 
