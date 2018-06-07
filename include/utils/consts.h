@@ -17,6 +17,7 @@ const string CALIBRATION_STEREO = "Stereo Calib";
 const string MATCHING_BM = "Block Matching";
 const string MATCHING_SGBM = "Semi-Global Block Matching";
 const string VEWER3D = "3D Viewer";
+const string FACE_REC = "Face Recognition";
 
 
 // Key Constants
@@ -43,7 +44,7 @@ enum InputType {
 };
 
 
-const int MIN_DISPARITY = -31;
+const int MIN_DISPARITY = 0;
 
 }
 #endif //__CONSTS_H__

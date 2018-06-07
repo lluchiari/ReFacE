@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Config_System sys_name=''>
+  
+  <!-- Module Section -->
+  
+  <Capture_Config></Capture_Config>
+  
+  <!-- Possibilities: Single Calib, Stereo Calib -->
+  <Calib_Config name=''></Calib_Config>
+  
+  <!-- Possibilities: Block Matching, Semi-Global Block Matching -->
+  <Match_Config name=''></Match_Config> 
+  
+  <!-- Run Mode Section
+  CAPTURE_IMAGES		:		Runs the function for capturing images
+  CALIBRATION_ONLY		:		Runs only the Calibration Module
+  MATCHING_ONLY			:		Runs only the Matching Module (Assuming that calibration has already been made)
+  CALIBRATION_MATCHING	:		Runs Calibration and Matching Modules sequentially.
+  -->
+  <Run_Mode></Run_Mode>
+</Config_System>
+</ReFacE>

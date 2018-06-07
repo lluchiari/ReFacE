@@ -1,0 +1,401 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="_re_fac_e_8h" kind="file" language="C++">
+    <compoundname>ReFacE.h</compoundname>
+    <includes local="no">Modules/mainController/MainController.h</includes>
+    <includes local="no">Utils/common.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">QObject</includes>
+    <includes local="no">Utils/consts.h</includes>
+    <includes local="no">opencv2/core.hpp</includes>
+    <includes local="no">opencv2/calib3d.hpp</includes>
+    <includes local="no">opencv2/core/core.hpp</includes>
+    <includes local="no">Utils/Module.hh</includes>
+    <includes local="no">Utils/Settings.hh</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">opencv2/core/persistence.hpp</includes>
+    <includes local="no">Utils/Factory.hh</includes>
+    <includes local="no">Modules/Connection/Connector.h</includes>
+    <includes local="no">Modules/Connection/Connection.hh</includes>
+    <includes local="no">Modules/calibration/CalibSingle.h</includes>
+    <includes local="no">QFileDialog</includes>
+    <includes local="no">QWidget</includes>
+    <includes local="no">QString</includes>
+    <includes local="no">opencv2/opencv.hpp</includes>
+    <includes local="no">opencv2/imgproc/imgproc.hpp</includes>
+    <includes local="no">opencv2/calib3d/calib3d.hpp</includes>
+    <includes local="no">opencv2/highgui/highgui.hpp</includes>
+    <includes local="no">Modules/calibration/Calibration.hh</includes>
+    <includes local="no">Modules/calibration/settings/SettingsCalibSingle.h</includes>
+    <includes local="no">3rdParty/TinyXML2/tinyxml2.h</includes>
+    <includes local="no">Modules/calibration/CalibStereo.h</includes>
+    <includes local="no">opencv2/imgcodecs.hpp</includes>
+    <includes local="no">opencv2/highgui.hpp</includes>
+    <includes local="no">opencv2/imgproc.hpp</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">iterator</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">ctype.h</includes>
+    <includes local="no">Modules/calibration/settings/SettingsCalibStereo.h</includes>
+    <includes local="no">Modules/matching/MatchBM.h</includes>
+    <includes local="no">GUI/SetMatchParamWindow.h</includes>
+    <includes local="no">QDialog</includes>
+    <includes local="no">Modules/matching/Matching.hh</includes>
+    <includes local="no">Modules/matching/settings/SettingsMatchingBM.h</includes>
+    <includes local="no">opencv2/core/utility.hpp</includes>
+    <includes local="no">QApplication</includes>
+    <includes local="no">Modules/matching/MatchSGBM.h</includes>
+    <includes local="no">Modules/matching/settings/SettingsMatchingSGBM.h</includes>
+    <includes local="no">Modules/viewer/Viewer3D.h</includes>
+    <includes local="no">Modules/viewer/Viewer.hh</includes>
+    <includes local="no">Utils/CameraCapture.hh</includes>
+    <includes local="no">Modules/mainController/Settings/SettingsMainController.h</includes>
+    <incdepgraph>
+      <node id="49">
+        <label>Modules/viewer/Viewer3D.h</label>
+      </node>
+      <node id="12">
+        <label>Utils/Module.hh</label>
+      </node>
+      <node id="52">
+        <label>Modules/mainController/Settings/SettingsMainController.h</label>
+      </node>
+      <node id="36">
+        <label>iterator</label>
+      </node>
+      <node id="19">
+        <label>Modules/Connection/Connection.hh</label>
+      </node>
+      <node id="7">
+        <label>QObject</label>
+      </node>
+      <node id="37">
+        <label>stdlib.h</label>
+      </node>
+      <node id="11">
+        <label>opencv2/core/core.hpp</label>
+      </node>
+      <node id="34">
+        <label>opencv2/imgproc.hpp</label>
+      </node>
+      <node id="24">
+        <label>opencv2/opencv.hpp</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="10">
+        <label>opencv2/calib3d.hpp</label>
+      </node>
+      <node id="51">
+        <label>Utils/CameraCapture.hh</label>
+      </node>
+      <node id="41">
+        <label>GUI/SetMatchParamWindow.h</label>
+      </node>
+      <node id="13">
+        <label>Utils/Settings.hh</label>
+      </node>
+      <node id="44">
+        <label>Modules/matching/settings/SettingsMatchingBM.h</label>
+      </node>
+      <node id="45">
+        <label>opencv2/core/utility.hpp</label>
+      </node>
+      <node id="31">
+        <label>Modules/calibration/CalibStereo.h</label>
+      </node>
+      <node id="32">
+        <label>opencv2/imgcodecs.hpp</label>
+      </node>
+      <node id="48">
+        <label>Modules/matching/settings/SettingsMatchingSGBM.h</label>
+      </node>
+      <node id="21">
+        <label>QFileDialog</label>
+      </node>
+      <node id="50">
+        <label>Modules/viewer/Viewer.hh</label>
+      </node>
+      <node id="8">
+        <label>Utils/consts.h</label>
+      </node>
+      <node id="39">
+        <label>Modules/calibration/settings/SettingsCalibStereo.h</label>
+      </node>
+      <node id="46">
+        <label>QApplication</label>
+      </node>
+      <node id="25">
+        <label>opencv2/imgproc/imgproc.hpp</label>
+      </node>
+      <node id="0">
+        <label>ReFacE.h</label>
+        <link refid="_re_fac_e_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>opencv2/core.hpp</label>
+      </node>
+      <node id="42">
+        <label>QDialog</label>
+      </node>
+      <node id="6">
+        <label>vector</label>
+      </node>
+      <node id="22">
+        <label>QWidget</label>
+      </node>
+      <node id="4">
+        <label>sstream</label>
+      </node>
+      <node id="20">
+        <label>Modules/calibration/CalibSingle.h</label>
+      </node>
+      <node id="23">
+        <label>QString</label>
+      </node>
+      <node id="16">
+        <label>opencv2/core/persistence.hpp</label>
+      </node>
+      <node id="47">
+        <label>Modules/matching/MatchSGBM.h</label>
+      </node>
+      <node id="14">
+        <label>time.h</label>
+      </node>
+      <node id="33">
+        <label>opencv2/highgui.hpp</label>
+      </node>
+      <node id="27">
+        <label>opencv2/highgui/highgui.hpp</label>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+      <node id="40">
+        <label>Modules/matching/MatchBM.h</label>
+      </node>
+      <node id="17">
+        <label>Utils/Factory.hh</label>
+      </node>
+      <node id="38">
+        <label>ctype.h</label>
+      </node>
+      <node id="43">
+        <label>Modules/matching/Matching.hh</label>
+      </node>
+      <node id="1">
+        <label>Modules/mainController/MainController.h</label>
+      </node>
+      <node id="28">
+        <label>Modules/calibration/Calibration.hh</label>
+      </node>
+      <node id="29">
+        <label>Modules/calibration/settings/SettingsCalibSingle.h</label>
+      </node>
+      <node id="2">
+        <label>Utils/common.h</label>
+      </node>
+      <node id="35">
+        <label>algorithm</label>
+      </node>
+      <node id="15">
+        <label>stdio.h</label>
+      </node>
+      <node id="18">
+        <label>Modules/Connection/Connector.h</label>
+      </node>
+      <node id="30">
+        <label>3rdParty/TinyXML2/tinyxml2.h</label>
+      </node>
+      <node id="26">
+        <label>opencv2/calib3d/calib3d.hpp</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacestd">std</innernamespace>
+    <innernamespace refid="namespacemy_main_controller">myMainController</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_re_fac_e_8h_1a4e3e785afc41a062e85895367a0adade" prot="public" static="no">
+        <name>PROGRAM_OPTIONS</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ReFacE.h" line="11" column="9" bodyfile="ReFacE.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_re_fac_e_8h_1ae1bac0856c0f370eb1d6651063f6248b" prot="public" static="no">
+        <name>DEFAULT_MATCH</name>
+        <initializer>&quot;../config/match/match_bm.xml&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ReFacE.h" line="16" column="9" bodyfile="ReFacE.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_re_fac_e_8h_1a2444ba979fd27281d5c4ee994b68a2f8" prot="public" static="no">
+        <name>DEFAULT_MATCH_PARAM</name>
+        <initializer>&quot;--algorithm=bm&quot;;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ReFacE.h" line="17" column="9" bodyfile="ReFacE.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_re_fac_e_8h_1a0c35362f580cea9b468b56a267018383" prot="public" static="no">
+        <name>DEFAULT_CALIB</name>
+        <initializer>&quot;../config/calib/calib_stereo.xml&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ReFacE.h" line="20" column="9" bodyfile="ReFacE.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>__REFACE_H__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__REFACE_H__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Internal<sp/>Libs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Modules/mainController/MainController.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Utils/common.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacestd" kindref="compound">std</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespacemy_main_controller" kindref="compound">myMainController</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="_re_fac_e_8h_1a4e3e785afc41a062e85895367a0adade" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROGRAM_OPTIONS<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>config<sp/>files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Match<sp/>default<sp/>//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="_re_fac_e_8h_1ae1bac0856c0f370eb1d6651063f6248b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_MATCH<sp/>&quot;../config/match/match_bm.xml&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="_re_fac_e_8h_1a2444ba979fd27281d5c4ee994b68a2f8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_MATCH_PARAM<sp/>&quot;--algorithm=bm&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Calib<sp/>default<sp/>//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="_re_fac_e_8h_1a0c35362f580cea9b468b56a267018383" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_CALIB<sp/>&quot;../config/calib/calib_stereo.xml&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//__REFACE_H__</highlight></codeline>
+    </programlisting>
+    <location file="ReFacE.h"/>
+  </compounddef>
+</doxygen>

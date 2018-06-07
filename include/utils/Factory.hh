@@ -1,19 +1,30 @@
 #ifndef __FACTORY_H__
 #define __FACTORY_H__
 
-#include <utils/common.h>
-#include <calibration/CalibSingle.h>
-#include <calibration/CalibStereo.h>
-#include <matching/MatchBM.h>
-#include <matching/MatchSGBM.h>
-#include <viewer/Viewer3D.h>
+#include <Utils/common.h>
+#include <Modules/Connection/Connector.h>
+#include <Modules/calibration/CalibSingle.h>
+#include <Modules/calibration/CalibStereo.h>
+#include <Modules/matching/MatchBM.h>
+#include <Modules/matching/MatchSGBM.h>
+#include <Modules/viewer/Viewer3D.h>
+#include <Modules/faceRec/FaceRec.h>
 
 using namespace std;
 using namespace myModule;
+using namespace myConnection;
 
 class Factory {
 public:
     virtual ~Factory();
+    static Connection * getNewConnectionModule(string type){
+        if(!type.empty()){
+            return new Connector();
+        }
+        else{
+            return NULL;
+        }
+    }
     static Calibration *getNewClibModule(string type)
     {
         if(!type.compare(consts::CALIBRATION_SINGLE)){
@@ -45,8 +56,10 @@ public:
             return NULL;
         }
     }
-
     static Viewer *getNewViewModule(string type){
+        return NULL;
+    }
+    static FaceRecognition *getNewFaceModule(string type){
         return NULL;
     }
 };

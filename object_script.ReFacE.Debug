@@ -1,7 +1,10 @@
 INPUT(
 ./debug\main.o
+./debug\MainWindow.o
+./debug\SetMatchParamWindow.o
 ./debug\MainController.o
 ./debug\SettingsMainController.o
+./debug\Connector.o
 ./debug\CalibSingle.o
 ./debug\CalibStereo.o
 ./debug\SettingsCalibSingle.o
@@ -11,5 +14,16 @@ INPUT(
 ./debug\SettingsMatchingBM.o
 ./debug\SettingsMatchingSGBM.o
 ./debug\Viewer3D.o
+./debug\FaceRec.o
 ./debug\tinyxml2.o
+./debug\moc_MainWindow.o
+./debug\moc_SetMatchParamWindow.o
+./debug\moc_Connector.o
+./debug\moc_Matching.o
+./debug\moc_MatchSGBM.o
+./debug\moc_Viewer.o
+./debug\moc_Viewer3D.o
+./debug\moc_FaceRecognition.o
+./debug\moc_FaceRec.o
+./debug\moc_Module.o
 );

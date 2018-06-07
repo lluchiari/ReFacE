@@ -7,43 +7,43 @@
 		To use an input video   -> give the path of the input video, like "/tmp/x.avi"
 		To use an image list    -> give the path to the XML or YAML file containing the list of the images, like "/tmp/circles_list.xml"
 		-->
-  <Input>1,2</Input>
-  <!--<Input>../config/stack/stack_stereo_system2.xml</Input> -->
+  <!--<Input>1,2</Input>-->
+  <Input>../config/stack/stack_stereo_test1.xml</Input> 
   
   <!-- This file contains the calibration matrix for stereo correlation -->
   <Calib_Param_File>../output/calib/output_calib_stereo_camera_system2.xml</Calib_Param_File>
   
   <!-- Location of the matching directory containing all the output generated from the stereo methdo -->
   <!-- If on IMAGE_LIST mode, this becomes a directory destination and the output is a composition of sys_name atribute of Settings tag in this file with a counter -->
-  <Write_outputFileName>../output/match/system2/bm/</Write_outputFileName>
+  <Write_outputFileName>../output/match/system2/bm/Leo/</Write_outputFileName>
   
   <!-- The scale factor must be a positive floating-point number -->
   <Scale>2</Scale>
   
   <!-- Indicate if has Real-Time setter -->
-  <Real_Time_Setter>1</Real_Time_Setter>
+  <Real_Time_Setter>0</Real_Time_Setter>
 
   <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- Matching Shared Parameters -->
   <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
   
   <!-- The block size must be a positive odd number greater than 5 and less than 256-->
-  <Window_Size>7</Window_Size>
+  <Window_Size>5</Window_Size>
   
   <!-- Number of max disparity. It's a number greater than 1 and divisible by 16. -->
-  <Max_Disparity>32</Max_Disparity>
+  <Max_Disparity>16</Max_Disparity>
   
   <!-- Truncation value for the prefiltered image pixels. The algorithm first computes x-derivative at each pixel and clips its value by [-preFilterCap, preFilterCap] interval. The result values are passed to the Birchfield-Tomasi pixel cost function.-->
-  <PreFilterCarp>10</PreFilterCarp>
+  <PreFilterCarp>50</PreFilterCarp>
   
   <!-- Margin in percentage by which the best (minimum) computed cost function value should "win" the second best value to consider the found match correct. Normally, a value within the 5-15 range is good enough. -->
-  <UniquenessRatio>1</UniquenessRatio>
+  <UniquenessRatio>0</UniquenessRatio>
   
   <!-- Maximum size of smooth disparity regions to consider their noise speckles and invalidate. Set it to 0 to disable speckle filtering. Otherwise, set it somewhere in the 50-200 range. -->
-  <SpeckleWindowSize>0</SpeckleWindowSize>
+  <SpeckleWindowSize>11</SpeckleWindowSize>
   
   <!-- Maximum disparity variation within each connected component. If you do speckle filtering, set the parameter to a positive value, it will be implicitly multiplied by 16. Normally, 1 or 2 is good enough. -->
-  <SpeckleRange>85</SpeckleRange>
+  <SpeckleRange>99</SpeckleRange>
   
   <!-- Maximum allowed difference (in integer pixel units) in the left-right disparity check. Set it to a non-positive value to disable the check. -->
   <Disp12MaxDiff>930</Disp12MaxDiff>
@@ -53,7 +53,7 @@
   <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
   
   <!-- -->
-  <TextureThreshold>395</TextureThreshold>
+  <TextureThreshold>518</TextureThreshold>
   
   
 </Settings>

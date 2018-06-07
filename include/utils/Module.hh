@@ -1,8 +1,8 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
-#include <utils/common.h>
-#include <utils/Settings.hh>
+#include <Utils/common.h>
+#include <Utils/Settings.hh>
 
 using namespace std;
 using namespace mySettings;
@@ -11,8 +11,9 @@ namespace myModule {
     class Module;
 }
 
-class myModule::Module
+class myModule::Module : public QObject
 {
+    Q_OBJECT
 public:
     virtual int config(string) = 0;
     virtual int run() = 0;
@@ -24,6 +25,8 @@ public:
 
     /* The Name of the Module */
     string _name;
+    consts::runMode _runMode;
+
 
 protected:
     Settings *_innerSetting =NULL;

@@ -11,7 +11,7 @@
   
   <!-- Possibilities: Block Matching, Semi-Global Block Matching -->
   <!--<Match_Config name='Semi-Global Block Matching'>../config/match/match_sgbm_system2.xml</Match_Config> -->
-  <Match_Config name='Block Matching'>../config/match/match_bm_system2.xml</Match_Config> 
+  <Match_Config name='Block Matching'>../config/match/match_bm_system2.xml</Match_Config>
   
   <!-- Run Mode Section
   CAPTURE_IMAGES		:		Runs the function for capturing images

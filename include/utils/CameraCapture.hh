@@ -1,8 +1,8 @@
 #ifndef __CAMERA_CAPTURE_H__
 #define __CAMERA_CAPTURE_H__
 
-#include <utils/common.h>
-#include <utils/consts.h>
+#include <Utils/common.h>
+#include <Utils/consts.h>
 
 // OpenCV Includes
 #include <opencv2/calib3d.hpp>
@@ -17,6 +17,11 @@ namespace myCameraCapture {
     class CameraCapture;
 }
 
+
+/**
+ * @brief The myCameraCapture::CameraCapture class for capturing images from the stereo rig and save it to the directory indicated
+ * TODO: Implement the Image List generator
+ */
 class myCameraCapture::CameraCapture {
 public:
     static int stereoCapture(string fileLocation, string defaultName, int camRightID, int camLeftID, bool generateList=false, string listFileLocation="")

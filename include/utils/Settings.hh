@@ -7,12 +7,14 @@
 #include <time.h>
 #include <stdio.h>
 
+#include <Utils/common.h>
 #include <opencv2/core/persistence.hpp>
 
 using namespace std;
 using namespace cv;
 
-namespace mySettings {
+namespace mySettings
+{
     class Settings;
 }
 

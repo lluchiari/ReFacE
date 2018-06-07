@@ -1,7 +1,10 @@
 INPUT(
 ./release\main.o
+./release\MainWindow.o
+./release\SetMatchParamWindow.o
 ./release\MainController.o
 ./release\SettingsMainController.o
+./release\Connector.o
 ./release\CalibSingle.o
 ./release\CalibStereo.o
 ./release\SettingsCalibSingle.o
@@ -11,5 +14,16 @@ INPUT(
 ./release\SettingsMatchingBM.o
 ./release\SettingsMatchingSGBM.o
 ./release\Viewer3D.o
+./release\FaceRec.o
 ./release\tinyxml2.o
+./release\moc_MainWindow.o
+./release\moc_SetMatchParamWindow.o
+./release\moc_Connector.o
+./release\moc_Matching.o
+./release\moc_MatchSGBM.o
+./release\moc_Viewer.o
+./release\moc_Viewer3D.o
+./release\moc_FaceRecognition.o
+./release\moc_FaceRec.o
+./release\moc_Module.o
 );

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Settings sys_name='system2'>
+  
+  <!-- The input to use for calibration. 
+		To use an input cameras -> give the ID of the cameras in the {right, left} format without brenkts: 1,2. (In this example the right camera is number 1 and left number 2)
+		To use an input video   -> give the path of the input video, like "/tmp/x.avi"
+		To use an image list    -> give the path to the XML or YAML file containing the list of the images, like "/tmp/circles_list.xml"
+		-->
+  <!--<Input>../config/stack/stack_stereo_system2.xml</Input>-->
+  <Input>1,2</Input>
+  
+  <!-- This file contains the calibration matrix for stereo correlation -->
+  <Calib_Param_File>../output/calib/output_calib_stereo_camera_system2.xml</Calib_Param_File>
+  
+  <!-- Location of the matching directory containing all the output generated from the stereo methdo -->
+  <!-- If on IMAGE_LIST mode, this becomes a directory destination and the output is a composition of sys_name atribute of Settings tag in this file with a counter -->
+  <Write_outputFileName>../output/match/system2/sgbm/</Write_outputFileName>
+  
+  <!-- The scale factor must be a positive floating-point number -->
+  <Scale>2</Scale>
+  
+  <!-- Indicate if has Real-Time setter -->
+  <Real_Time_Setter>1</Real_Time_Setter>
+
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- Matching Shared Parameters -->
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  
+  <!-- The block size must be a positive odd number greater than 5 and less than 256-->
+  <Window_Size>3</Window_Size>
+  
+  <!-- Number of max disparity. It's a number greater than 1 and divisible by 16. -->
+  <Max_Disparity>16</Max_Disparity> 
+  
+  <!-- Truncation value for the prefiltered image pixels. The algorithm first computes x-derivative at each pixel and clips its value by [-preFilterCap, preFilterCap] interval. The result values are passed to the Birchfield-Tomasi pixel cost function.-->
+  <PreFilterCarp>63</PreFilterCarp>
+  
+  <!-- Margin in percentage by which the best (minimum) computed cost function value should "win" the second best value to consider the found match correct. Normally, a value within the 5-15 range is good enough. -->
+  <UniquenessRatio>10</UniquenessRatio>
+  
+  <!-- Maximum size of smooth disparity regions to consider their noise speckles and invalidate. Set it to 0 to disable speckle filtering. Otherwise, set it somewhere in the 50-200 range. -->
+  <SpeckleWindowSize>100</SpeckleWindowSize>
+  
+  <!-- Maximum disparity variation within each connected component. If you do speckle filtering, set the parameter to a positive value, it will be implicitly multiplied by 16. Normally, 1 or 2 is good enough. -->
+  <SpeckleRange>32</SpeckleRange>
+  
+  <!-- Maximum allowed difference (in integer pixel units) in the left-right disparity check. Set it to a non-positive value to disable the check. -->
+  <Disp12MaxDiff>1</Disp12MaxDiff>
+  
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- Specific SGBM Parameters -->
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  
+    <!-- Select the algorithm used inside the method
+	Options:
+	* STEREO_SGBM
+	* STEREO_HH
+	* STEREO_3WAY
+	-->
+  <Algorithm>STEREO_SGBM</Algorithm>
+  
+  <!-- Number of channels to be used by the algorithm. It deppends on you image input:
+	- If Grayscale, there is only one channels
+	- If Collored, there are at least 3 channels -->
+  <Number_of_Channels>3</Number_of_Channels>
+ 
+</Settings>
+</ReFacE>

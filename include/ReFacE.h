@@ -2,8 +2,8 @@
 #define __REFACE_H__
 
 // Internal Libs
-#include <mainController/MainController.h>
-#include <utils/common.h>
+#include <Modules/mainController/MainController.h>
+#include <Utils/common.h>
 
 using namespace std;
 using namespace myMainController;

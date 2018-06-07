@@ -6,7 +6,9 @@
 #include <string>
 #include <vector>
 
-#include <utils/consts.h>
+#include <QObject>
+
+#include <Utils/consts.h>
 
 #include <opencv2/core/core.hpp>
 
