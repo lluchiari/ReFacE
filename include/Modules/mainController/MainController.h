@@ -9,7 +9,7 @@
 #include <Utils/Factory.hh>
 #include <Utils/CameraCapture.hh>
 
-#include <Modules/Connection/Connector.h>
+#include <Modules/connection/Connector.h>
 
 #include <Modules/calibration/Calibration.hh>
 #include <Modules/calibration/CalibSingle.h>
@@ -48,9 +48,6 @@ public:
     int run();
 
 public:
-    // Operation Mode
-    consts::runMode _mode;
-
     // Modules to be loaded //
     Connection *_connectionModule = NULL;
     Calibration *_calibModule = NULL;

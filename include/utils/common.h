@@ -11,30 +11,32 @@
 #include <Utils/consts.h>
 
 #include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 /////////////////////////////////
 
 /////////////////////////////////
 #ifndef DEBUG
-    #define DEBUG 1
+#define DEBUG 1
 #endif
 /////////////////////////////////
 
 /////////////////////////////////
 #ifndef DEBUG_SETTINGS_CALIB_SINGLE
-    #define DEBUG_SETTINGS_CALIB_SINGLE 1
+#define DEBUG_SETTINGS_CALIB_SINGLE 1
 #endif
 
 #ifndef DEBUG_SETTINGS_CALIB_STEREO
-    #define DEBUG_SETTINGS_CALIB_STEREO 1
+#define DEBUG_SETTINGS_CALIB_STEREO 1
 #endif
 
 #ifndef DEBUG_CALIB_SINGLE
-    #define DEBUG_CALIB_SINGLE 1
+#define DEBUG_CALIB_SINGLE 1
 #endif
 
 #ifndef DEBUG_CALIB_STEREO
-    #define DEBUG_CALIB_STEREO 1
+#define DEBUG_CALIB_STEREO 1
 #endif
 /////////////////////////////////
 
@@ -67,6 +69,16 @@
 /////////////////////////////////
 
 /////////////////////////////////
+#ifndef DEBUG_FACE_REC
+#define DEBUG_FACE_REC 1
+#endif
+
+#ifndef DEBUG_SETTINGS_FACE_REC
+#define DEBUG_SETTINGS_FACE_REC 1
+#endif
+/////////////////////////////////
+
+/////////////////////////////////
 #ifndef DEBUG_MAIN_CONTROLLER
 #define DEBUG_MAIN_CONTROLLER 1
 #endif
@@ -78,19 +90,19 @@
 //#                         DEBUG ALL                               #
 //###################################################################
 #ifdef DEBUG_ALL
-    #define DEBUG_SETTINGS_CALIB_SINGLE 1
-    #define DEBUG_SETTINGS_CALIB_STEREO 1
-    #define DEBUG_CALIB_SINGLE 1
-    #define DEBUG_CALIB_STEREO 1
-    #define DEBUG_MATCHING_BM 1
-    #define DEBUG_MATCHING_SGBM 1
-    #define DEBUG_SETTINGS_MATCHING_BM 1
-    #define DEBUG_SETTINGS_MATCHING_SGBM 1
-    #define DEBUG_VIEWER_3D 1
-    #define DEBUG_SETTINGS_VIEWER_3D 1
-    #define DEBUG_MAIN_CONTROLLER 1
-    #define DEBUG_SETTINGS_MAIN_CONTROLLER 1
-    #define DEBUG 1
+#define DEBUG_SETTINGS_CALIB_SINGLE 1
+#define DEBUG_SETTINGS_CALIB_STEREO 1
+#define DEBUG_CALIB_SINGLE 1
+#define DEBUG_CALIB_STEREO 1
+#define DEBUG_MATCHING_BM 1
+#define DEBUG_MATCHING_SGBM 1
+#define DEBUG_SETTINGS_MATCHING_BM 1
+#define DEBUG_SETTINGS_MATCHING_SGBM 1
+#define DEBUG_VIEWER_3D 1
+#define DEBUG_SETTINGS_VIEWER_3D 1
+#define DEBUG_MAIN_CONTROLLER 1
+#define DEBUG_SETTINGS_MAIN_CONTROLLER 1
+#define DEBUG 1
 #endif
 //###################################################################
 //#                                                                 #
@@ -147,6 +159,16 @@
 /////////////////////////////////
 
 /////////////////////////////////
+#ifndef LOG_FACE_REC
+#define LOG_FACE_REC 1
+#endif
+
+#ifndef LOG_SETTINGS_FACE_REC
+#define LOG_SETTINGS_FACE_REC 1
+#endif
+/////////////////////////////////
+
+/////////////////////////////////
 #ifndef LOG_MAIN_CONTROLLER
 #define LOG_MAIN_CONTROLLER 1
 #endif
@@ -159,19 +181,19 @@
 //###################################################################
 
 #ifdef LOG_ALL
-    #define LOG_SETTINGS_CALIB_SINGLE 1
-    #define LOG_SETTINGS_CALIB_STEREO 1
-    #define LOG_CALIB_SINGLE 1
-    #define LOG_CALIB_STEREO 1
-    #define LOG_MATCHING_BM 1
-    #define LOG_MATCHING_SGBM 1
-    #define LOG_SETTINGS_MATCHING_BM 1
-    #define LOG_SETTINGS_MATCHING_SGBM 1
-    #define LOG_VIEWER_3D 1
-    #define LOG_SETTINGS_VIEWER_3D 1
-    #define LOG_MAIN_CONTROLLER 1
-    #define LOG_SETTINGS_MAIN_CONTROLLER 1
-    #define LOG 1
+#define LOG_SETTINGS_CALIB_SINGLE 1
+#define LOG_SETTINGS_CALIB_STEREO 1
+#define LOG_CALIB_SINGLE 1
+#define LOG_CALIB_STEREO 1
+#define LOG_MATCHING_BM 1
+#define LOG_MATCHING_SGBM 1
+#define LOG_SETTINGS_MATCHING_BM 1
+#define LOG_SETTINGS_MATCHING_SGBM 1
+#define LOG_VIEWER_3D 1
+#define LOG_SETTINGS_VIEWER_3D 1
+#define LOG_MAIN_CONTROLLER 1
+#define LOG_SETTINGS_MAIN_CONTROLLER 1
+#define LOG 1
 #endif
 //###################################################################
 //#                                                                 #

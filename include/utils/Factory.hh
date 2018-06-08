@@ -2,7 +2,7 @@
 #define __FACTORY_H__
 
 #include <Utils/common.h>
-#include <Modules/Connection/Connector.h>
+#include <Modules/connection/Connector.h>
 #include <Modules/calibration/CalibSingle.h>
 #include <Modules/calibration/CalibStereo.h>
 #include <Modules/matching/MatchBM.h>

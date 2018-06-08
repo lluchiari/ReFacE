@@ -4,7 +4,7 @@
 #include <Utils/common.h>
 #include <Utils/consts.h>
 #include <Utils/Module.hh>
-#include <Modules/Connection/Connection.hh>
+#include <Modules/connection/Connection.hh>
 
 using namespace cv;
 using namespace std;

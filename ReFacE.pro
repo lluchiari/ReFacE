@@ -31,7 +31,7 @@ SOURCES += \
         src/Modules/mainController/*.cpp \
         src/Modules/mainController/Settings/*.cpp \
 #
-        src/Modules/Connection/*.cpp \
+        src/Modules/connection/*.cpp \
 #
         src/Modules/calibration/*.cpp \
         src/Modules/calibration/settings/*.cpp \
@@ -42,6 +42,7 @@ SOURCES += \
         src/Modules/viewer/*.cpp \
 #
         src/Modules/faceRec/*.cpp \
+        src/Modules/faceRec/settings/*.cpp \
 #
         3rdParty/TinyXML2/*.cpp
 #        3rdParty/OpenFace/*.cpp
@@ -52,10 +53,10 @@ HEADERS += \
         include/GUI/*.h \
 #
         include/Modules/mainController/*.h \
-        include/Modules/mainController/Settings/*.h \
+        include/Modules/mainController/settings/*.h \
 #
-        include/Modules/Connection/*.hh \
-        include/Modules/Connection/*.h \
+        include/Modules/connection/*.hh \
+        include/Modules/connection/*.h \
 #
         include/Modules/calibration/*.hh \
         include/Modules/calibration/*.h \
@@ -70,6 +71,7 @@ HEADERS += \
 #
         include/Modules/faceRec/*.hh \
         include/Modules/faceRec/*.h \
+        include/Modules/faceRec/settings/*.h \
 #
         include/Utils/*.h \
         include/Utils/*.hh \

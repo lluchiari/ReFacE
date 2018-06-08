@@ -1,4 +1,4 @@
-#include <Modules/Connection/Connector.h>
+#include <Modules/connection/Connector.h>
 
 myConnection::Connector::Connector(){
 

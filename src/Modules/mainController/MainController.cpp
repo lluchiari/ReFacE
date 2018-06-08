@@ -38,13 +38,13 @@ int myMainController::MainController::config(string fileLocation){
     //---------------------------------------------------------------
     // Check the Operation Mode //
     if(!_settings.runMode.compare("CAPTURE_IMAGES")) {
-        _mode = consts::runMode::CAPTURE_IMAGES;
+        _runMode = consts::runMode::CAPTURE_IMAGES;
     }
     //---------------------------------------------------------------
     //                      CALIBRATION_ONLY
     //---------------------------------------------------------------
     else if(!_settings.runMode.compare("CALIBRATION_ONLY")) {
-        _mode = consts::runMode::CALIBRATION_ONLY;
+        _runMode = consts::runMode::CALIBRATION_ONLY;
         #if DEBUG_MAIN_CONTROLLER
         cout << "MainController::config(): operation mode CALIBRATION_ONLY\n";
         #endif
@@ -69,7 +69,7 @@ int myMainController::MainController::config(string fileLocation){
     //                              MATCHING_ONLY
     //---------------------------------------------------------------
     else if(!_settings.runMode.compare("MATCHING_ONLY")) {
-        _mode = consts::runMode::MATCHING_ONLY;
+        _runMode = consts::runMode::MATCHING_ONLY;
         #if DEBUG_MAIN_CONTROLLER
             cout << "MainController::config(): operation mode MATCHING_ONLY\n";
         #endif
@@ -93,7 +93,7 @@ int myMainController::MainController::config(string fileLocation){
     //                      CALIBRATION_MATCHING
     //---------------------------------------------------------------
     else if(!_settings.runMode.compare("CALIBRATION_MATCHING")) {
-        _mode = consts::runMode::CALIBRATION_MATCHING;
+        _runMode = consts::runMode::CALIBRATION_MATCHING;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING\n";
         #endif
@@ -132,7 +132,7 @@ int myMainController::MainController::config(string fileLocation){
     //                      CALIBRATION_MATCHING_VIEW
     //---------------------------------------------------------------
     else if(!_settings.runMode.compare("CALIBRATION_MATCHING_VIEW")){
-        _mode = consts::runMode::CALIBRATION_MATCHING_VIEW;
+        _runMode = consts::runMode::CALIBRATION_MATCHING_VIEW;
         #if DEBUG_MAIN_CONTROLLER
                 cout << "MainController::config(): operation mode CALIBRATION_MATCHING_VIEW\n";
         #endif
@@ -194,16 +194,16 @@ int myMainController::MainController::run()
 {
     if(LOG_MAIN_CONTROLLER){cout << "MainController::run(): Start...\n";}
 
-    if(_mode == consts::runMode::CAPTURE_IMAGES){
+    if(this->_runMode == consts::runMode::CAPTURE_IMAGES){
         CameraCapture::stereoCapture("../images/StereoDataset/", this->_settings.systemName,1,2);
     }
-    else if(_mode == consts::runMode::CALIBRATION_ONLY){
+    else if(_runMode == consts::runMode::CALIBRATION_ONLY){
         if(_calibModule->run() != 0){cerr << "MainController::run(): Error on running calibration module!\n";return -1;}
     }
-    else if(_mode == consts::runMode::MATCHING_ONLY){
+    else if(_runMode == consts::runMode::MATCHING_ONLY){
         if(_matchModule->run() != 0) {cerr << "MainController::run(): Error on running matching module!\n";return -1;}
     }
-    else if(_mode == consts::runMode::CALIBRATION_MATCHING){
+    else if(_runMode == consts::runMode::CALIBRATION_MATCHING){
         if(_calibModule->run() != 0){cerr << "MainController::run(): Error on running calibration module!\n";return -1;}
         if(_matchModule->run() != 0){cerr << "MainController::run(): Error on running matching module!\n";return -1;}
     }

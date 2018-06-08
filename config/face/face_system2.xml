@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Settings sys_name='system2'>
+  
+  <!-- The file location -->
+  <Input>1,2</Input>
+  
+  <!-- The output file location. -->
+  <Output_Location>../output/face/system2</Output_Location>
+ 
+</Settings>
+</opencv_storage>
