@@ -303,4 +303,3 @@ int MatchBM::_loadCameraParameters()
     return 0;
 }
 
-

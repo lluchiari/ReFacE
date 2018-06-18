@@ -25,22 +25,23 @@
   <Calibrate_Pattern>CHESSBOARD</Calibrate_Pattern>
   
   <!-- If true (non-zero) Display corners on the runtime - Debug purpose-->
-  <Display_Corner>0</Display_Corner>
+  <Display_Corner>1</Display_Corner>
   
   <!-- If true (non-zero) use calibrated image on realtime -->
-  <Use_Calibrated>0</Use_Calibrated>
+  <Use_Calibrated>1</Use_Calibrated>
   
   <!-- If true (non-zero) shows rectified image on realtime -->
   <Show_Rectified>0</Show_Rectified>
   
   <!-- If true (non-zero) we show after calibration the undistorted images. -->
-  <Show_UndistortedImage>0</Show_UndistortedImage>
+  <Show_UndistortedImage>1</Show_UndistortedImage>
   
   <!-- The input to use for calibration. 
 		To use an stereo CAMERA -> give the ID of both camera in the right and left order, like "1,2". 1 is the id of RIGHT camera and 2 is LEFT
 		(NOT SUPORTED YET!) To use an input video  -> give the path of the input video, like "/tmp/x.avi"
 		To use an IMAGE LIST   -> give the path to the XML file containing the list of the images, like "/tmp/circles_list.xml"
 		-->
+  <!--<Input>../config/stack/stack_calibration_system2.xml</Input>-->
   <Input>1,2</Input>
   
   <!-- The name of the output log file. -->

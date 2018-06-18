@@ -28,11 +28,11 @@ public:
     static Calibration *getNewClibModule(string type)
     {
         if(!type.compare(consts::CALIBRATION_SINGLE)){
-            cout << "Factory::getNewMatchModule(): CALIBRATION_SINGLE selected\n";
+            cout << "Factory::getNewCalibModule(): CALIBRATION_SINGLE selected\n";
             return new CalibSingle();
         }
         else if(!type.compare(consts::CALIBRATION_STEREO)){
-            cout << "Factory::getNewMatchModule(): CALIBRATION_STEREO selected\n";
+            cout << "Factory::getNewCalibModule(): CALIBRATION_STEREO selected\n";
             return new CalibStereo();
         }
         else{

@@ -16,11 +16,7 @@ class FaceRecognition : public Module
 public:
     FaceRecognition(){}
     virtual ~FaceRecognition(){}
-    virtual void faceDetect()=0;
-    virtual void faceRecognize()=0;
 
-signals:
-    void getMatchImge();
 };
 
 

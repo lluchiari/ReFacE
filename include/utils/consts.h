@@ -18,6 +18,7 @@ const string MATCHING_BM = "Block Matching";
 const string MATCHING_SGBM = "Semi-Global Block Matching";
 const string VEWER3D = "3D Viewer";
 const string FACE_REC = "Face Recognition";
+const string FACE_DETECTION = "Face Detection";
 
 
 // Key Constants

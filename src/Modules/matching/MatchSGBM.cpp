@@ -80,6 +80,7 @@ int MatchSGBM::run(){
     sgbm = StereoSGBM::create(_matchSettings.maxDisparity, _matchSettings.windowSize);
 
     sgbm->setPreFilterCap(_matchSettings.preFilterCarp);
+//    sgbm->setPreFilterSize(_matchSettings.preFilterSize);
     sgbm->setBlockSize(_matchSettings.windowSize);
     sgbm->setP1(8*_matchSettings.channels*_matchSettings.windowSize*_matchSettings.windowSize);
     sgbm->setP2(32*_matchSettings.channels*_matchSettings.windowSize*_matchSettings.windowSize);

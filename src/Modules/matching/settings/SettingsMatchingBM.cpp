@@ -30,8 +30,8 @@ int SettingsMatchingBM::read(string fileLocation){
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Calib_Param_File");
      if(aux != NULL){this->camParamFile = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Calib_Param_File\n";return -1;}
 
-     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Write_outputFileName");
-     if(aux != NULL){this->outputFileName = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Write_outputFileName\n";return -1;}
+     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Output");
+     if(aux != NULL){this->outputFileName = aux->GetText();} else {cerr << "SettingsMatchingBM()::read(): Error on Output\n";return -1;}
 
      aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Scale");
      if(aux != NULL){this->scale = (float) std::atof(aux->GetText());} else {cerr << "SettingsMatchingBM()::read(): Error on Scale\n";return -1;}

@@ -15,7 +15,7 @@
   
   <!-- Location of the matching directory containing all the output generated from the stereo methdo -->
   <!-- If on IMAGE_LIST mode, this becomes a directory destination and the output is a composition of sys_name atribute of Settings tag in this file with a counter -->
-  <Write_outputFileName>../output/match/system2/bm/Leo/</Write_outputFileName>
+  <Output>../output/match/system2/bm/Leo/</Output>
   
   <!-- The scale factor must be a positive floating-point number -->
   <Scale>2</Scale>

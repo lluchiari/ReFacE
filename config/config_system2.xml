@@ -2,21 +2,37 @@
 <ReFacE>
 <Config_System sys_name='system2'>
   
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- Module Section -->
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
   
+  <!-- Capture Module -->
   <Capture_Config></Capture_Config>
   
+  <!-- Calibration Module -->
   <!-- Possibilities: Single Calib, Stereo Calib -->
   <Calib_Config name='Stereo Calib'>../config/calib/calib_stereo_system2.xml</Calib_Config>
   
+  <!-- Matching Module -->
   <!-- Possibilities: Block Matching, Semi-Global Block Matching -->
   <!--<Match_Config name='Semi-Global Block Matching'>../config/match/match_sgbm_system2.xml</Match_Config> -->
   <Match_Config name='Block Matching'>../config/match/match_bm_system2.xml</Match_Config>
   
-  <!-- Run Mode Section
+  <!-- Viewer Module -->
+  <!-- Possibilities: 3D -->
+  <!-- if the field is empty, than you have to config the module through the API. Otherwise the config file will be used -->
+  <View_Config name=''></View_Config>
+  
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- Module Section -->
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  
+  <!-- Possibilities
   CAPTURE_IMAGES		:		Runs the function for capturing images
   CALIBRATION_ONLY		:		Runs only the Calibration Module
   MATCHING_ONLY			:		Runs only the Matching Module (Assuming that calibration has already been made)
+  VIEWER_ONLY			:
+  MATCHING_VIEWER		:
   CALIBRATION_MATCHING	:		Runs Calibration and Matching Modules sequentially.
   -->
   <Run_Mode>MATCHING_ONLY</Run_Mode>

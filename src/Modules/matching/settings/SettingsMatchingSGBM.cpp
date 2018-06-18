@@ -44,8 +44,12 @@ int SettingsMatchingSGBM::read(string fileLocation){
     // Block Matching Parameters //
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Window_Size");
     if(aux != NULL){this->windowSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on Window_Size\n";return -1;}
+    aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Min_Disparity");
+    if(aux != NULL){this->minDisparity = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on Min_Disparity\n";return -1;}
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("Max_Disparity");
     if(aux != NULL){this->maxDisparity = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on Max_Disparity\n";return -1;}
+    aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("PreFilterSize");
+    if(aux != NULL){this->preFilterSize = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on PreFilterSize\n";return -1;}
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("PreFilterCarp");
     if(aux != NULL){this->preFilterCarp = std::atoi(aux->GetText());} else {cerr << "SettingsMatchingSGBM()::read(): Error on PreFilterCarp\n";return -1;}    
     aux = doc.FirstChildElement("ReFacE")->FirstChildElement("Settings")->FirstChildElement("UniquenessRatio");

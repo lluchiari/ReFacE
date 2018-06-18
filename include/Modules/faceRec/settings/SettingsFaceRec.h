@@ -13,14 +13,15 @@ using namespace std;
 using namespace cv;
 using namespace mySettings;
 
-class SettingsFaceRec : public Settings{
-
+class SettingsFaceRec : public Settings
+{
+public:
     SettingsFaceRec();
     ~SettingsFaceRec();
 
     int read(string);
     int interprate();
     int print();
-}
+};
 
 #endif //__SETTINGS_FACE_REC_H__

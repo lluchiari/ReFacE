@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ReFacE>
+<Settings sys_name='system2'>
+
+  <!-- The input is a disparity Map File-->
+  <Input>../output/match/system2/sgbm/</Input>
+  
+  <!-- This file contains the calibration matrix for stereo correlation -->
+  <Calib_Param_File>../output/calib/system2/output_calib_stereo_extrinsic_system2.xml</Calib_Param_File>
+  
+  <!-- Location of the viewer directory containing all the output generated from the Viewer method -->
+  <Output>../output/view/system2/</Output>
+
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- Viewer Parameters -->
+  <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+  
+  
+</Settings>
+</ReFacE>

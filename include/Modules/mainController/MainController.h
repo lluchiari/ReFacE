@@ -25,6 +25,9 @@
 #include <Modules/faceRec/FaceRecognition.hh>
 #include <Modules/faceRec/FaceRec.h>
 
+#include <Modules/faceDetection/FaceDetection.hh>
+#include <Modules/faceDetection/FaceDetector.h>
+
 #include <3rdParty/TinyXML2/tinyxml2.h>
 
 #include <Modules/mainController/Settings/SettingsMainController.h>
@@ -53,7 +56,8 @@ public:
     Calibration *_calibModule = NULL;
     Matching *_matchModule = NULL;
     Viewer *_viewModule = NULL;
-    FaceRecognition *_faceModule = NULL;
+    FaceDetection *_faceDetectionModule = NULL;
+    FaceRecognition *_faceRecModule = NULL;
 
     SettingsMainController _settings;
 };

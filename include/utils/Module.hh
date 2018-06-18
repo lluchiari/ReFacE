@@ -26,6 +26,7 @@ public:
     /* The Name of the Module */
     string _name;
     consts::runMode _runMode;
+    bool _isConfigured;
 
 
 protected:

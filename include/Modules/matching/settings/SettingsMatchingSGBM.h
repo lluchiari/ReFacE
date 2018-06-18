@@ -52,7 +52,9 @@ public:
     /* Matchign Parameters */
     float scale;
     int windowSize;
+    int minDisparity;
     int maxDisparity;
+    int preFilterSize;
     int preFilterCarp;
     int uniquenessRatio;
     int speckleWindowSize;
